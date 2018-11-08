@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
@@ -29,6 +31,8 @@ const routesAdministracion: Routes = [
     CommonModule,
     ReactiveFormsModule, 
     FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     RouterModule.forChild(routesAdministracion)
   ],
   declarations: [
