@@ -10,6 +10,11 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MenuCatalogosComponent } from './menu-catalogos/menu-catalogos.component';
+import { KioscosComponent } from './kioscos/kioscos.component';
+import { AppWebComponent } from './app-web/app-web.component';
+import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
@@ -21,6 +26,26 @@ const routesAdministracion: Routes = [
       {
           path:'Perfil',
           component: UserProfileComponent
+      },
+      {
+          path:'Dashboard',
+          component: DashboardComponent
+      },
+      {
+          path:'Catalogos',
+          component: MenuCatalogosComponent
+      },
+      {
+          path:'Kioscos',
+          component: KioscosComponent
+      },
+      {
+          path:'Aplicaciones-Web',
+          component: AppWebComponent
+      },
+      {
+          path:'Protector',
+          component: BackgroungImageComponent
       }
     ]
   }
@@ -40,7 +65,7 @@ const routesAdministracion: Routes = [
     LoginComponent, 
     FooterComponent, 
     SidebarComponent, 
-    NavbarComponent, UserProfileComponent
+    NavbarComponent, UserProfileComponent, DashboardComponent, MenuCatalogosComponent, KioscosComponent, AppWebComponent, BackgroungImageComponent
   ]
 })
 export class AdministracionModule { }
