@@ -7,17 +7,20 @@ import { LoginComponent } from './login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
   {
-    path: '', component: AdminLayoutComponent
-  },
-  {
     path: 'login', component: LoginComponent
   },
   {
-    path: 'home', component: AdminLayoutComponent
+    path: 'admin', component: AdminLayoutComponent, children: [
+      {
+          path:'user-perfil',
+          component: UserProfileComponent
+      }
+    ]
   }
 ];
 
@@ -33,7 +36,7 @@ const routesAdministracion: Routes = [
     LoginComponent, 
     FooterComponent, 
     SidebarComponent, 
-    NavbarComponent
+    NavbarComponent, UserProfileComponent
   ]
 })
 export class AdministracionModule { }

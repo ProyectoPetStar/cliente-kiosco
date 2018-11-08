@@ -11,17 +11,19 @@ import { KioscoModule } from './kiosco/kiosco.module';
 
 
 import { AppComponent } from './app.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
- // { path: '', redirectTo: '/login', pathMatch: 'full' }
  { path: 'administracion', loadChildren: './administracion/administracion.module#AdministracionModule' },
  { path: 'portal', loadChildren: './kiosco/kiosco.module#KioscoModule' },
+ { path: '**', component: PageNotFoundComponent }
 ];
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
