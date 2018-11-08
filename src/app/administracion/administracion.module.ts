@@ -19,7 +19,7 @@ const routesAdministracion: Routes = [
   {
     path: 'admin', component: AdminLayoutComponent, children: [
       {
-          path:'user-perfil',
+          path:'Perfil',
           component: UserProfileComponent
       }
     ]
