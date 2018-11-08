@@ -4,6 +4,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
+import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
@@ -25,6 +28,12 @@ const routesAdministracion: Routes = [
     FormsModule,
     RouterModule.forChild(routesAdministracion)
   ],
-  declarations: [AdminLayoutComponent, LoginComponent]
+  declarations: [
+    AdminLayoutComponent, 
+    LoginComponent, 
+    FooterComponent, 
+    SidebarComponent, 
+    NavbarComponent
+  ]
 })
 export class AdministracionModule { }
