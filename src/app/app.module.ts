@@ -13,6 +13,9 @@ import { KioscoModule } from './kiosco/kiosco.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
+import { AuthService } from './auth/auth.service';
+import { TokenInterceptor } from './auth/token.interceptor';
+
 const routes: Routes = [
  { path: 'administracion', loadChildren: './administracion/administracion.module#AdministracionModule' },
  { path: 'portal', loadChildren: './kiosco/kiosco.module#KioscoModule' },
@@ -36,7 +39,15 @@ const routes: Routes = [
     AdministracionModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
