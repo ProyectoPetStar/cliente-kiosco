@@ -5,7 +5,7 @@ import * as jwt_decode  from 'jwt-decode';
 @Injectable()
 export class AuthService {
   public getToken(): string {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token_kiosco');
   }
   
   public isAuthenticated(): boolean {
