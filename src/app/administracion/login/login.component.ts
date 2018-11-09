@@ -3,6 +3,9 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
+import { notify } from '../../utils';
+
+declare var $: any;
 
 @Component({
   selector: 'app-login',
@@ -10,6 +13,7 @@ import { User } from '../../models/user';
   styleUrls: ['./login.component.scss'],
   providers: [ LoginService ]
 })
+
 export class LoginComponent implements OnInit {
 
   public formLogin: FormGroup;
@@ -50,27 +54,22 @@ export class LoginComponent implements OnInit {
           if (typeof (Storage) !== "undefined") {
             this.usuario = result.response.usuario;
             localStorage.setItem('token_kiosco', this.usuario.token);
-            localStorage.setItem('datos_usuario', JSON.stringify(this.usuario));
-            this.router.navigate(['home']);
+            localStorage.setItem('datos_usuario_kiosco', JSON.stringify(this.usuario));
+            this.router.navigate(['administracion/admin/Dashboard']);
           } else {
-            // Materialize.toast('LocalStorage no soportado en este navegador!', 4000, 'red');
+            notify('LocalStorage no soportado en este navegador!','danger',3000);
           }
         } else {
-          this.mensaje_error = result.response.message;
-          // Materialize.toast(this.mensaje_error, 3000, 'red');
-          alert(this.mensaje_error);
+          notify(result.response.message,'danger',5000);
         }
         this.disabled = false;
       }, error =>{
         this.disabled = false;
-        // Materialize.toast('Ocurrió  un error en el servicio!', 4000, 'red');
-      alert('Ocurrió  un error en el servicio!')
-        
+        notify('Ocurrió  un error en el servicio!','danger',3000);
       });
 
     } else {
-      // Materialize.toast('Verifique los datos capturados!', 4000, 'red');
-      alert('Verifique los datos capturados!')
+          notify('Verifique los datos capturados!','danger',2800);
     }
 
   }
