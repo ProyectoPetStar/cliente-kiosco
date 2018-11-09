@@ -1,0 +1,14 @@
+.dropdown-menu {
+    .dropdown-item {
+      &:hover, &:focus {
+        background-color: #27b045;
+        color: #FFFFFF;
+      }
+    }
+    a {
+      &:hover, &:focus, &:active {
+        background-color: #27b045;
+        color: #FFFFFF;
+      }
+    }
+  }
