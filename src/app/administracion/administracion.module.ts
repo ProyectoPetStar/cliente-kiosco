@@ -15,14 +15,16 @@ import { MenuCatalogosComponent } from './menu-catalogos/menu-catalogos.componen
 import { KioscosComponent } from './kioscos/kioscos.component';
 import { AppWebComponent } from './app-web/app-web.component';
 import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
+import { AuthGuardAdmon } from '../auth/auth.guard.admon';
+import { NotAuthGuard } from '../auth/not.auth.guard';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
   {
-    path: 'login', component: LoginComponent
+    path: 'login', component: LoginComponent, canActivate: [ NotAuthGuard ]
   },
   {
-    path: 'admin', component: AdminLayoutComponent, children: [
+    path: 'admin', component: AdminLayoutComponent,  canActivate:[AuthGuardAdmon], children: [
       {
           path:'Perfil',
           component: UserProfileComponent
@@ -65,7 +67,17 @@ const routesAdministracion: Routes = [
     LoginComponent, 
     FooterComponent, 
     SidebarComponent, 
-    NavbarComponent, UserProfileComponent, DashboardComponent, MenuCatalogosComponent, KioscosComponent, AppWebComponent, BackgroungImageComponent
+    NavbarComponent, 
+    UserProfileComponent, 
+    DashboardComponent, 
+    MenuCatalogosComponent, 
+    KioscosComponent, 
+    AppWebComponent, 
+    BackgroungImageComponent
+  ],
+  providers:[
+    AuthGuardAdmon,
+    NotAuthGuard
   ]
 })
 export class AdministracionModule { }
