@@ -11,7 +11,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { MenuCatalogosComponent } from './menu-catalogos/menu-catalogos.component';
+import { MenuPlantasComponent } from './menu-plantas/menu-plantas.component';
 import { KioscosComponent } from './kioscos/kioscos.component';
 import { AppWebComponent } from './app-web/app-web.component';
 import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
@@ -34,8 +34,8 @@ const routesAdministracion: Routes = [
           component: DashboardComponent
       },
       {
-          path:'Catalogos',
-          component: MenuCatalogosComponent
+          path:'Plantas',
+          component: MenuPlantasComponent
       },
       {
           path:'Kioscos',
@@ -70,7 +70,7 @@ const routesAdministracion: Routes = [
     NavbarComponent, 
     UserProfileComponent, 
     DashboardComponent, 
-    MenuCatalogosComponent, 
+    MenuPlantasComponent, 
     KioscosComponent, 
     AppWebComponent, 
     BackgroungImageComponent
