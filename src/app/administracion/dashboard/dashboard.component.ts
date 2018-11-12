@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Highcharts } from 'highcharts';
-import { configAppUsed, configByTurn } from './config.charts';
+import { configAppUsed, configByTurn, configAppUsedGral } from './config.charts';
 
 declare const $: any;
 @Component({
@@ -34,6 +34,14 @@ export class DashboardComponent implements OnInit {
       configAppUsed.xAxis.categories = ['SONARH', 'GO INTEGRO'];
       configAppUsed.series.push({ name: ' Total de conexiones ', data: data });
       $('#appUsed').highcharts(configAppUsed);
+
+      let data2 = [200, 90];
+      configAppUsedGral.series = [];
+      configAppUsedGral.title.text = 'Aplicación mas utilizada';
+      configAppUsedGral.subtitle.text = '';
+      configAppUsedGral.xAxis.categories = ['SONARH', 'GO INTEGRO'];
+      configAppUsedGral.series.push({ name: ' Cantidad de accesos ', data: data2 });
+      $('#appUsedGral').highcharts(configAppUsedGral);
 
       let data1 = [3, 6, 10];
       configByTurn.series = [];
