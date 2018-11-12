@@ -2,7 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { 
+  MatFormFieldModule, 
+  MatInputModule, 
+  MatSelectModule, 
+  MatDatepickerModule, 
+  MatNativeDateModule,
+  MatCardModule
+} from '@angular/material';
 
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
@@ -61,6 +68,9 @@ const routesAdministracion: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
     RouterModule.forChild(routesAdministracion)
   ],
   declarations: [
@@ -78,7 +88,8 @@ const routesAdministracion: Routes = [
   ],
   providers:[
     AuthGuardAdmon,
-    NotAuthGuard
+    NotAuthGuard,
+    MatNativeDateModule
   ]
 })
 export class AdministracionModule { }
