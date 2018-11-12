@@ -10,16 +10,23 @@ declare const $: any;
 })
 export class DashboardComponent implements OnInit {
 
+  foods: any[] = [
+    {value: 'steak-0', viewValue: 'TOLUCA'},
+    {value: 'pizza-1', viewValue: 'QUERETARO'},
+    {value: 'tacos-2', viewValue: 'SONORA'}
+  ];
+
+
   constructor() { }
 
   ngOnInit() {
     setTimeout(() => {
       let data = [10,9];
       configAppUsed.series = [];
-      configAppUsed.title.text = 'Aplicación mas utilizada';
+      configAppUsed.title.text = 'Cantidad de accesos por aplicación';
       configAppUsed.subtitle.text = '';
       configAppUsed.xAxis.categories = ['SONARH', 'GO INTEGRO'];
-      configAppUsed.series.push({ name: ' Cantidad de accesos ', data: data });
+      configAppUsed.series.push({ name: ' Numero de accesos ', data: data });
       $('#appUsed').highcharts(configAppUsed);
 
     }, 500);
