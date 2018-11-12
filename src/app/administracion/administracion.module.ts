@@ -12,7 +12,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuPlantasComponent } from './menu-plantas/menu-plantas.component';
-import { KioscosComponent } from './kioscos/kioscos.component';
+import { MenuKioscosComponent } from './menu-kioscos/menu-kioscos.component';
 import { AppWebComponent } from './app-web/app-web.component';
 import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
 import { AuthGuardAdmon } from '../auth/auth.guard.admon';
@@ -39,7 +39,7 @@ const routesAdministracion: Routes = [
       },
       {
           path:'Kioscos',
-          component: KioscosComponent
+          component: MenuKioscosComponent
       },
       {
           path:'Aplicaciones-Web',
@@ -71,7 +71,7 @@ const routesAdministracion: Routes = [
     UserProfileComponent, 
     DashboardComponent, 
     MenuPlantasComponent, 
-    KioscosComponent, 
+    MenuKioscosComponent, 
     AppWebComponent, 
     BackgroungImageComponent
   ],
