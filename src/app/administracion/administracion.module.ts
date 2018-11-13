@@ -23,7 +23,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuPlantasComponent } from './menu-plantas/menu-plantas.component';
 import { MenuKioscosComponent } from './menu-kioscos/menu-kioscos.component';
 import { MenuAppWebComponent } from './menu-app-web/menu-app-web.component';
-import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
+import { MenuBackgroungImageComponent } from './menu-backgroung-image/menu-backgroung-image.component';
 import { AuthGuardAdmon } from '../auth/auth.guard.admon';
 import { NotAuthGuard } from '../auth/not.auth.guard';
 
@@ -56,7 +56,7 @@ const routesAdministracion: Routes = [
       },
       {
           path:'Protector',
-          component: BackgroungImageComponent
+          component: MenuBackgroungImageComponent
       }
     ]
   }
@@ -88,7 +88,7 @@ const routesAdministracion: Routes = [
     MenuPlantasComponent, 
     MenuKioscosComponent, 
     MenuAppWebComponent, 
-    BackgroungImageComponent
+    MenuBackgroungImageComponent
   ],
   providers:[
     AuthGuardAdmon,
