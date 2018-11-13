@@ -8,7 +8,9 @@ import {
   MatSelectModule, 
   MatDatepickerModule, 
   MatNativeDateModule,
-  MatCardModule
+  MatCardModule,
+  MatExpansionModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
@@ -20,7 +22,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuPlantasComponent } from './menu-plantas/menu-plantas.component';
 import { MenuKioscosComponent } from './menu-kioscos/menu-kioscos.component';
-import { AppWebComponent } from './app-web/app-web.component';
+import { MenuAppWebComponent } from './menu-app-web/menu-app-web.component';
 import { BackgroungImageComponent } from './backgroung-image/backgroung-image.component';
 import { AuthGuardAdmon } from '../auth/auth.guard.admon';
 import { NotAuthGuard } from '../auth/not.auth.guard';
@@ -50,7 +52,7 @@ const routesAdministracion: Routes = [
       },
       {
           path:'Aplicaciones-Web',
-          component: AppWebComponent
+          component: MenuAppWebComponent
       },
       {
           path:'Protector',
@@ -71,6 +73,8 @@ const routesAdministracion: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
     RouterModule.forChild(routesAdministracion)
   ],
   declarations: [
@@ -83,7 +87,7 @@ const routesAdministracion: Routes = [
     DashboardComponent, 
     MenuPlantasComponent, 
     MenuKioscosComponent, 
-    AppWebComponent, 
+    MenuAppWebComponent, 
     BackgroungImageComponent
   ],
   providers:[
