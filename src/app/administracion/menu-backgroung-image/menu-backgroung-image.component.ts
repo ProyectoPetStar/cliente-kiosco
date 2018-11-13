@@ -25,6 +25,11 @@ export class MenuBackgroungImageComponent implements OnInit {
 
         $(this).removeClass('transition');
       });
+
+      $('[data-fancybox="gallery"]').fancybox({
+        // Options will go here
+      });
+
     },900);
   }
 

@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/platform-server": "5.2.9",
     "@angular/router": "^5.2.0",
+    "@fancyapps/fancybox": "^3.5.2",
     "ajv": "6.4.0",
     "angular2-jwt": "^0.2.3",
     "arrive": "2.4.1",
