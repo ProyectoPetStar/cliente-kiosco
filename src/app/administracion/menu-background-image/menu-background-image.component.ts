@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 declare const $:any;
 @Component({
-  selector: 'app-menu-backgroung-image',
-  templateUrl: './menu-backgroung-image.component.html',
-  styleUrls: ['./menu-backgroung-image.component.scss']
+  selector: 'app-menu-background-image',
+  templateUrl: './menu-background-image.component.html',
+  styleUrls: ['./menu-background-image.component.scss']
 })
-export class MenuBackgroungImageComponent implements OnInit {
+export class MenuBackgroundImageComponent implements OnInit {
 
   constructor() { }
 

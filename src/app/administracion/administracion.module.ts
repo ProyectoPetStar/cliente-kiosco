@@ -23,9 +23,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MenuPlantasComponent } from './menu-plantas/menu-plantas.component';
 import { MenuKioscosComponent } from './menu-kioscos/menu-kioscos.component';
 import { MenuAppWebComponent } from './menu-app-web/menu-app-web.component';
-import { MenuBackgroungImageComponent } from './menu-backgroung-image/menu-backgroung-image.component';
+import { MenuBackgroundImageComponent } from './menu-background-image/menu-background-image.component';
 import { AuthGuardAdmon } from '../auth/auth.guard.admon';
 import { NotAuthGuard } from '../auth/not.auth.guard';
+import { FormBackgroundImageComponent } from './form-background-image/form-background-image.component';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
@@ -56,7 +57,11 @@ const routesAdministracion: Routes = [
       },
       {
           path:'Protector',
-          component: MenuBackgroungImageComponent
+          component: MenuBackgroundImageComponent
+      },
+      {
+          path:'Protector/:id',
+          component: FormBackgroundImageComponent
       }
     ]
   }
@@ -88,7 +93,8 @@ const routesAdministracion: Routes = [
     MenuPlantasComponent, 
     MenuKioscosComponent, 
     MenuAppWebComponent, 
-    MenuBackgroungImageComponent
+    MenuBackgroundImageComponent, 
+    FormBackgroundImageComponent
   ],
   providers:[
     AuthGuardAdmon,
