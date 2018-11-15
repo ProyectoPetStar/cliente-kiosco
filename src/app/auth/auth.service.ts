@@ -16,4 +16,11 @@ export class AuthService {
     return tokenNotExpired(null, token);
     
   }
+
+  public getIdUsuario(): number{
+    return jwt_decode(this.getToken()).sub || -1;
+    
+ }
+
+
 }
