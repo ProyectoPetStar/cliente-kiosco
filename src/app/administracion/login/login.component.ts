@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.mensaje_error = "";
     this.submitted = false;
     this.disabled = false;
-    this.usuario = new User(-1,'','','','','',-1,-1,'', new CatalogoPerfil(-1,'',-1));
+    this.usuario = new User(-1,'','','','','',-1,-1,'', new CatalogoPerfil(-1,'','',-1));
     this.usuario
 
     this.formLogin = this.fb.group({

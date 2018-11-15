@@ -7,7 +7,7 @@
                         <li></li>
                         <li></li>
                         <li></li>
-                    </ul>                    
+                    </ul>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                         <p class="card-category">Ficha detalle</p>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form [formGroup]="formularioPerfil" (ngSubmit)="updatePerfil($event)" autocomplete="off">
                             <div class="row">
                                 <div class="col-md-5">
                                     <mat-form-field class="example-full-width">
@@ -32,38 +32,42 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Usuario">
+                                        <input matInput placeholder="Usuario" formControlName="usuario" [(ngModel)]="usuario.usuario">
+                                        <mat-hint *ngIf="formularioPerfil.controls.usuario.errors?.required && (formularioPerfil.controls.usuario?.touched || submitted)">Requerido</mat-hint>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Correo electrónico" type="email">
+                                        <input matInput placeholder="Correo electrónico" type="email" formControlName="correo_electronico" [(ngModel)]="usuario.correo_electronico">
+                                        <mat-hint *ngIf="formularioPerfil.controls.correo_electronico.errors?.required && (formularioPerfil.controls.correo_electronico?.touched || submitted)">Requerido</mat-hint>                                        
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Nombre" type="text">
+                                        <input matInput placeholder="Nombre" type="text" formControlName="nombre_usuario" [(ngModel)]="usuario.nombre_usuario">
+                                        <mat-hint *ngIf="formularioPerfil.controls.nombre_usuario.errors?.required && (formularioPerfil.controls.nombre_usuario?.touched || submitted)">Requerido</mat-hint>                                                                                
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Apellidos" type="text">
+                                        <input matInput placeholder="Apellidos" type="text" formControlName="apellidos" [(ngModel)]="usuario.apellidos">
+                                        <mat-hint *ngIf="formularioPerfil.controls.apellidos.errors?.required && (formularioPerfil.controls.apellidos?.touched || submitted)">Requerido</mat-hint>                                        
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Perfil" type="text" value="ADMINISTRADOR" disabled>
+                                        <input matInput placeholder="Perfil" type="text" [value]="usuario.perfil.nombre_perfil" disabled>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <textarea matInput placeholder="Descripción perfil" value="Encargado de mantener la configuración y contenido de los kioscos"
+                                        <textarea matInput placeholder="Descripción perfil" [value]="usuario.perfil.descripcion"
                                             disabled></textarea>
                                     </mat-form-field>
                                 </div>
