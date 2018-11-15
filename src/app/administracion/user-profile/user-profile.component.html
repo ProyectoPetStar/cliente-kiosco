@@ -33,13 +33,15 @@
                                 <div class="col-md-3">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Usuario" formControlName="usuario" [(ngModel)]="usuario.usuario">
-                                        <mat-hint *ngIf="formularioPerfil.controls.usuario.errors?.required && (formularioPerfil.controls.usuario?.touched || submitted)">Requerido</mat-hint>
+                                        <mat-hint *ngIf="formularioPerfil.controls.usuario.errors?.required && (formularioPerfil.controls.usuario?.touched || submittedPerfil)">Requerido</mat-hint>
+                                        <mat-hint *ngIf="formularioPerfil.controls.usuario.errors?.pattern && (formularioPerfil.controls.usuario?.pattern || submittedPerfil)">Solo números y letras</mat-hint>
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-4">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Correo electrónico" type="email" formControlName="correo_electronico" [(ngModel)]="usuario.correo_electronico">
-                                        <mat-hint *ngIf="formularioPerfil.controls.correo_electronico.errors?.required && (formularioPerfil.controls.correo_electronico?.touched || submitted)">Requerido</mat-hint>                                        
+                                        <mat-hint *ngIf="formularioPerfil.controls.correo_electronico.errors?.required && (formularioPerfil.controls.correo_electronico?.touched || submittedPerfil)">Requerido</mat-hint>                                        
+                                        <mat-hint *ngIf="formularioPerfil.controls.correo_electronico.errors?.pattern && (formularioPerfil.controls.correo_electronico?.pattern || submittedPerfil)">Email no valido</mat-hint>
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -47,13 +49,15 @@
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Nombre" type="text" formControlName="nombre_usuario" [(ngModel)]="usuario.nombre_usuario">
-                                        <mat-hint *ngIf="formularioPerfil.controls.nombre_usuario.errors?.required && (formularioPerfil.controls.nombre_usuario?.touched || submitted)">Requerido</mat-hint>                                                                                
+                                        <mat-hint *ngIf="formularioPerfil.controls.nombre_usuario.errors?.required && (formularioPerfil.controls.nombre_usuario?.touched || submittedPerfil)">Requerido</mat-hint>
+                                        <mat-hint *ngIf="formularioPerfil.controls.nombre_usuario.errors?.pattern && (formularioPerfil.controls.nombre_usuario?.pattern || submittedPerfil)">No valido</mat-hint>                                        
                                     </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                     <mat-form-field class="example-full-width">
                                         <input matInput placeholder="Apellidos" type="text" formControlName="apellidos" [(ngModel)]="usuario.apellidos">
-                                        <mat-hint *ngIf="formularioPerfil.controls.apellidos.errors?.required && (formularioPerfil.controls.apellidos?.touched || submitted)">Requerido</mat-hint>                                        
+                                        <mat-hint *ngIf="formularioPerfil.controls.apellidos.errors?.required && (formularioPerfil.controls.apellidos?.touched || submittedPerfil)">Requerido</mat-hint>
+                                        <mat-hint *ngIf="formularioPerfil.controls.apellidos.errors?.pattern && (formularioPerfil.controls.apellidos?.pattern || submittedPerfil)">No valido</mat-hint>                                                                                
                                     </mat-form-field>
                                 </div>
                             </div>
@@ -84,8 +88,8 @@
                         <img class="img" src="../assets/img/avatar.jpg" />
                     </div>
                     <div class="card-body">
-                        <h6 class="card-category text-gray">ADMINISTRADOR</h6>
-                        <h4 class="card-title">IVAN TADEO HUERTA</h4>
+                        <h6 class="card-category text-gray">{{ usuario.perfil.nombre_perfil }}</h6>
+                        <h4 class="card-title">{{ usuario.nombre_usuario + ' ' + usuario.apellidos }}</h4>
                         <p class="card-description">
                             <!-- Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye
                             I love Rick Owens’ bed design but the back is... -->
