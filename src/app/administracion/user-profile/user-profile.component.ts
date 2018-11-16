@@ -31,6 +31,7 @@ export class UserProfileComponent implements OnInit {
     private service: UserProfileService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private fbPwd: FormBuilder,
     private auth: AuthService,
     private router: Router) { }
 
@@ -77,7 +78,7 @@ export class UserProfileComponent implements OnInit {
       apellidos: new FormControl({ value: this.usuario.apellidos, disabled: false }, [Validators.required, Validators.pattern(/(\w(\s)?)+/)])
     });
 
-    this.formularioPwd = this.fb.group({
+    this.formularioPwd = this.fbPwd.group({
       actual: new FormControl({ value: this.password.actual, disabled: false }, [Validators.required]),
       nueva: new FormControl({ value: this.password.nueva, disabled: false }, [Validators.required, Validators.pattern(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)]),
       confirmacion: new FormControl({ value: this.password.confirmacion, disabled: false }, [Validators.required])
@@ -163,6 +164,10 @@ export class UserProfileComponent implements OnInit {
 
           this.service.changePassword(this.auth.getIdUsuario(), this.password.actual, this.password.nueva).subscribe(result => {
             if (result.response.sucessfull) {
+            
+              $('#formpwd')[0].reset()
+              this.submittedPwd = false;
+
               swal('Actualizada!', 'Ha actualizado su contraseña', 'success')
             } else {
               swal('Oops...', result.response.message, 'error')
@@ -185,7 +190,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   clearMsj() {
-    console.log(this.password.nueva,this.password.confirmacion )
+   
     if (this.password.nueva === this.password.confirmacion) {
       this.mensajePwd = '';
     } else {
