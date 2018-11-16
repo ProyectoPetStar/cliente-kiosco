@@ -1,3 +1,5 @@
+
+
 declare var $: any;
 
 
@@ -27,6 +29,8 @@ function notify (mjs, type, delay): void {
     });
    
 }
+
+
 
 export{
     notify

@@ -24,6 +24,16 @@ export class UserProfileService {
     return this.http.post(this.URL,body);
   }
 
+  changePassword(id_usuario:number, password_actual: string, new_password: string): Observable<any>{
+    const body = new HttpParams()
+    .set('action', 'changePassword')
+    .set('password_actual', ''+password_actual)
+    .set('new_password', ''+new_password)
+    .set('id_acceso',''+id_usuario)
+    .set('id_usuario', ''+id_usuario);
+    return this.http.post(this.URL,body);
+  }
+
 
 
 }
