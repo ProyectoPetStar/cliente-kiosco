@@ -56,13 +56,11 @@ export class UserProfileComponent implements OnInit {
           this.loading = false;
           this.loadFormulario();
         } else {
-          // Materialize.toast(result.response.message, 4000, 'red');
-          notify(result.response.message, 'danger', 4000);
+          swal('Oops...', result.response.message , 'error')          
           this.loading = false;
         }
       }, error => {
-        // Materialize.toast('Ocurrió  un error en el servicio!', 4000, 'red');
-        notify('Ocurrió  un error en el servicio!', 'danger', 4000);
+        swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
         this.loading = false;
       }
       );

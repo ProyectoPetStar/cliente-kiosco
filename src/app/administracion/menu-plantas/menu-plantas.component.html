@@ -1,61 +1,38 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a href="#" class="btn btn-success"><i class="material-icons">add</i></a>
+        <a routerLink="Nueva-planta" class="btn btn-success">
+          <i class="material-icons">add</i>
+        </a>
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div *ngFor="let planta of plantas" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div class="card">
           <img class="card-img-top" src="http://www.gndesarrollos.com/images/petstar1-3.jpg" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">
-              <b>Toluca</b>
+              <b class="font-title">NOMBRE: {{ planta.nombre_planta.toUpperCase() }}</b>
+              <p class="font-subtitle">ESTADO: {{ planta.estado_planta.toUpperCase() }}</p>
             </h5>
-            <p class="card-text">
-              <b> Dirección:</b> Carretera Libre Toluca - Atlacomulco Km. 1.5, Parque Industrial Cayetano, 50295 Toluca de Lerdo,
-              Méx.
-            </p>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="#" class="btn btn-success float-left">DETALLE</a>
-                <a href="#" class="btn btn-default float-right">ELIMINAR</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="card">
-          <img class="card-img-top" src="http://www.gndesarrollos.com/images/petstar1-3.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">
-              <b>Toluca</b>
-            </h5>
-            <p class="card-text">
-              <b> Dirección:</b> Carretera Libre Toluca - Atlacomulco Km. 1.5, Parque Industrial Cayetano, 50295 Toluca de Lerdo,
-              Méx.
-            </p>
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a href="#" class="btn btn-success float-left">DETALLE</a>
-                <a href="#" class="btn btn-default float-right">ELIMINAR</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="card">
-          <img class="card-img-top" src="http://www.gndesarrollos.com/images/petstar1-3.jpg" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">
-              <b>Toluca</b>
-            </h5>
-            <p class="card-text">
-              <b> Dirección:</b> Carretera Libre Toluca - Atlacomulco Km. 1.5, Parque Industrial Cayetano, 50295 Toluca de Lerdo,
-              Méx.
+            <p class="card-text font-subtitle">
+              DIRECCIÓN: {{  planta.direccion_planta.toUpperCase() }}
             </p>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
