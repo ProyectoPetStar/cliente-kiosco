@@ -1,4 +1,19 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading && !notValid">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -37,6 +52,16 @@
             <button type="button" class="btn btn-success">SUBIR IMAGEN</button>
           </mat-card-actions>
         </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading && notValid">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="font_texto"> Planta no encontrada </p>
+        <a routerLink="../">Ver plantas disponibles</a>
       </div>
     </div>
   </div>
