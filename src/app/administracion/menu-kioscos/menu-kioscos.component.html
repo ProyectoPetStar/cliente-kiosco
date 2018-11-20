@@ -1,49 +1,83 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+        <a routerLink="Nuevo-kiosco" class="btn btn-success">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header card-header-success">
-            <h4 class="card-title ">Kioscos registrados</h4>
+            <h4 class="card-title ">Registrados</h4>
             <p class="card-category color_texto">Haga clic en el nombre del kiosco para ver los detalles </p>
           </div>
           <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <th>
-                    PLANTA
-                  </th>
-                  <th>
-                    NOMBRE KIOSCO
-                  </th>
-                  <th>
-                    IP
-                  </th>
-                  <th>
-                    FECHA REGISTRO
-                  </th>
-                  <th class="text-center">
-                    ACTIVO
-                  </th>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>TOLUCA</td>
-                    <td>PC-TOLUCA123</td>
-                    <td>192.168.1.10</td>
-                    <td>12/11/2018</td>
-                    <td class="text-center">
-                        <label class="custom-control custom-checkbox">
-                          NO
-                          <input type="checkbox" class="custom-control-input">
-                          <span class="custom-control-indicator"></span>
-                          SI
-                        </label>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="row justify-content-end">
+              <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="input-group no-border">
+                  <input type="text" class="form-control" placeholder="Buscar kiosco..." [(ngModel)]="texto_search" [ngModelOptions]="{standalone: true}">
+                  <span class="">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <br>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <th>
+                      PLANTA
+                    </th>
+                    <th>
+                      NOMBRE KIOSCO
+                    </th>
+                    <th>
+                      IP
+                    </th>
+                    <th>
+                      FECHA REGISTRO
+                    </th>
+                    <th class="text-center">
+                      ACTIVO
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let kiosco of kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string']: texto_search">
+                      <td>{{ kiosco.planta.nombre_planta }}</td>
+                      <td>{{ kiosco.nombre_kiosko }}</td>
+                      <td>{{ kiosco.ip_privada }}</td>
+                      <td>{{ kiosco.fecha_registro_string }}</td>
+                      <td class="text-center">
+                        <mat-slide-toggle [checked]="kiosco.activo == 1" disabled>SI</mat-slide-toggle>
+                      </td>
+                    </tr>
+                    <tr *ngIf="(kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string'] : texto_search ).length == 0">
+                      <td colspan="5" class="text-center">NO HAY REGISTROS</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -52,8 +86,8 @@
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <p class="text-right">
-          <b>REGISTRADOS:</b> 11 &nbsp;&nbsp;
-          <b>ACTIVOS:</b> 0</p>
+          <b>KIOSCOS REGISTRADOS:</b> {{ kioscos.length }} &nbsp;&nbsp;
+          <b>ACTIVOS:</b> {{ getKioscosActivos(kioscos) }}</p>
       </div>
     </div>
   </div>
