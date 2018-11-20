@@ -16,14 +16,23 @@
 <div class="main-content" *ngIf="!loading">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <a routerLink="Nueva-planta" class="btn btn-success">
           <i class="material-icons">add</i>
         </a>
       </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+          <div class="input-group no-border">
+            <input type="text" class="form-control" placeholder="Buscar..."  [(ngModel)]="texto_search" [ngModelOptions]="{standalone: true}">
+            <span  class="btn btn-white btn-round btn-just-icon">
+              <i class="material-icons">search</i>
+              <div class="ripple-container"></div>
+            </span>
+          </div>
+      </div>
     </div>
     <div class="row">
-      <div *ngFor="let planta of plantas" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+      <div *ngFor="let planta of plantas | filterBy: ['nombre_planta','estado_planta']: texto_search" class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div class="card">
           <img class="card-img-top" src="http://www.gndesarrollos.com/images/petstar1-3.jpg" alt="Card image cap">
           <div class="card-body">
@@ -36,8 +45,10 @@
             </p>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div *ngIf="planta.activo == 1" class="float-left"><img src="../assets/img/activo.png" class="icono_available"/>&nbsp;ACTIVO</div>
-                <div *ngIf="planta.activo == 0" class="float-left"><img src="../assets/img/inactivo.png" class="icono_available"/>&nbsp;INACTIVO</div>
+                <div *ngIf="planta.activo == 1" class="float-left">
+                  <img src="../assets/img/activo.png" class="icono_available" />&nbsp;ACTIVO</div>
+                <div *ngIf="planta.activo == 0" class="float-left">
+                  <img src="../assets/img/inactivo.png" class="icono_available" />&nbsp;INACTIVO</div>
                 <a [routerLink]="planta.id_planta" class="btn btn-success float-right">DETALLE</a>
               </div>
             </div>
