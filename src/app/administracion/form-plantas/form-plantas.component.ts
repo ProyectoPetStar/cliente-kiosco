@@ -4,7 +4,7 @@ import { FormPlantasService } from './form-plantas.service';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { isValidId, getCatalogoEstados, notify } from '../../utils';
+import { isValidId, getCatalogoEstados, notify, noWhitespaceValidator } from '../../utils';
 import swal from 'sweetalert2';
 
 declare const $: any;
@@ -73,7 +73,12 @@ export class FormPlantasComponent implements OnInit {
         });
         // 'Nueva-planta' es el texto que se recibe como parametro desde la url
       } else if (params.get('id') == 'Nueva-planta') {
-        this.action = 'add ';
+        this.action = 'add';
+        this.planta.activo = 1;
+        this.notValid = false;
+        this.loading = false;
+        this.loadFormulario();
+
       } else {
         this.notValid = true;
         this.loading = false;
@@ -86,9 +91,9 @@ export class FormPlantasComponent implements OnInit {
 
   loadFormulario(): void {
     this.formulario = this.fb.group({
-      nombre_planta: new FormControl({ value: this.planta.nombre_planta, disabled: false }, [Validators.required]),
+      nombre_planta: new FormControl({ value: this.planta.nombre_planta, disabled: false }, [Validators.required, noWhitespaceValidator ]),
       estado_planta: new FormControl({ value: this.planta.estado_planta, disabled: false }, [Validators.required]),
-      ip_publica: new FormControl({ value: this.planta.ip_publica, disabled: false }, [Validators.required]),
+      ip_publica: new FormControl({ value: this.planta.ip_publica, disabled: false }, [Validators.required, Validators.pattern(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/)]),
       direccion_planta: new FormControl({ value: this.planta.direccion_planta, disabled: false }, [Validators.required])
     });
   }
@@ -138,6 +143,16 @@ export class FormPlantasComponent implements OnInit {
             });
           } else if (accion == 'add') {
 
+            this.service.insertCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
+              if (result.response.sucessfull) {
+                swal('Exito!', 'Planta registrada', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+
           }
 
           /*
@@ -153,8 +168,10 @@ export class FormPlantasComponent implements OnInit {
 
   }
 
-  changeStatus(estatus:number){
-    this.planta.activo = (estatus==0)?1:0;
+  changeStatus(estatus: number) {
+    this.planta.activo = (estatus == 0) ? 1 : 0;
   }
+
+
 
 }

@@ -25,5 +25,15 @@ export class FormPlantasService {
   }
 
 
+  insertCatalogoPlanta(id_usuario:number, planta:Plantas): Observable<any>{
+    let datos: any = { planta };
+    const body = new HttpParams()
+    .set('action', 'insertCatalogoPlanta')
+    .set('data', ''+JSON.stringify(datos))
+    .set('id_usuario', ""+id_usuario);
+    return this.http.post(this.URL,body);
+  }
+
+
 
 }
