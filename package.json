@@ -41,6 +41,7 @@
     "jquery": "3.2.1",
     "jwt-decode": "^2.2.0",
     "moment": "2.18.1",
+    "ngx-pipes": "^2.3.6",
     "notifyjs": "^3.0.0",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.14.3",

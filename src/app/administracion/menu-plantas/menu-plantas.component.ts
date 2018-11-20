@@ -14,6 +14,7 @@ import swal from 'sweetalert2';
 export class MenuPlantasComponent implements OnInit {
 
   public loading: boolean;
+  public texto_search: string;
   public plantas: Array<Plantas>;
 
   constructor(
@@ -24,6 +25,7 @@ export class MenuPlantasComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.plantas = [];
+    this.texto_search = "";
     if (this.auth.getIdUsuario() != null) {
       this.service.getAllPlanta(this.auth.getIdUsuario()).subscribe(result => {
 
@@ -43,6 +45,11 @@ export class MenuPlantasComponent implements OnInit {
       swal('Información', 'Inicie sesión de nuevo!', 'info')
     }
 
+  }
+
+  search(ev) {
+    ev.preventDefault();
+    
   }
 
 }
