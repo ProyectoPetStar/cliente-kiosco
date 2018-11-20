@@ -16,8 +16,8 @@
 <div class="main-content" *ngIf="!loading && !notValid">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
+      <div [ngClass]="{'col-lg-8 col-md-8': action=='edit', 'col-lg-12 col-md-12': action=='add'  ,'col-sm-12 col-xs-12':true}">
+        <form id="formPlanta" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
           <mat-card>
             <mat-card-title>
               INFORMACIÓN DE LA PLANTA
@@ -48,7 +48,7 @@
                     <mat-hint align="end" *ngIf="formulario.controls.direccion_planta.errors?.required && (formulario.controls.direccion_planta?.touched || submitted)">Requerido</mat-hint>
                     <mat-hint align="end" *ngIf="!formulario.controls.direccion_planta.errors?.required && formulario.controls.direccion_planta.errors?.whitespace && (formulario.controls.direccion_planta?.touched || submitted)">Ingrese un nombre</mat-hint>
                   </mat-form-field>
-                  <mat-slide-toggle color="success" [checked]="planta.activo == 1" (change)="changeStatus(planta.activo)" >Activo</mat-slide-toggle>
+                  <mat-slide-toggle color="success" [checked]="planta.activo == 1" (change)="changeStatus(planta.activo)">Activo</mat-slide-toggle>
                 </div>
               </div>
             </mat-card-content>
@@ -61,6 +61,37 @@
             </mat-card-actions>
           </mat-card>
         </form>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" *ngIf="action == 'edit'">
+        <mat-card>
+          <mat-card-title align="center">
+            IMAGEN PLANTA
+          </mat-card-title>
+          <!-- <mat-card-subtitle>Cambiar imagen</mat-card-subtitle> -->
+          <mat-card-content>
+            <div class="row d-flex justify-content-center">
+              <img src="http://www.gndesarrollos.com/images/petstar1-3.jpg" class="img-thumbnail img_prev">
+            </div>
+            <hr>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="custom-file" id="customFile" lang="es">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                  <label class="custom-file-label" for="exampleInputFile">
+                    Seleccione imagen
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <button type="button" class="btn btn-success">CAMBIAR</button>
+              </div>
+            </div>
+          </mat-card-actions>
+        </mat-card>
       </div>
     </div>
   </div>

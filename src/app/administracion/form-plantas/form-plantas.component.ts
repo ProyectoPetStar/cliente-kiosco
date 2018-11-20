@@ -145,6 +145,8 @@ export class FormPlantasComponent implements OnInit {
 
             this.service.insertCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
               if (result.response.sucessfull) {
+                $('#formPlanta')[0].reset();
+                this.submitted = false;
                 swal('Exito!', 'Planta registrada', 'success')
               } else {
                 swal('Oops...', result.response.message, 'error')
