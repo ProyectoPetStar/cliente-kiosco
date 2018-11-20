@@ -12,6 +12,7 @@ import {
   MatExpansionModule,
   MatSlideToggleModule
 } from '@angular/material';
+import { PipesCustomModule } from '../pipes/pipes.custom.module';
 
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
@@ -85,6 +86,7 @@ const routesAdministracion: Routes = [
     MatCardModule,
     MatExpansionModule,
     MatSlideToggleModule,
+    PipesCustomModule,
     RouterModule.forChild(routesAdministracion)
   ],
   declarations: [

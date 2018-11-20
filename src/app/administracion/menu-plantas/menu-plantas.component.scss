@@ -2,10 +2,22 @@
     font-size: 1rem;
 }
 
+.puntos{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    // Fuerza a que el texto no salte de linea
+    white-space:nowrap;
+    display: inline-block;
+}
+
 .font-subtitle{
     font-size: .8rem;
 }
 
 .icono_available{
     vertical-align: text-bottom;
+}
+
+.card-text{
+    height: 4rem;
 }

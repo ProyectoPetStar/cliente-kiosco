@@ -27,12 +27,12 @@
         <div class="card">
           <img class="card-img-top" src="http://www.gndesarrollos.com/images/petstar1-3.jpg" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">
+            <h5 class="card-title puntos">
               <b class="font-title">NOMBRE: {{ planta.nombre_planta.toUpperCase() }}</b>
               <p class="font-subtitle">ESTADO: {{ planta.estado_planta.toUpperCase() }}</p>
             </h5>
             <p class="card-text font-subtitle">
-              DIRECCIÓN: {{ planta.direccion_planta.toUpperCase() }}
+              DIRECCIÓN: {{ planta.direccion_planta | textEllipsis:80 }}
             </p>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
