@@ -39,17 +39,20 @@
                       <mat-option value="">SELECCIONE</mat-option>
                       <mat-option *ngFor="let estado of estados" [value]="estado.name">{{ estado.name }}</mat-option>
                     </mat-select>
+                    <mat-hint *ngIf="formulario.controls.estado_planta.errors?.required && (formulario.controls.estado_planta?.touched || submitted)">Requerido</mat-hint>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                     <textarea matInput placeholder="Dirección" formControlName="direccion_planta" [(ngModel)]="planta.direccion_planta"></textarea>
+                    <mat-hint *ngIf="formulario.controls.direccion_planta.errors?.required && (formulario.controls.direccion_planta?.touched || submitted)">Requerido</mat-hint>
                   </mat-form-field>
+                  <mat-slide-toggle color="success" [checked]="planta.activo == 1" (change)="changeStatus(planta.activo)" >Activo</mat-slide-toggle>
                 </div>
               </div>
             </mat-card-content>
             <mat-card-actions>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                  <button type="button" class="btn btn-success float-right">{{ (action == 'add')? 'AGREGAR' : 'ACTUALIZAR DATOS' }}</button>
+                  <button type="submit" class="btn btn-success float-right">{{ (action == 'add')? 'AGREGAR' : 'ACTUALIZAR DATOS' }}</button>
                 </div>
               </div>
             </mat-card-actions>

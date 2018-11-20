@@ -4,7 +4,7 @@ import { FormPlantasService } from './form-plantas.service';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { isValidId, getCatalogoEstados } from '../../utils';
+import { isValidId, getCatalogoEstados, notify } from '../../utils';
 import swal from 'sweetalert2';
 
 declare const $: any;
@@ -89,9 +89,72 @@ export class FormPlantasComponent implements OnInit {
       nombre_planta: new FormControl({ value: this.planta.nombre_planta, disabled: false }, [Validators.required]),
       estado_planta: new FormControl({ value: this.planta.estado_planta, disabled: false }, [Validators.required]),
       ip_publica: new FormControl({ value: this.planta.ip_publica, disabled: false }, [Validators.required]),
-      direccion_planta: new FormControl({ value: this.planta.direccion_planta, disabled: false }, [Validators.required]),
-      activo: new FormControl({ value: this.planta.activo, disabled: false }, [Validators.required])
+      direccion_planta: new FormControl({ value: this.planta.direccion_planta, disabled: false }, [Validators.required])
     });
+  }
+
+  submit(ev, accion) {
+    ev.preventDefault();
+    let msj = '';
+
+    if (accion == 'edit') {
+      msj = '¿ Está seguro de actualizar los datos ?';
+    } else if (accion == 'add') {
+      msj = '¿ Está seguro de agregar planta ?';
+    }
+
+    this.submitted = true;
+
+    if (this.formulario.valid) {
+
+      /* 
+     * Configuración del modal de confirmación
+     */
+      swal({
+        title: '<span style="color: #303f9f ">' + msj + '</span>',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#303f9f',
+        cancelButtonColor: '#9fa8da ',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si!',
+        allowOutsideClick: false,
+        allowEnterKey: false
+      }).then((result) => {
+        /*
+         * Si acepta
+         */
+        if (result.value) {
+
+          if (accion == 'edit') {
+            this.service.updateCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
+              if (result.response.sucessfull) {
+                swal('Actualizado!', 'Datos actualizados', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+          } else if (accion == 'add') {
+
+          }
+
+          /*
+          * Si cancela accion
+          */
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          // this.disabledBtn = false;
+        }
+      })
+    } else {
+      notify('Verifique los datos capturados!', 'danger', 2800);
+    }
+
+  }
+
+  changeStatus(estatus:number){
+    this.planta.activo = (estatus==0)?1:0;
   }
 
 }
