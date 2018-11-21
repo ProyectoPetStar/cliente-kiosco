@@ -1,3 +1,28 @@
-<p>
-  form-kioscos works!
-</p>
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading && !notValid">
+
+</div>
+<div class="main-content" *ngIf="!loading && notValid">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="font_texto"> Kiosco no encontrado </p>
+        <a routerLink="../">Ver kioscos disponibles</a>
+      </div>
+    </div>
+  </div>
+</div>
