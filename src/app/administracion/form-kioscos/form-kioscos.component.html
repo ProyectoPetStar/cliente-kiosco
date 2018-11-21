@@ -14,13 +14,62 @@
   </div>
 </div>
 <div class="main-content" *ngIf="!loading && !notValid">
-
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form id="formPlanta" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
+          <mat-card>
+            <mat-card-title>
+              INFORMACIÓN DETALLADA DEL KIOSCO
+            </mat-card-title>
+            <mat-card-subtitle>Ingrese todos los datos</mat-card-subtitle>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <mat-form-field>
+                    <input matInput placeholder="Nombre del equipo" formControlName="nombre_kiosko" [(ngModel)]="kiosco.nombre_kiosko">
+                    <mat-hint align="end" *ngIf="formulario.controls.nombre_kiosko.errors?.required && (formulario.controls.nombre_kiosko?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.nombre_kiosko.errors?.required && formulario.controls.nombre_kiosko.errors?.whitespace && (formulario.controls.nombre_kiosko?.touched || submitted)">Ingrese un nombre</mat-hint>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="IP asignada" formControlName="ip_privada" [(ngModel)]="kiosco.ip_privada">
+                    <mat-hint align="end" *ngIf="formulario.controls.ip_privada.errors?.required && (formulario.controls.ip_privada?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="formulario.controls.ip_privada.errors?.pattern && (formulario.controls.ip_privada?.touched || submitted)">IP no válida</mat-hint>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Marca del equipo" formControlName="marca_kiosco" [(ngModel)]="kiosco.marca_kiosco">
+                    <mat-hint align="end" *ngIf="formulario.controls.marca_kiosco.errors?.required && (formulario.controls.marca_kiosco?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.marca_kiosco.errors?.required && formulario.controls.marca_kiosco.errors?.whitespace && (formulario.controls.marca_kiosco?.touched || submitted)">Ingrese un nombre</mat-hint>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="Modelo del equipo" formControlName="modelo_kiosco" [(ngModel)]="kiosco.modelo_kiosco">
+                    <mat-hint align="end" *ngIf="formulario.controls.modelo_kiosco.errors?.required && (formulario.controls.modelo_kiosco?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.modelo_kiosco.errors?.required && formulario.controls.modelo_kiosco.errors?.whitespace && (formulario.controls.modelo_kiosco?.touched || submitted)">Ingrese un nombre</mat-hint>
+                  </mat-form-field>
+                  <mat-slide-toggle color="success" [checked]="kiosco.activo == 1" (change)="changeStatus(kiosco.activo)">Activo</mat-slide-toggle>
+                </div>
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <button type="submit" class="btn btn-success float-right">{{ (action == 'add')? 'AGREGAR' : 'ACTUALIZAR DATOS' }}</button>
+                </div>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="main-content" *ngIf="!loading && notValid">
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <p class="font_texto"> Kiosco no encontrado </p>
+        <br>
+        <br>
         <a routerLink="../">Ver kioscos disponibles</a>
       </div>
     </div>

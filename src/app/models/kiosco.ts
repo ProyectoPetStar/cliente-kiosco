@@ -15,6 +15,9 @@ export class Kiosco {
         //public fecha_modifica_registro: string,
         public fecha_registro_string: string,
         //public fecha_modifica_registro_string: string,
-        public planta: Plantas
+        public marca_kiosco: string,
+        public modelo_kiosco: string,
+        public planta: Plantas,
+        
     ){}
 }

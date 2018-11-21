@@ -56,6 +56,12 @@
                       IP
                     </th>
                     <th>
+                      MARCA
+                    </th>
+                    <th>
+                      MODELO
+                    </th>
+                    <th>
                       FECHA REGISTRO
                     </th>
                     <th class="text-center">
@@ -63,20 +69,26 @@
                     </th>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let kiosco of kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string']: texto_search">
+                    <tr *ngFor="let kiosco of kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string','marca_kiosco','modelo_kiosco']: texto_search">
                       <td>{{ kiosco.planta.nombre_planta }}</td>
                       <td>
                         <a [routerLink]="kiosco.id_kiosko" >{{ kiosco.nombre_kiosko }}</a>
                       </td>
+                      <td>
+                          {{ kiosco.marca_kiosco }}
+                      </td>
+                      <td>
+                          {{ kiosco.modelo_kiosco }}
+                      </td>
                       <td>{{ kiosco.ip_privada }}</td>
                       <td>{{ kiosco.fecha_registro_string }}</td>
-                      <td class="text-center">
+                      <td>
                         <p *ngIf="kiosco.activo == 1">SI</p>
                         <p *ngIf="kiosco.activo == 0">NO</p>
                       </td>
                     </tr>
-                    <tr *ngIf="(kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string'] : texto_search ).length == 0">
-                      <td colspan="5" class="text-center">NO HAY REGISTROS</td>
+                    <tr *ngIf="(kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string','marca_kiosco','modelo_kiosco'] : texto_search ).length == 0">
+                      <td colspan="7" class="text-center">NO HAY REGISTROS</td>
                     </tr>
                   </tbody>
                 </table>

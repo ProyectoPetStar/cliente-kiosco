@@ -11,8 +11,8 @@ export class FormKioscosService {
 
   constructor(private http: HttpClient) { }
 
-  getKioscoById(id_usuario: number, id_kiosko: number): Observable<any> {
-    return this.http.get<any>(this.URL + '?action=getKioscoById&id_usuario=' + id_usuario + '&id_kiosko=' + id_kiosko);
+  getKioscoById(id_usuario: number, id_kiosco: number): Observable<any> {
+    return this.http.get<any>(this.URL + '?action=getKioscoById&id_usuario=' + id_usuario + '&id_kiosco=' + id_kiosco);
   }
   
 
