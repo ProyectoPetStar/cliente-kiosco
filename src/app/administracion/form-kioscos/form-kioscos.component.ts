@@ -3,7 +3,7 @@ import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormKioscosService } from './form-kioscos.service';
-import { FormPlantasService } from '../form-plantas/form-plantas.service';
+import { MenuPlantasService } from '../menu-plantas/menu-plantas.service';
 import { isValidId, noWhitespaceValidator } from '../../utils';
 import { Kiosco } from '../../models/kiosco';
 import swal from 'sweetalert2';
@@ -13,7 +13,7 @@ import { Plantas } from '../../models/plantas';
   selector: 'app-form-kioscos',
   templateUrl: './form-kioscos.component.html',
   styleUrls: ['./form-kioscos.component.scss'],
-  providers: [FormKioscosService, FormPlantasService]
+  providers: [FormKioscosService, MenuPlantasService]
 })
 export class FormKioscosComponent implements OnInit {
 
@@ -22,12 +22,14 @@ export class FormKioscosComponent implements OnInit {
   public action: string;
   public kiosco: Kiosco;
   public planta: Plantas;
+  public plantas: Array<Plantas>;
   public submitted: boolean;
   public formulario: FormGroup;
 
   constructor(
     private auth: AuthService,
     private service: FormKioscosService,
+    private _servicePlanta: MenuPlantasService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
@@ -38,7 +40,9 @@ export class FormKioscosComponent implements OnInit {
     this.submitted = false;
     this.action = '';
     this.planta = new Plantas(-1, '', '', '', '', -1);
-    this.kiosco = new Kiosco(-1, '', -1, '', '', '', -1, -1, '', '', '', '', this.planta);
+    this.kiosco = new Kiosco(-1, '', '', '', '', '', -1, -1, '', '', '', '', this.planta);
+
+
 
     this.route.paramMap.subscribe(params => {
 
@@ -52,11 +56,7 @@ export class FormKioscosComponent implements OnInit {
             this.action = 'edit';
             this.kiosco = result.data.kiosco;
             this.notValid = false;
-            this.loading = false;
-
-            this.loadFormulario();
-
-
+            this.loadCatalogos();
 
           } else {
             swal('Oops...', result.response.message, 'error')
@@ -75,8 +75,7 @@ export class FormKioscosComponent implements OnInit {
         this.action = 'add';
         this.kiosco.activo = 1;
         this.notValid = false;
-        this.loading = false;
-        this.loadFormulario();
+        this.loadCatalogos();
 
       } else {
         this.notValid = true;
@@ -87,9 +86,28 @@ export class FormKioscosComponent implements OnInit {
 
   }
 
+  loadCatalogos(): void {
+    this._servicePlanta.getAllPlanta(this.auth.getIdUsuario()).subscribe(result => {
+
+      if (result.response.sucessfull) {
+        this.plantas = result.data.listPlanta;
+        this.loading = false;
+        this.loadFormulario();
+
+      } else {
+        swal('Oops...', result.response.message, 'error')
+        this.loading = false;
+      }
+
+    }, error => {
+      swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+      this.loading = false;
+    });
+  }
+
   loadFormulario(): void {
     this.formulario = this.fb.group({
-      nombre_kiosko: new FormControl({ value: this.kiosco.nombre_kiosko, disabled: false }, [Validators.required, noWhitespaceValidator ]),
+      nombre_kiosko: new FormControl({ value: this.kiosco.nombre_kiosko, disabled: false }, [Validators.required, noWhitespaceValidator]),
       id_planta: new FormControl({ value: this.kiosco.id_planta, disabled: false }, [Validators.required]),
       ip_privada: new FormControl({ value: this.kiosco.ip_privada, disabled: false }, [Validators.required, Validators.pattern(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/)]),
       marca_kiosco: new FormControl({ value: this.kiosco.marca_kiosco, disabled: false }, [Validators.required, noWhitespaceValidator]),

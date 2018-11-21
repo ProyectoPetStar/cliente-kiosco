@@ -4,7 +4,7 @@ export class Kiosco {
     constructor(
         public id_kiosko: number,
         public nombre_kiosko: string,
-        public id_planta: number,
+        public id_planta: any,
         public nombre_planta: string,
         public ip_privada: string,
         public imagen: string,
