@@ -30,6 +30,7 @@ import { AuthGuardAdmon } from '../auth/auth.guard.admon';
 import { NotAuthGuard } from '../auth/not.auth.guard';
 import { FormBackgroundImageComponent } from './form-background-image/form-background-image.component';
 import { FormPlantasComponent } from './form-plantas/form-plantas.component';
+import { FormKioscosComponent } from './form-kioscos/form-kioscos.component';
 
 /* expectedRole: number Es el id del rol que se encuentra en la base de datos */
 const routesAdministracion: Routes = [
@@ -57,6 +58,10 @@ const routesAdministracion: Routes = [
       {
           path:'Kioscos',
           component: MenuKioscosComponent
+      },
+      {
+          path:'Kioscos/:id',
+          component: FormKioscosComponent
       },
       {
           path:'Aplicaciones-Web',
@@ -103,7 +108,7 @@ const routesAdministracion: Routes = [
     MenuKioscosComponent, 
     MenuAppWebComponent, 
     MenuBackgroundImageComponent, 
-    FormBackgroundImageComponent, FormPlantasComponent
+    FormBackgroundImageComponent, FormPlantasComponent, FormKioscosComponent
   ],
   providers:[
     AuthGuardAdmon,
