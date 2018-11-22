@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormKioscosService } from './form-kioscos.service';
 import { MenuPlantasService } from '../menu-plantas/menu-plantas.service';
-import { isValidId, noWhitespaceValidator, notify } from '../../utils';
+import { isValidId, noWhitespaceValidator, notify , getFechaActual } from '../../utils';
 import { Kiosco } from '../../models/kiosco';
 import swal from 'sweetalert2';
 import { Plantas } from '../../models/plantas';
@@ -41,7 +41,7 @@ export class FormKioscosComponent implements OnInit {
     this.submitted = false;
     this.action = '';
     this.planta = new Plantas(-1, '', '', '', '', -1);
-    this.kiosco = new Kiosco(-1, '', -1, '', '', '', -1, -1, '', '', '', '', this.planta);
+    this.kiosco = new Kiosco(-1, '', -1, '', '', '', -1, -1, '', '', '', this.planta);
 
 
 
@@ -92,6 +92,7 @@ export class FormKioscosComponent implements OnInit {
 
       if (result.response.sucessfull) {
         this.plantas = result.data.listPlanta;
+        this.plantas = this.plantas.filter(el=>el.activo == 1);
         this.loading = false;
         this.loadFormulario();
 
@@ -107,12 +108,12 @@ export class FormKioscosComponent implements OnInit {
   }
 
   loadFormulario(): void {
-    this.formulario = this.fb.group({
-      nombre_kiosko: new FormControl({ value: this.kiosco.nombre_kiosko, disabled: false }, [Validators.required, noWhitespaceValidator]),
-      id_planta: new FormControl({ value: this.kiosco.id_planta, disabled: false }, [Validators.required]),
-      ip_privada: new FormControl({ value: this.kiosco.ip_privada, disabled: false }, [Validators.required, Validators.pattern(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/)]),
-      marca_kiosco: new FormControl({ value: this.kiosco.marca_kiosco, disabled: false }, [Validators.required, noWhitespaceValidator]),
-      modelo_kiosco: new FormControl({ value: this.kiosco.modelo_kiosco, disabled: false }, [Validators.required, noWhitespaceValidator])
+    this.formulario = this.fb.group({  
+      nombre_kiosko: new FormControl({ value: this.kiosco.nombre_kiosko, disabled: (this.action == 'edit' &&  this.kiosco.planta.activo == 0) }, [Validators.required, noWhitespaceValidator]),
+      id_planta: new FormControl({ value: this.kiosco.id_planta, disabled: (this.action == 'edit' &&  this.kiosco.planta.activo == 0) }, [Validators.pattern(/^\d+$/)]),
+      ip_privada: new FormControl({ value: this.kiosco.ip_privada, disabled: (this.action == 'edit' &&  this.kiosco.planta.activo == 0) }, [Validators.required, Validators.pattern(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/)]),
+      marca_kiosco: new FormControl({ value: this.kiosco.marca_kiosco, disabled: (this.action == 'edit' &&  this.kiosco.planta.activo == 0) }, [Validators.required, noWhitespaceValidator]),
+      modelo_kiosco: new FormControl({ value: this.kiosco.modelo_kiosco, disabled: (this.action == 'edit' &&  this.kiosco.planta.activo == 0) }, [Validators.required, noWhitespaceValidator])
     });
   }
 
@@ -164,6 +165,7 @@ export class FormKioscosComponent implements OnInit {
             this.service.insertKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
               if (result.response.sucessfull) {
                 $('#formKiosco')[0].reset();
+                this.kiosco.id_planta = -1;
                 this.submitted = false;
                 swal('Exito!', 'Kiosco registrado', 'success')
               } else {

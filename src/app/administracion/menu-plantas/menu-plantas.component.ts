@@ -47,9 +47,6 @@ export class MenuPlantasComponent implements OnInit {
 
   }
 
-  search(ev) {
-    ev.preventDefault();
-    
-  }
+
 
 }

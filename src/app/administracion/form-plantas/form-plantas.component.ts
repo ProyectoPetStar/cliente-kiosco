@@ -91,7 +91,7 @@ export class FormPlantasComponent implements OnInit {
 
   loadFormulario(): void {
     this.formulario = this.fb.group({
-      nombre_planta: new FormControl({ value: this.planta.nombre_planta, disabled: false }, [Validators.required, noWhitespaceValidator ]),
+      nombre_planta: new FormControl({ value: this.planta.nombre_planta, disabled: false }, [Validators.required, noWhitespaceValidator]),
       estado_planta: new FormControl({ value: this.planta.estado_planta, disabled: false }, [Validators.required]),
       ip_publica: new FormControl({ value: this.planta.ip_publica, disabled: false }, [Validators.required, Validators.pattern(/^([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])\.([01]?\d\d?|2[0-4]\d|25[0-5])$/)]),
       direccion_planta: new FormControl({ value: this.planta.direccion_planta, disabled: false }, [Validators.required])
@@ -172,6 +172,11 @@ export class FormPlantasComponent implements OnInit {
 
   changeStatus(estatus: number) {
     this.planta.activo = (estatus == 0) ? 1 : 0;
+
+    if (this.planta.activo == 0) {
+      swal('Advertencia', 'Los kioscos instalados en esta planta serán desactivados', 'warning');
+    }
+
   }
 
 

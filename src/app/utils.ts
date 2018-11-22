@@ -114,6 +114,16 @@ function getTablaUtf8(id: string): string {
         .replace(/´/g, '%27');
 }
 
+/**
+ * @function getFechaActual
+ * @return  {string} 
+ * @description Devuelve la fecha actual del sistema
+ */
+function getFechaActual(): string {
+    const d: Date = new Date();
+    return d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+}
+
 
 
 export{
@@ -121,6 +131,7 @@ export{
     isValidId,
     getCatalogoEstados,
     noWhitespaceValidator,
-    getTablaUtf8
+    getTablaUtf8,
+    getFechaActual
 
 }
