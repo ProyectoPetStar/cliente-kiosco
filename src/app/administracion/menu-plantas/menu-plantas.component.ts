@@ -47,6 +47,4 @@ export class MenuPlantasComponent implements OnInit {
 
   }
 
-
-
 }
