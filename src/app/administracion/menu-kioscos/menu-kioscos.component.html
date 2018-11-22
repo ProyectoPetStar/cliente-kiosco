@@ -74,13 +74,13 @@
                       <td>
                         <a [routerLink]="kiosco.id_kiosko" >{{ kiosco.nombre_kiosko }}</a>
                       </td>
+                      <td>{{ kiosco.ip_privada }}</td>
                       <td>
                           {{ kiosco.marca_kiosco }}
                       </td>
                       <td>
                           {{ kiosco.modelo_kiosco }}
-                      </td>
-                      <td>{{ kiosco.ip_privada }}</td>
+                      </td>                      
                       <td>{{ kiosco.fecha_registro_string }}</td>
                       <td>
                         <p *ngIf="kiosco.activo == 1">SI</p>

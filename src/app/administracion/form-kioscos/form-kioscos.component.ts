@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormKioscosService } from './form-kioscos.service';
 import { MenuPlantasService } from '../menu-plantas/menu-plantas.service';
-import { isValidId, noWhitespaceValidator } from '../../utils';
+import { isValidId, noWhitespaceValidator, notify } from '../../utils';
 import { Kiosco } from '../../models/kiosco';
 import swal from 'sweetalert2';
 import { Plantas } from '../../models/plantas';
 
+declare const $:any;
 @Component({
   selector: 'app-form-kioscos',
   templateUrl: './form-kioscos.component.html',
@@ -40,7 +41,7 @@ export class FormKioscosComponent implements OnInit {
     this.submitted = false;
     this.action = '';
     this.planta = new Plantas(-1, '', '', '', '', -1);
-    this.kiosco = new Kiosco(-1, '', '', '', '', '', -1, -1, '', '', '', '', this.planta);
+    this.kiosco = new Kiosco(-1, '', -1, '', '', '', -1, -1, '', '', '', '', this.planta);
 
 
 
@@ -113,6 +114,78 @@ export class FormKioscosComponent implements OnInit {
       marca_kiosco: new FormControl({ value: this.kiosco.marca_kiosco, disabled: false }, [Validators.required, noWhitespaceValidator]),
       modelo_kiosco: new FormControl({ value: this.kiosco.modelo_kiosco, disabled: false }, [Validators.required, noWhitespaceValidator])
     });
+  }
+
+  submit(ev, accion) {
+    ev.preventDefault();
+    let msj = '';
+
+    if (accion == 'edit') {
+      msj = '¿ Está seguro de actualizar los datos ?';
+    } else if (accion == 'add') {
+      msj = '¿ Está seguro de agregar kiosco ?';
+    }
+
+    this.submitted = true;
+
+    if (this.formulario.valid) {
+
+      /* 
+     * Configuración del modal de confirmación
+     */
+      swal({
+        title: '<span style="color: #303f9f ">' + msj + '</span>',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#303f9f',
+        cancelButtonColor: '#9fa8da ',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si!',
+        allowOutsideClick: false,
+        allowEnterKey: false
+      }).then((result) => {
+        /*
+         * Si acepta
+         */
+        if (result.value) {
+
+          if (accion == 'edit') {
+            this.service.updateKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
+              if (result.response.sucessfull) {
+                swal('Actualizado!', 'Datos actualizados', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+          } else if (accion == 'add') {
+
+            this.service.insertKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
+              if (result.response.sucessfull) {
+                $('#formKiosco')[0].reset();
+                this.submitted = false;
+                swal('Exito!', 'Kiosco registrado', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+
+          }
+
+          /*
+          * Si cancela accion
+          */
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          // this.disabledBtn = false;
+        }
+      })
+    } else {
+      notify('Verifique los datos capturados!', 'danger', 2800);
+    }
+
   }
 
   changeStatus(estatus: number) {
