@@ -15,7 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: './Plantas', title: 'Plantas',  icon: 'business', class: '' },
     { path: './Kioscos', title: 'Kioscos',  icon: 'devices', class: '' },
     { path: './Aplicaciones-Web', title: 'Aplicaciones web',  icon: 'public', class: '' },
-    { path: './Protector', title: 'Protector',  icon: 'photo', class: '' }
+    { path: './Protector', title: 'Protector',  icon: 'collections', class: '' }
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },
 ];
 
