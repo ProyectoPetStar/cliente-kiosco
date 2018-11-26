@@ -1,19 +1,16 @@
-.img_app{
-    width: 13rem;
-    height: 13rem;
-}
-.info{
-  color: #156ab1;
-}
-
-.action_custom{
-  color: #7aaf3f;
+.mat-hint{
+    color: red;
 }
 
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb { 
     background-color: #558b2f ; /*replace with your color*/ 
-  } 
-  
-  ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar { 
+} 
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar { 
     background-color: #7aaf3f; /*replace with your color*/ 
-  } 
+} 
+
+.img_prev{
+    width: 8rem;
+    height: 8rem;
+}

@@ -1,15 +1,30 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" *ngFor="let app of apps">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                SONARH
+                {{ app.nombre | textEllipsis: 8 }}
               </mat-panel-title>
               <mat-panel-description>
-                {{!panelOpenState ? ' Ver detalle' : ' Ocultar detalle'}}
+                {{!panelOpenState ? ' Ver' : ' Ocultar'}}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <div class="row">
@@ -18,90 +33,29 @@
                   <div class="container">
                     <img src="https://www.telegraph.co.uk/content/dam/technology/2017/08/03/Internet2_trans_NvBQzQNjv4BqJRZdqtQCcB0-hjTaQxsqmtMZZIw9jvU_z2DJKltQ1FE.jpg?imwidth=450"
                       class="img-thumbnail img-fluid">
-                  </div>
-                </div>              
-              </div>
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <br>
-                <mat-form-field>
-                  <input matInput placeholder="Nombre">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput placeholder="URL">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Descripción" value=""></textarea>
-                </mat-form-field>
-                <mat-slide-toggle>ACTIVAR</mat-slide-toggle>
-              </div>
-            </div>
-            <mat-action-row>
-              <div class="container">
-                <div class="row">
-                  <div class="col align-self-start">
-                    <a href="#" class="error">
-                      <i class="material-icons">
-                        delete_outline
-                      </i>
-                      ELIMINAR
-                    </a>
-                  </div>
-                  <div class="col align-self-center">
-                    <a href="#" class="info">
-                      <i class="material-icons">
-                        photo
-                      </i>
-                      CAMBIAR
-                    </a>
-                  </div>
-                  <div class="col align-self-end">
-                    <a href="#" class="action_custom">
-                      <i class="material-icons">
-                        autorenew
-                      </i>
-                      ACTUALIZAR DATOS
-                    </a>
                   </div>
                 </div>
               </div>
-            </mat-action-row>
-          </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                SONARH
-              </mat-panel-title>
-              <mat-panel-description>
-                {{!panelOpenState ? ' Ver detalle' : ' Ocultar detalle'}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <div class="row">
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                <div class="row">
-                  <div class="container">
-                    <img src="https://www.telegraph.co.uk/content/dam/technology/2017/08/03/Internet2_trans_NvBQzQNjv4BqJRZdqtQCcB0-hjTaQxsqmtMZZIw9jvU_z2DJKltQ1FE.jpg?imwidth=450"
-                      class="img-thumbnail img-fluid">
-                  </div>
-                </div>              
-              </div>
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                 <br>
-                <mat-form-field>
-                  <input matInput placeholder="Nombre">
-                </mat-form-field>
-                <mat-form-field>
-                  <input matInput placeholder="URL">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Descripción" value=""></textarea>
-                </mat-form-field>
-                <mat-slide-toggle>ACTIVAR</mat-slide-toggle>
+                <form>
+                  <mat-form-field>
+                    <input matInput placeholder="Nombre" [value]="app.nombre" disabled>
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input matInput placeholder="URL" [value]="app.url" disabled>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Descripción" [value]="app.descripcion"  disabled></textarea>
+                  </mat-form-field>
+                  <mat-slide-toggle [checked]="app.activo == 1" disabled>ACTIVAR</mat-slide-toggle>
+                </form>
               </div>
             </div>
             <mat-action-row>
               <div class="container">
                 <div class="row">
-                  <div class="col align-self-start">
+                  <div class="col align-self-center">
                     <a href="#" class="error">
                       <i class="material-icons">
                         delete_outline
@@ -109,20 +63,20 @@
                       ELIMINAR
                     </a>
                   </div>
-                  <div class="col align-self-center">
+                  <!-- <div class="col align-self-center">
                     <a href="#" class="info">
                       <i class="material-icons">
                         photo
                       </i>
                       CAMBIAR
                     </a>
-                  </div>
+                  </div> -->
                   <div class="col align-self-end">
-                    <a href="#" class="action_custom">
+                    <a [routerLink]="app.id_url_kiosko" class="action_custom">
                       <i class="material-icons">
-                        autorenew
+                        edit
                       </i>
-                      ACTUALIZAR DATOS
+                      EDITAR
                     </a>
                   </div>
                 </div>

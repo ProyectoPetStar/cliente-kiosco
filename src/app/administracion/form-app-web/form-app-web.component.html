@@ -17,38 +17,31 @@
   <div class="container-fluid">
     <div class="row">
       <div [ngClass]="{'col-lg-8 col-md-8': action=='edit', 'col-lg-12 col-md-12': action=='add'  ,'col-sm-12 col-xs-12':true}">
-        <form id="formPlanta" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
+        <form id="formApp" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
           <mat-card>
             <mat-card-title>
-              INFORMACIÓN DE LA PLANTA
+              INFORMACIÓN DE LA APLICACIÓN WEB
             </mat-card-title>
             <mat-card-subtitle>Ingrese todos los datos</mat-card-subtitle>
             <mat-card-content>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                   <mat-form-field>
-                    <input matInput placeholder="Nombre de la planta" formControlName="nombre_planta" [(ngModel)]="planta.nombre_planta">
-                    <mat-hint align="end" *ngIf="formulario.controls.nombre_planta.errors?.required && (formulario.controls.nombre_planta?.touched || submitted)">Requerido</mat-hint>
-                    <mat-hint align="end" *ngIf="!formulario.controls.nombre_planta.errors?.required && formulario.controls.nombre_planta.errors?.whitespace && (formulario.controls.nombre_planta?.touched || submitted)">Ingrese un nombre</mat-hint>
+                    <input matInput placeholder="Nombre" formControlName="nombre" [(ngModel)]="app.nombre">
+                    <mat-hint align="end" *ngIf="formulario.controls.nombre.errors?.required && (formulario.controls.nombre?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.nombre.errors?.required && formulario.controls.nombre.errors?.whitespace && (formulario.controls.nombre?.touched || submitted)">Ingrese un nombre</mat-hint>
                   </mat-form-field>
                   <mat-form-field>
-                    <input matInput placeholder="IP pública" formControlName="ip_publica" [(ngModel)]="planta.ip_publica">
-                    <mat-hint align="end" *ngIf="formulario.controls.ip_publica.errors?.required && (formulario.controls.ip_publica?.touched || submitted)">Requerido</mat-hint>
-                    <mat-hint align="end" *ngIf="formulario.controls.ip_publica.errors?.pattern && (formulario.controls.ip_publica?.touched || submitted)">IP no válida</mat-hint>
-                  </mat-form-field>
-                  <mat-form-field>
-                    <mat-select placeholder="Estado" formControlName="estado_planta" [(ngModel)]="planta.estado_planta">
-                      <mat-option value="">SELECCIONE</mat-option>
-                      <mat-option *ngFor="let estado of estados" [value]="estado.name">{{ estado.name }}</mat-option>
-                    </mat-select>
-                    <mat-hint align="end" *ngIf="formulario.controls.estado_planta.errors?.required && (formulario.controls.estado_planta?.touched || submitted)">Requerido</mat-hint>
+                    <input matInput placeholder="URL" formControlName="url" [(ngModel)]="app.url">
+                    <mat-hint align="end" *ngIf="formulario.controls.url.errors?.required && (formulario.controls.url?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="formulario.controls.url.errors?.pattern && (formulario.controls.url?.touched || submitted)">URL no válida</mat-hint>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                    <textarea matInput placeholder="Dirección" formControlName="direccion_planta" [(ngModel)]="planta.direccion_planta"></textarea>
-                    <mat-hint align="end" *ngIf="formulario.controls.direccion_planta.errors?.required && (formulario.controls.direccion_planta?.touched || submitted)">Requerido</mat-hint>
-                    <mat-hint align="end" *ngIf="!formulario.controls.direccion_planta.errors?.required && formulario.controls.direccion_planta.errors?.whitespace && (formulario.controls.direccion_planta?.touched || submitted)">Ingrese dirección</mat-hint>
+                    <textarea matInput placeholder="Dirección" formControlName="descripcion" [(ngModel)]="app.descripcion"></textarea>
+                    <mat-hint align="end" *ngIf="formulario.controls.descripcion.errors?.required && (formulario.controls.descripcion?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.descripcion.errors?.required && formulario.controls.descripcion.errors?.whitespace && (formulario.controls.descripcion?.touched || submitted)">Ingrese una descripción</mat-hint>
                   </mat-form-field>
-                  <mat-slide-toggle color="success" [checked]="planta.activo == 1" (change)="changeStatus(planta.activo)">Activo</mat-slide-toggle>
+                  <mat-slide-toggle color="success" [checked]="app.activo == 1" (change)="changeStatus(app.activo)">Activo</mat-slide-toggle>
                 </div>
               </div>
             </mat-card-content>
@@ -65,12 +58,12 @@
       <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" *ngIf="action == 'edit'">
         <mat-card>
           <mat-card-title align="center">
-            IMAGEN PLANTA
+            IMAGEN
           </mat-card-title>
           <!-- <mat-card-subtitle>Cambiar imagen</mat-card-subtitle> -->
           <mat-card-content>
             <div class="row d-flex justify-content-center">
-              <img src="http://www.gndesarrollos.com/images/petstar1-3.jpg" class="img-thumbnail img_prev">
+              <img src="http://www.redestrategia.com/wp-content/uploads/2015/06/El-apogeo-de-Internet-en-Latinoamerica.jpg" class="img-thumbnail img_prev">
             </div>
             <hr>
           </mat-card-content>
@@ -100,8 +93,8 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <p class="font_texto"> Planta no encontrada </p>
-        <a routerLink="../">Ver plantas disponibles</a>
+        <p class="font_texto"> Aplicación Web no encontrada </p>
+        <a routerLink="../">Ver aplicaciones web disponibles</a>
       </div>
     </div>
   </div>
