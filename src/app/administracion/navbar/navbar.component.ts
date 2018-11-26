@@ -124,6 +124,9 @@ export class NavbarComponent implements OnInit {
                 return this.listTitles[item].title;
             }
         }
+
+        titlee = titlee.replace(/-/g,' ').replace(/%C3%B3/g,'ó');
+
         return titlee;
     }
 
