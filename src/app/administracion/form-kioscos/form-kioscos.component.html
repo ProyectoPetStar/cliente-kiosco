@@ -56,7 +56,7 @@
                     <mat-hint align="end" *ngIf="formulario.controls.modelo_kiosco.errors?.required && (formulario.controls.modelo_kiosco?.touched || submitted)">Requerido</mat-hint>
                     <mat-hint align="end" *ngIf="!formulario.controls.modelo_kiosco.errors?.required && formulario.controls.modelo_kiosco.errors?.whitespace && (formulario.controls.modelo_kiosco?.touched || submitted)">Ingrese modelo</mat-hint>
                   </mat-form-field>
-                  <mat-slide-toggle color="success" [checked]="kiosco.activo == 1" (change)="changeStatus(kiosco.activo)" [disabled]="(action == 'edit' && kiosco.planta.activo == 0)">Activo</mat-slide-toggle>
+                  <mat-slide-toggle color="success"  *ngIf="action == 'edit'" [checked]="kiosco.activo == 1" (change)="changeStatus(kiosco.activo)" [disabled]="(action == 'edit' && kiosco.planta.activo == 0)">Activo</mat-slide-toggle>
                 </div>
               </div>
             </mat-card-content>
