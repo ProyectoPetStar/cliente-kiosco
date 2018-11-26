@@ -46,9 +46,8 @@ export class MenuAppWebComponent implements OnInit {
     }
   }
 
-  eliminarApp(ev, app: App) {
-    ev.preventDefault();
-
+  eliminarApp(app: App) {
+  
       /* 
        * Configuración del modal de confirmación
        */
