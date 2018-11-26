@@ -124,6 +124,43 @@ function getFechaActual(): string {
     return d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
 }
 
+/**
+ * @function arrayObjectIndexOf
+ * @param  {Array} arr -  Arreglo 
+ * @param  {any} searchTerm - que se busca 
+ * @param  {string} property - Propiedad en la que se buscará searchTerm
+ * @return  {number} 
+ * @description Regresa un numero >= 0 si encuentra el elemento que se esta buscando
+ */
+function arrayObjectIndexOf(arr, searchTerm, property): number {
+
+    for (let i = 0, len = arr.length; i < len; i++) {
+
+        if (arr[i][property] === searchTerm) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * @function deleteItemArray
+ * @param  {Array} arreglo -  Arreglo al que se eliminará un valor
+ * @param  {any} valor - Valor que será eliminado 
+ * @param  {string} propiedad - Propiedad en la que se buscará el valor
+ * @return  {Array} 
+ * @description Contiene los años que serán mostrados en el combo
+ */
+function deleteItemArray(arreglo, valor, propiedad) {
+    if (arreglo.length > 0) {
+        let exist = arrayObjectIndexOf(arreglo, valor, propiedad);
+        if (exist != -1) {
+            arreglo.splice(exist, 1);
+        }
+
+    }
+}
+
 
 
 export{
@@ -132,6 +169,7 @@ export{
     getCatalogoEstados,
     noWhitespaceValidator,
     getTablaUtf8,
-    getFechaActual
+    getFechaActual,
+    deleteItemArray
 
 }

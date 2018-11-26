@@ -15,5 +15,15 @@ export class MenuAppWebService {
     return this.http.get<any>(this.URL + '?action=getAllUrlKiosco&id_usuario='+id_usuario_kiosko);
   }
 
+  deleteUrlKiosco(id_usuario: number, id_url_kiosko: number): Observable<any> {
+    const body = new HttpParams()
+      .set('action', 'deleteUrlKiosco')
+      .set('id_url_kiosco', ''+id_url_kiosko)
+      .set('id_usuario', "" + id_usuario);
+    return this.http.post(this.URL, body);
+  }
+
+
+
 
 }

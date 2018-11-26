@@ -4,6 +4,7 @@ import { App } from '../../models/app';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert2';
+import { deleteItemArray } from '../../utils';
 
 @Component({
   selector: 'app-menu-app-web',
@@ -43,6 +44,50 @@ export class MenuAppWebComponent implements OnInit {
     } else {
       swal('Información', 'Inicie sesión de nuevo!', 'info')
     }
+  }
+
+  eliminarApp(ev, app: App) {
+    ev.preventDefault();
+
+      /* 
+       * Configuración del modal de confirmación
+       */
+      swal({
+        title: '<span style="color: #303f9f "> ¿ Eliminar '+ app.nombre + '?  </span>',
+        type: 'question',
+        html: '<p style="color: #303f9f "><b>La aplicación web será eliminada completamente del sistema </b>',
+        showCancelButton: true,
+        confirmButtonColor: '#303f9f',
+        cancelButtonColor: '#9fa8da ',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si!',
+        allowOutsideClick: false,
+        allowEnterKey: false
+      }).then((result) => {
+        /*
+         * Si acepta
+         */
+        if (result.value) {
+
+              this.service.deleteUrlKiosco(this.auth.getIdUsuario(), app.id_url_kiosko).subscribe(result => {
+                if (result.response.sucessfull) {
+                  deleteItemArray(this.apps, app.id_url_kiosko , 'id_url_kiosko');
+                  swal('Elimanado!', 'Aplicación eliminada', 'success')
+                } else {
+                  swal('Oops...', result.response.message, 'error')
+                }
+              }, error => {
+                swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+              });
+
+          /*
+          * Si cancela accion
+          */
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          
+        }
+      })
+
   }
 
 }
