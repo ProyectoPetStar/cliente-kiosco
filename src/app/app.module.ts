@@ -18,7 +18,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
 
 const routes: Routes = [
  { path: 'administracion', loadChildren: './administracion/administracion.module#AdministracionModule' },
- { path: 'portal', loadChildren: './kiosco/kiosco.module#KioscoModule' },
+ { path: 'kiosco', loadChildren: './kiosco/kiosco.module#KioscoModule' },
  { path: '**', component: PageNotFoundComponent }
 ];
 
