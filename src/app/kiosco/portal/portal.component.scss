@@ -1,8 +1,7 @@
-::-webkit-scrollbar {width: 6px;cursor: auto}
-::-webkit-scrollbar-track {background: rgb(27, 17, 42); }
-::-webkit-scrollbar-thumb {background:transparent; }
-::-webkit-scrollbar-thumb:hover {background: rgba(255, 75, 168,.75); }
+.section-about[_ngcontent-c1] .about-h[_ngcontent-c1], .section-work[_ngcontent-c1] .work-h[_ngcontent-c1], .section-labs[_ngcontent-c1] .labs-h[_ngcontent-c1], .section-contact[_ngcontent-c1] .contact-h[_ngcontent-c1]{
+    margin-top: 40px;
+}
 
-.container-fluid{
-    padding-left: 10px;
+.nav-left[_ngcontent-c1] img[_ngcontent-c1] {
+    margin: 40px 20px 0 0;
 }

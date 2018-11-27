@@ -21,7 +21,7 @@ export class PortalComponent implements OnInit {
     setTimeout(() => {
       $('.section-labs').hide();
       new WOW().init();
-    }, 50);
+    }, 150);
   }
 
 }

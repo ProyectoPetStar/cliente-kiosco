@@ -223,7 +223,8 @@ span.h3{
 
 .section-labs  .card-text:last-child{color: #5a5572}
 
- .section-labs .card a { color: #c73f8b; display: block; }
+ /* .section-labs .card a { color: #c73f8b; display: block; } */
+ .section-labs .card a { color: white; display: block; }
 
 .section-labs .card a:hover,.alert a:hover,.alert{text-decoration: none}
 
