@@ -34,7 +34,9 @@
         "../node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
         "../node_modules/bootstrap-notify/bootstrap-notify.js",
         "../node_modules/highcharts/highcharts.js",
-        "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"
+        "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js",
+        "./assets/js/wow.min.js",
+        "./assets/js/plugin.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
