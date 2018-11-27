@@ -1,7 +1,21 @@
 .section-about[_ngcontent-c1] .about-h[_ngcontent-c1], .section-work[_ngcontent-c1] .work-h[_ngcontent-c1], .section-labs[_ngcontent-c1] .labs-h[_ngcontent-c1], .section-contact[_ngcontent-c1] .contact-h[_ngcontent-c1]{
     margin-top: 40px;
+    color: white;
+    font-size: 2rem;
+    opacity: 0.6;
 }
 
 .nav-left[_ngcontent-c1] img[_ngcontent-c1] {
     margin: 40px 20px 0 0;
+}
+
+.section-about[_ngcontent-c1] .about-h-2[_ngcontent-c1] {
+    color: white;
+    opacity: 0.6;
+}
+
+.section-about[_ngcontent-c1] p.lead[_ngcontent-c1]{
+    font-size: 1.4rem;
+    color: white;
+    opacity: 0.6;
 }
