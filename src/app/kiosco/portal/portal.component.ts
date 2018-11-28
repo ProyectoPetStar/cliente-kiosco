@@ -39,7 +39,7 @@ export class PortalComponent implements OnInit {
 
       
         this.apps = result.data.listUrlKiosco;
-        this.available = true;
+        this.available = false;
         this.loading = false;
 
         setTimeout(()=>{

@@ -25,4 +25,18 @@
     font-weight: bold;
 }
 
+.img_size{
+    width: calc(100%); 
+    height: calc(100%);   
+}
+
+.centrado{
+    display: flex;
+    vertical-align:middle;
+    margin-left: auto;
+    margin-right: auto; 
+    padding-top: 10%;
+
+}
+
 

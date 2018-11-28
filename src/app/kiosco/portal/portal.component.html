@@ -1,13 +1,13 @@
 <div *ngIf="loading" id="body">
-  <div class="container-fluid">
+  <!-- <div class="container-fluid">
     <div class="center_bar">
-        <div align="center">
-          <h3 class="align-middle">Cargando contenido ... </h3>
-          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-        </div>
-    </div>
-  </div>
+        <div align="center"> -->
+  <h3 class="align-middle">Cargando contenido ... </h3>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
+<!-- </div>
+  </div>
+</div> -->
 <div id="body" *ngIf="!loading && available">
   <!--- toggle sm-->
   <div class="pos-f-t d-md-none toggle-sm">
@@ -86,5 +86,5 @@
   </div>
 </div>
 <div *ngIf="!loading && !available">
-
+  <img src="../../../assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
