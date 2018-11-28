@@ -1,5 +1,5 @@
 /* body*/
-#body{
+#body,#body1{
     background: url('../img/fondo_kiosco.png') no-repeat  fixed  ;
     -webkit-background-size:cover;
     -o-background-size:cover;

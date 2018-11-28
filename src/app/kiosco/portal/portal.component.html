@@ -1,13 +1,9 @@
-<div *ngIf="loading" id="body">
-  <!-- <div class="container-fluid">
-    <div class="center_bar">
-        <div align="center"> -->
-  <h3 class="align-middle">Cargando contenido ... </h3>
+<!-- <div id="body1" class="container-fluid" *ngIf="loading" >
+
+  <h3 class="align-middle">Cargando ... </h3>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div>
-<!-- </div>
-  </div>
 </div> -->
+
 <div id="body" *ngIf="!loading && available">
   <!--- toggle sm-->
   <div class="pos-f-t d-md-none toggle-sm">
@@ -30,9 +26,10 @@
   <div class="container-fluid">
     <div class="row">
       <!-- nav left-->
-      <div class="col-12  d-none d-md-inline-block  col-md-3   col-lg-2 nav-left wow fadeInLeft " data-wow-duration="1.5s">
-        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid d-block">
-        <ul class="list-unstyled navigate">
+      <!-- <div class="col-12  d-none d-md-inline-block  col-md-3   col-lg-2 nav-left wow fadeInLeft " data-wow-duration="1.5s"> -->
+      <div class="col-12  col-md-3   col-lg-2 nav-left wow fadeInLeft" >
+        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido" style="display: none">
+        <ul class="list-unstyled navigate start_contenido">
           <li>INICIO</li>
         </ul>
       </div>
@@ -40,7 +37,7 @@
 
       <!-- right element-->
       <div class="col-12  col-md-9 col-lg-10  right-element">
-        <section class="section-about">
+        <section class="section-about start_contenido">
           <div class="container">
             <h2 class="h1 about-h wow fadeInRight">INICIO</h2>
             <div class="row">
@@ -62,7 +59,7 @@
 
         <!-- labs section-->
 
-        <section class="section-labs ">
+        <section class="section-labs app_contenido">
           <div class="container">
             <h2 class="h1 labs-h">Aplicaciones</h2>
             <div class="row">

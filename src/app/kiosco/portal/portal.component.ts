@@ -23,6 +23,7 @@ export class PortalComponent implements OnInit {
   public loading: boolean;
   public apps: Array<App>;
   public available: boolean;
+  public control_image:boolean;
 
 
   constructor(private service: PortalService,
@@ -32,21 +33,22 @@ export class PortalComponent implements OnInit {
 
     this.loading = true;
     this.available = true;
+    this.control_image = false;
     this.apps = [];
 
     this.service.getAllApps().subscribe(result => {
       if (result.response.sucessfull) {
 
-      
+
         this.apps = result.data.listUrlKiosco;
-        this.available = false;
+        this.available = true;
         this.loading = false;
 
         setTimeout(()=>{
           this.pluginEffect();
-        },200);
+        },50);
 
-  
+
       } else {
 
         swal('Oops...', result.response.message, 'error');
@@ -63,7 +65,7 @@ export class PortalComponent implements OnInit {
 
   }
 
-  
+
 
   startApp():void {
     $('.section-about').fadeOut();
@@ -71,8 +73,11 @@ export class PortalComponent implements OnInit {
   }
 
   pluginEffect():void{
-    $('.section-labs').hide();
-    new WOW().init();
+    setTimeout(()=>{
+      $('.start_contenido').show();
+      this.control_image = true;
+      new WOW().init();
+    },1000);
   }
 
 }
