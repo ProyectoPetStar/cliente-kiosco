@@ -24,4 +24,9 @@ export class PortalComponent implements OnInit {
     }, 150);
   }
 
+  startApp(){
+    $('.section-about').fadeOut();
+    $('.section-labs').fadeIn();
+  }
+
 }

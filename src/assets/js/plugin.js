@@ -2,7 +2,7 @@
 $(document).ready(function () {
     "use strict";
 
-  
+    var btnStart = $('#btnStart');
 
     var zero0 = $('.toggle-sm .navigate li:eq(0),.nav-left .navigate li:eq(0)'),
         one1 = $('.toggle-sm .navigate li:eq(1),.nav-left .navigate li:eq(1)'),
@@ -11,10 +11,8 @@ $(document).ready(function () {
 
         
     zero0.on('click', function () {
-        $('.section-about').fadeIn();
-        $('.section-work').fadeOut();
-        $('.section-labs').fadeOut();
-        $('.section-contact').fadeOut();
+        $('.section-about').fadeIn();       
+        $('.section-labs').fadeOut();       
         $(this).css({"color": "#ea469e", "border-left": "5px solid #ff4ba8"}).end();
         one1.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
         two2.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
@@ -25,9 +23,7 @@ $(document).ready(function () {
 
     one1.on('click', function () {
         $('.section-about').fadeOut();
-        $('.section-work').fadeIn();
-        $('.section-labs').fadeOut();
-        $('.section-contact').fadeOut();
+        $('.section-labs').fadeOut();      
         $(this).css({"color": "#ea469e", "border-left": "5px solid #ff4ba8"}).end();
         zero0.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
         two2.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
@@ -37,8 +33,6 @@ $(document).ready(function () {
 
     two2.on('click', function () {
         $('.section-about').fadeOut();
-        $('.section-work').fadeOut();
-        $('.section-contact').fadeOut();
         $('.section-labs').fadeIn();
         $(this).css({"color": "#ea469e", "border-left": "5px solid #ff4ba8"}).end();
         zero0.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
@@ -48,10 +42,8 @@ $(document).ready(function () {
      
     });
     three3.on('click', function () {
-        $('.section-about').fadeOut();
-        $('.section-work').fadeOut();
-        $('.section-labs').fadeOut();
-        $('.section-contact').fadeIn();
+        $('.section-about').fadeOut();     
+        $('.section-labs').fadeOut();    
         $(this).css({"color": "#ea469e", "border-left": "5px solid #ff4ba8"}).end();
         zero0.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
         one1.css({"color": "#fff", "border-left": "0px solid transparent"}).end();
@@ -59,9 +51,5 @@ $(document).ready(function () {
 
      
     });
-
-
-
-
 
 });
