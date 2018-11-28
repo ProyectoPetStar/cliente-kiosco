@@ -72,6 +72,13 @@ export class PortalComponent implements OnInit {
     $('.section-labs').fadeIn();
   }
 
+  showInicio(){
+    $('.section-labs').fadeOut();
+    setTimeout(()=>{
+      $('.section-about').fadeIn();
+    },900);
+  }
+
   pluginEffect():void{
     setTimeout(()=>{
       $('.start_contenido').show();

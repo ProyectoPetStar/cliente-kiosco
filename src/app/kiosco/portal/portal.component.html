@@ -26,11 +26,11 @@
   <div class="container-fluid">
     <div class="row">
       <!-- nav left-->
-      <!-- <div class="col-12  d-none d-md-inline-block  col-md-3   col-lg-2 nav-left wow fadeInLeft " data-wow-duration="1.5s"> -->
+
       <div class="col-12  col-md-3   col-lg-2 nav-left wow fadeInLeft" >
-        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido" style="display: none">
-        <ul class="list-unstyled navigate start_contenido">
-          <li>INICIO</li>
+        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido">
+        <ul class="list-unstyled navigate">
+          <li class="start_contenido" (click)="showInicio()">INICIO</li>
         </ul>
       </div>
       <!--end  nav left-->
@@ -41,7 +41,7 @@
           <div class="container">
             <h2 class="h1 about-h wow fadeInRight">INICIO</h2>
             <div class="row">
-              <div class="col-md-7 wow fadeInRight">
+              <div class="col-md-7 wow fadeInRight" data-wow-duration="2s">
                 <h2 class="h1 about-h-2">BIENVENIDO
                 </h2>
                 <h3>KIOSCO VIRTUAL</h3>
@@ -50,12 +50,19 @@
                 </p>
                 <a href="#" class="btn bt1 hvr-grow" (click)="startApp();false" id="btnStart">ENTRAR</a>
               </div>
-              <div class="col-md-5 d-none d-md-inline-block wow fadeInRight">
+              <div class="col-md-5 d-none d-md-inline-block wow fadeInRight" data-wow-duration="2s">
                 <img src="../../../assets/img/marca_agua_fondo_kiosco.png" class="img-fluid">
               </div>
             </div>
           </div>
         </section>
+        
+        <!-- btn flotante -->
+        <!-- <div class="float-right">
+          <button type="button">REGRESAR</button>
+        </div> -->
+        <!-- btn flotante -->
+      
 
         <!-- labs section-->
 
@@ -63,7 +70,7 @@
           <div class="container">
             <h2 class="h1 labs-h">Aplicaciones</h2>
             <div class="row">
-              <div class="col-12 col-md-6 col-lg-4 wow fadeInUp" *ngFor="let app of apps">
+              <div class="col-12 col-md-6 col-lg-4 wow fadeInUp" data-wow-duration="2s" *ngFor="let app of apps">
                 <div class="card" style="width: 100%;">
                   <img class="card-img-top" src="https://www.youtube.com/yts/img/yt_1200-vfl4C3T0K.png" alt="Card image cap">
                   <div class="card-body">
