@@ -1,4 +1,14 @@
-<div id="body">
+<div *ngIf="loading" id="body">
+  <div class="container-fluid">
+    <div class="center_bar">
+        <div align="center">
+          <h3 class="align-middle">Cargando contenido ... </h3>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+  </div>
+</div>
+<div id="body" *ngIf="!loading && available">
   <!--- toggle sm-->
   <div class="pos-f-t d-md-none toggle-sm">
     <div class="collapse" id="toggle-sm">
@@ -39,7 +49,7 @@
                 </h2>
                 <h3>KIOSCO VIRTUAL</h3>
                 <p class="lead">
-                 KIOSCOS PETSTAR ES UN PORTAL QUE OFRECE ACCESO RÁPIDO A LOS DIFERENTES SISTEMAS DE INFORMACIÓN PROPIOS DE LA EMPRESA    
+                  KIOSCOS PETSTAR ES UN PORTAL QUE OFRECE ACCESO RÁPIDO A LOS DIFERENTES SISTEMAS DE INFORMACIÓN PROPIOS DE LA EMPRESA
                 </p>
                 <a href="#" class="btn bt1 hvr-grow" (click)="startApp();false" id="btnStart">ENTRAR</a>
               </div>
@@ -56,13 +66,13 @@
           <div class="container">
             <h2 class="h1 labs-h">Aplicaciones</h2>
             <div class="row">
-              <div class="col-12 col-md-6 col-lg-4 wow fadeInUp">
+              <div class="col-12 col-md-6 col-lg-4 wow fadeInUp" *ngFor="let app of apps">
                 <div class="card" style="width: 100%;">
-                  <!-- <img class="card-img-top" src="images/labs/colorsup.png" alt="Card image cap"> -->
+                  <img class="card-img-top" src="https://www.youtube.com/yts/img/yt_1200-vfl4C3T0K.png" alt="Card image cap">
                   <div class="card-body">
-                    <h5>Colorsup</h5>
-                    <p class="card-text">example text to build on the card title and make up the bulk of the card's content.
-                      <a href="">check now</a>
+                    <h5>{{ app.nombre }}</h5>
+                    <p class="card-text">{{ app.descripcion }}
+                      <a href="">Entrar</a>
                     </p>
                   </div>
                 </div>
@@ -74,4 +84,7 @@
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="!loading && !available">
+
 </div>
