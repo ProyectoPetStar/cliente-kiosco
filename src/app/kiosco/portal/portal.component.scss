@@ -25,8 +25,32 @@
     font-weight: bold;
 }
 
-.start_contenido, .app_contenido{
+.start_contenido, .app_contenido, .start_contenido_nav{
     display: none;
+}
+
+.floating-btn {
+    position: fixed;
+    //bottom: 5px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.btn-rounded{
+    border-radius: 50px;
+}
+
+
+element.style {
+    display: flex;
+}
+
+iframe {
+    display: block;       /* iframes are inline by default */
+    background: white;
+    border: none;         /* Reset default border */
+    height: 100vh;        /* Viewport-relative units */
+    width: 100vw;
 }
 
 

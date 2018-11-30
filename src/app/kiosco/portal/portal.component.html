@@ -3,8 +3,10 @@
   <h3 class="align-middle">Cargando ... </h3>
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div> -->
-
-<div id="body" *ngIf="!loading && available">
+<div class="floating-btn" *ngIf="showSystem">
+    <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;<i class="fa fa fa-arrow-left pl-1"></i></button>
+</div>
+<div id="body" *ngIf="!loading && available && !showSystem">
   <!--- toggle sm-->
   <div class="pos-f-t d-md-none toggle-sm">
     <div class="collapse" id="toggle-sm">
@@ -27,10 +29,10 @@
     <div class="row">
       <!-- nav left-->
 
-      <div class="col-12  col-md-3   col-lg-2 nav-left wow fadeInLeft" >
-        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido">
+      <div class="col-12  col-md-3   col-lg-2 nav-left wow fadeInLeft">
+        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido_nav">
         <ul class="list-unstyled navigate">
-          <li class="start_contenido" (click)="showInicio()">INICIO</li>
+          <li class="start_contenido_nav" (click)="showInicio()">INICIO</li>
         </ul>
       </div>
       <!--end  nav left-->
@@ -56,16 +58,8 @@
             </div>
           </div>
         </section>
-        
-        <!-- btn flotante -->
-        <!-- <div class="float-right">
-          <button type="button">REGRESAR</button>
-        </div> -->
-        <!-- btn flotante -->
-      
 
         <!-- labs section-->
-
         <section class="section-labs app_contenido">
           <div class="container">
             <h2 class="h1 labs-h">Aplicaciones</h2>
@@ -76,7 +70,7 @@
                   <div class="card-body">
                     <h5>{{ app.nombre }}</h5>
                     <p class="card-text">{{ app.descripcion }}
-                      <a href="">Entrar</a>
+                      <a href="#" (click)="goSystem(app);false">Entrar</a>
                     </p>
                   </div>
                 </div>
@@ -90,5 +84,10 @@
   </div>
 </div>
 <div *ngIf="!loading && !available">
-    <img src="../../../assets/img/construccion.png" class="img-responsive img_size centrado">
+  <img src="../../../assets/img/construccion.png" class="img-responsive img_size centrado">
+</div>
+<div class="ajuste_alto" *ngIf="showSystem">
+  <iframe [src]=" this.app.url | safe" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+    allowTransparency="true" allowFullScreen="true" allow="encrypted-media">
+  </iframe>
 </div>

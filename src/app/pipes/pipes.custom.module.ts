@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextEllipsisPipeClass } from './format.text.pipe';
+import { Safepipe } from './safepipe.pipe';
 
 @NgModule({
     imports: [
         CommonModule
     ],
     declarations: [
-        TextEllipsisPipeClass
+        TextEllipsisPipeClass,
+        Safepipe
     ],
     exports: [
-        TextEllipsisPipeClass
+        TextEllipsisPipeClass,
+        Safepipe
 
     ]
 })

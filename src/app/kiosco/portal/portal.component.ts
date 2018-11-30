@@ -23,7 +23,8 @@ export class PortalComponent implements OnInit {
   public loading: boolean;
   public apps: Array<App>;
   public available: boolean;
-  public control_image:boolean;
+  public showSystem: boolean;
+  public app: App;
 
 
   constructor(private service: PortalService,
@@ -33,8 +34,9 @@ export class PortalComponent implements OnInit {
 
     this.loading = true;
     this.available = true;
-    this.control_image = false;
+    this.showSystem = false;
     this.apps = [];
+    this.app = new App(-1, '', '', '', '', -1);
 
     this.service.getAllApps().subscribe(result => {
       if (result.response.sucessfull) {
@@ -44,9 +46,9 @@ export class PortalComponent implements OnInit {
         this.available = true;
         this.loading = false;
 
-        setTimeout(()=>{
+        setTimeout(() => {
           this.pluginEffect();
-        },50);
+        }, 50);
 
 
       } else {
@@ -67,24 +69,73 @@ export class PortalComponent implements OnInit {
 
 
 
-  startApp():void {
+  startApp(): void {
     $('.section-about').fadeOut();
     $('.section-labs').fadeIn();
   }
 
-  showInicio(){
+  showInicio() {
     $('.section-labs').fadeOut();
-    setTimeout(()=>{
+    setTimeout(() => {
       $('.section-about').fadeIn();
-    },900);
+    }, 900);
   }
 
-  pluginEffect():void{
-    setTimeout(()=>{
-      $('.start_contenido').show();
-      this.control_image = true;
+  pluginEffect(): void {
+    setTimeout(() => {
+      $('.start_contenido,.start_contenido_nav').show();
       new WOW().init();
-    },1000);
+    }, 1000);
+  }
+
+  goSystem(app_selected: App): void {
+    this.app = app_selected;
+    this.showSystem = true;
+    setTimeout(() => {
+      let heightsize = $(window).height();
+
+      $('.ajuste_alto').height(heightsize);
+    }, 1000);
+
+  }
+
+  volverApps(): void {
+
+    /* 
+    * Configuración del modal confirma salir
+    */
+    swal({
+      title: '<span style="color: #DD6B55"> ¿Está seguro de que quiere salir de ' + this.app.nombre + ' ? </span>',
+      html: '<span style="color: #DD6B55">Si inicio sesión verifique que su cuenta este cerrada</span>',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      cancelButtonColor: '#DD6B55 ',
+      
+      cancelButtonText: 'Verificar',
+      confirmButtonText: 'Salir ahora',
+      allowOutsideClick: false,
+      allowEnterKey: false
+    }).then((result) => {
+      /*
+       * Si acepta
+       */
+      if (result.value) {
+        
+        this.showSystem = false;
+
+        setTimeout(()=>{
+          this.startApp();
+          $('.start_contenido_nav').show();
+        },50);
+        /*
+        * Si cancela accion
+        */
+      } else if (result.dismiss === swal.DismissReason.cancel) {
+
+      }
+    })
+
   }
 
 }
