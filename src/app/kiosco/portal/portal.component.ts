@@ -91,9 +91,23 @@ export class PortalComponent implements OnInit {
   }
 
   goSystem(app_selected: App): void {
+
+    $.blockUI({
+      message: '<h3><img src="../assets/img/loader_icon_kiosco.gif" /> Cargando contenido ...</h3>',
+      css: {
+        border: 'none',
+        padding: '15px',
+        backgroundColor: '#000',
+        '-webkit-border-radius': '10px',
+        '-moz-border-radius': '10px',
+        opacity: .5,
+        color: '#fff'
+      }
+    });
+
     this.app = app_selected;
-    
     this.showSystem = true;
+
     setTimeout(() => {
       let heightsize = $(window).height();
 
@@ -143,7 +157,11 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
-      this.loading_system = this.loading_system? false : true;
+    this.loading_system = this.loading_system ? false : true;
+
+    if (!this.loading_system) {
+      $.unblockUI();
+    }
   }
 
 }
