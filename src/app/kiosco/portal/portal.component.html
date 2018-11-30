@@ -1,5 +1,5 @@
-<div class="floating-btn" *ngIf="showSystem && !loading_system">
-  <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;
+<div class="floating-btn" *ngIf="showSystem">
+  <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()" [hidden]="loading_system">REGRESAR&nbsp;&nbsp;
     <i class="fa fa fa-arrow-left pl-1"></i>
   </button>
 </div>

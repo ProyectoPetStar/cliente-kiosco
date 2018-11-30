@@ -30,6 +30,7 @@
     "ajv": "6.4.0",
     "angular2-jwt": "^0.2.3",
     "arrive": "2.4.1",
+    "block-ui": "^2.70.1",
     "bootstrap": "4.1.0",
     "bootstrap-material-design": "4.1.1",
     "bootstrap-notify": "3.1.3",

@@ -92,6 +92,7 @@ export class PortalComponent implements OnInit {
 
   goSystem(app_selected: App): void {
     this.app = app_selected;
+    
     this.showSystem = true;
     setTimeout(() => {
       let heightsize = $(window).height();
@@ -142,9 +143,7 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
-    setTimeout(()=>{
       this.loading_system = this.loading_system? false : true;
-    },100);
   }
 
 }
