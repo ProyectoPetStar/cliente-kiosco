@@ -1,10 +1,7 @@
-<!-- <div id="body1" class="container-fluid" *ngIf="loading" >
-
-  <h3 class="align-middle">Cargando ... </h3>
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</div> -->
-<div class="floating-btn" *ngIf="showSystem">
-    <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;<i class="fa fa fa-arrow-left pl-1"></i></button>
+<div class="floating-btn" *ngIf="showSystem && !loading_system">
+  <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;
+    <i class="fa fa fa-arrow-left pl-1"></i>
+  </button>
 </div>
 <div id="body" *ngIf="!loading && available && !showSystem">
   <!--- toggle sm-->
@@ -87,7 +84,7 @@
   <img src="../../../assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
-  <iframe [src]=" this.app.url | safe" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
-    allowTransparency="true" allowFullScreen="true" allow="encrypted-media">
+  <iframe [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
+    scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" [hidden]="loading_system">
   </iframe>
 </div>

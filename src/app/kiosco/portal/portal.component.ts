@@ -21,6 +21,7 @@ declare const WOW: any;
 export class PortalComponent implements OnInit {
 
   public loading: boolean;
+  public loading_system: boolean;
   public apps: Array<App>;
   public available: boolean;
   public showSystem: boolean;
@@ -33,6 +34,7 @@ export class PortalComponent implements OnInit {
   ngOnInit() {
 
     this.loading = true;
+    this.loading_system = false;
     this.available = true;
     this.showSystem = false;
     this.apps = [];
@@ -111,7 +113,7 @@ export class PortalComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
       cancelButtonColor: '#DD6B55 ',
-      
+
       cancelButtonText: 'Verificar',
       confirmButtonText: 'Salir ahora',
       allowOutsideClick: false,
@@ -121,13 +123,14 @@ export class PortalComponent implements OnInit {
        * Si acepta
        */
       if (result.value) {
-        
-        this.showSystem = false;
 
-        setTimeout(()=>{
+        this.showSystem = false;
+        this.loading_system = false;
+
+        setTimeout(() => {
           this.startApp();
           $('.start_contenido_nav').show();
-        },50);
+        }, 50);
         /*
         * Si cancela accion
         */
@@ -136,6 +139,12 @@ export class PortalComponent implements OnInit {
       }
     })
 
+  }
+
+  loadingSystem(): void {
+    setTimeout(()=>{
+      this.loading_system = this.loading_system? false : true;
+    },100);
   }
 
 }
