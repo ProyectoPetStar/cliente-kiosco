@@ -26,6 +26,8 @@ export class UserProfileComponent implements OnInit {
   public submittedPerfil: boolean;
   public submittedPwd: boolean;
   public mensajePwd: string;
+  public image_selected: any;
+  public image: any;
 
   constructor(
     private service: UserProfileService,
@@ -55,8 +57,24 @@ export class UserProfileComponent implements OnInit {
           this.usuario = result.data.usuario;
           this.loading = false;
           this.loadFormulario();
+
+          /*
+           * Get recupera image
+           */
+          this.service.getImage(this.auth.getIdUsuario(), 'usuario', this.usuario.imagen).subscribe(result => {           
+            if (result.response.sucessfull) {
+              this.image = 'data:image/jpg;base64,'+result.response.message;
+            } else {
+              notify('No se cargó imagen de perfil', 'danger', 3000);
+            }
+
+          }, error => {
+            notify('No se cargó imagen de perfil', 'danger', 3000);
+          });
+
+
         } else {
-          swal('Oops...', result.response.message , 'error')          
+          swal('Oops...', result.response.message, 'error')
           this.loading = false;
         }
       }, error => {
@@ -162,7 +180,7 @@ export class UserProfileComponent implements OnInit {
 
           this.service.changePassword(this.auth.getIdUsuario(), this.password.actual, this.password.nueva).subscribe(result => {
             if (result.response.sucessfull) {
-            
+
               $('#formpwd')[0].reset()
               this.submittedPwd = false;
 
@@ -188,7 +206,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   clearMsj() {
-   
+
     if (this.password.nueva === this.password.confirmacion) {
       this.mensajePwd = '';
     } else {
@@ -196,6 +214,47 @@ export class UserProfileComponent implements OnInit {
     }
 
   }
+
+  seleccionaArchivo(evt): void {
+    evt.preventDefault();
+    //Si existe archivo cargado
+    if (evt.target.files.length > 0) {
+      let file = evt.target.files[0]; // FileList object
+
+      let reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      //Se leyó correctamente el file
+      reader.onload = () => {
+        this.image_selected = reader.result.split(',')[1];
+        this.image = new String(this.image_selected);
+      }
+
+      //Ocurrio un error al leer file
+      reader.onerror = (error) => {
+        this.image_selected = '';
+      };
+    } else {
+      //this.image = '';
+    }
+  }
+
+  uploadImage(): void {
+
+    this.service.uploadImage(this.auth.getIdUsuario(), this.image_selected, 'usuario', this.auth.getIdUsuario()).subscribe(result => {
+      if (result.response.sucessfull) {
+        this.image_selected = '';
+        swal('Imagen actualizada!', 'Se actualizó su imagen de perfil', 'success')
+      } else {
+        swal('Oops...', result.response.message, 'error')
+      }
+    }, error => {
+      swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+    });
+
+  }
+
 
 
 }

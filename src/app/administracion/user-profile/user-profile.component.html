@@ -84,7 +84,7 @@
             <div class="col-md-4">
                 <div class="card card-profile">
                     <div class="card-avatar">
-                        <img class="img" src="../assets/img/avatar.jpg" />
+                        <img class="img" [src]=" image | safe " />
                     </div>
                     <div class="card-body">
                         <h6 class="card-category text-gray">{{ usuario.perfil.nombre_perfil }}</h6>
@@ -92,11 +92,12 @@
                         <!-- <p class="card-description"> -->
                         <div class="upload-btn-wrapper">
                             <button class="btn-custom-file">Seleccione Imagen</button>
-                            <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" />
+                            <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
+                            />
                         </div>
                         <!-- </p> -->
                         <p>
-                            <button  class="btn btn-success btn-round" disabled>CAMBIAR FOTO</button>
+                            <button class="btn btn-success btn-round" (click)="uploadImage()" [disabled]="image_selected == undefined || image_selected == '' || image_selected == null">CAMBIAR FOTO</button>
                         </p>
                     </div>
                 </div>

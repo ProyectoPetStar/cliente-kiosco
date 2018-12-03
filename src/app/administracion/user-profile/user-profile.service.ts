@@ -8,6 +8,7 @@ import { User } from '../../models/user';
 export class UserProfileService {
 
   private URL = BASE_URL_SERVICE + '/Users';
+  private URL_IMAGE = BASE_URL_SERVICE + '/UploadImage';
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,21 @@ export class UserProfileService {
     .set('id_acceso',''+id_usuario)
     .set('id_usuario', ''+id_usuario);
     return this.http.post(this.URL,body);
+  }
+
+  uploadImage(id_usuario:number, image_base64:string, object: string, id:number): Observable<any>{
+
+    const body = new HttpParams()
+    .set('action', 'uploadImage')
+    .set('file', image_base64 )
+    .set('object', object )
+    .set('id', ""+ id )
+    .set('id_usuario', ""+id_usuario);
+    return this.http.post(this.URL_IMAGE,body);
+  }
+
+  getImage(id_usuario_kiosko: number, object:string, name_image:string): Observable<any> {
+    return this.http.get<any>(this.URL_IMAGE + '?action=getImage&object='+object+'&name_image=' + name_image+'&id_usuario='+id_usuario_kiosko);
   }
 
 
