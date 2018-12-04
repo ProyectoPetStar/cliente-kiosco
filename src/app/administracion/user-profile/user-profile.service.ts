@@ -39,15 +39,15 @@ export class UserProfileService {
 
     const body = new HttpParams()
     .set('action', 'uploadImage')
-    .set('file', image_base64 )
+    .set('file', ''+image_base64 )
     .set('object', object )
     .set('id', ""+ id )
     .set('id_usuario', ""+id_usuario);
     return this.http.post(this.URL_IMAGE,body);
   }
 
-  getImage(id_usuario_kiosko: number, object:string, name_image:string): Observable<any> {
-    return this.http.get<any>(this.URL_IMAGE + '?action=getImage&object='+object+'&name_image=' + name_image+'&id_usuario='+id_usuario_kiosko);
+  getImage(id_usuario_kiosko: number, nombre_image:string): Observable<any> {
+    return this.http.get<any>(this.URL_IMAGE + '?action=getImage&nombre_image=' + nombre_image+'&id_usuario='+id_usuario_kiosko);
   }
 
 

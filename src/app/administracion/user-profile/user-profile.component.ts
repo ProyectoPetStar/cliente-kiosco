@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
   public submittedPerfil: boolean;
   public submittedPwd: boolean;
   public mensajePwd: string;
-  public image_selected: any;
+  public aux_image: any;
   public image: any;
 
   constructor(
@@ -61,7 +61,7 @@ export class UserProfileComponent implements OnInit {
           /*
            * Get recupera image
            */
-          this.service.getImage(this.auth.getIdUsuario(), 'usuario', this.usuario.imagen).subscribe(result => {           
+          this.service.getImage(this.auth.getIdUsuario(), this.usuario.imagen).subscribe(result => {           
             if (result.response.sucessfull) {
               this.image = 'data:image/jpg;base64,'+result.response.message;
             } else {
@@ -227,24 +227,26 @@ export class UserProfileComponent implements OnInit {
 
       //Se leyó correctamente el file
       reader.onload = () => {
-        this.image_selected = reader.result.split(',')[1];
-        this.image = new String(this.image_selected);
+
+        this.aux_image = reader.result.split(',')[1];
+        this.image = 'data:image/jpg;base64,'+ new String(this.aux_image);
       }
 
       //Ocurrio un error al leer file
       reader.onerror = (error) => {
-        this.image_selected = '';
+        this.aux_image = '';
       };
     } else {
-      //this.image = '';
+       this.aux_image = '';
     }
   }
 
   uploadImage(): void {
 
-    this.service.uploadImage(this.auth.getIdUsuario(), this.image_selected, 'usuario', this.auth.getIdUsuario()).subscribe(result => {
+    this.service.uploadImage(this.auth.getIdUsuario(), this.aux_image, 'usuario', this.auth.getIdUsuario()).subscribe(result => {
+      console.log('update user',result)
       if (result.response.sucessfull) {
-        this.image_selected = '';
+        this.aux_image = '';
         swal('Imagen actualizada!', 'Se actualizó su imagen de perfil', 'success')
       } else {
         swal('Oops...', result.response.message, 'error')

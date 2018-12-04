@@ -27,7 +27,7 @@
       <!-- nav left-->
 
       <div class="col-12  col-md-3   col-lg-2 nav-left wow fadeInLeft">
-        <img src="../../../assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido_nav">
+        <img src="assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido_nav">
         <ul class="list-unstyled navigate">
           <li class="start_contenido_nav" (click)="showInicio()">INICIO</li>
         </ul>
@@ -50,7 +50,7 @@
                 <a href="#" class="btn bt1 hvr-grow" (click)="startApp();false" id="btnStart">ENTRAR</a>
               </div>
               <div class="col-md-5 d-none d-md-inline-block wow fadeInRight" data-wow-duration="2s">
-                <img src="../../../assets/img/marca_agua_fondo_kiosco.png" class="img-fluid">
+                <img src="assets/img/marca_agua_fondo_kiosco.png" class="img-fluid">
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
   </div>
 </div>
 <div *ngIf="!loading && !available">
-  <img src="../../../assets/img/construccion.png" class="img-responsive img_size centrado">
+  <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
   <iframe [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
