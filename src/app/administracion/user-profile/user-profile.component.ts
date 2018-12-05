@@ -61,7 +61,8 @@ export class UserProfileComponent implements OnInit {
           /*
            * Get recupera image
            */
-          this.service.getImage(this.auth.getIdUsuario(), this.usuario.imagen).subscribe(result => {           
+          this.service.getImage(this.auth.getIdUsuario(), this.usuario.imagen).subscribe(result => {    
+          
             if (result.response.sucessfull) {
               this.image = 'data:image/jpg;base64,'+result.response.message;
             } else {

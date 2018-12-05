@@ -47,7 +47,7 @@ export class UserProfileService {
   }
 
   getImage(id_usuario_kiosko: number, nombre_image:string): Observable<any> {
-    return this.http.get<any>(this.URL_IMAGE + '?action=getImage&nombre_image=' + nombre_image+'&id_usuario='+id_usuario_kiosko);
+    return this.http.get<any>(this.URL + '?action=getImage&nombre_image=' + nombre_image+'&id_usuario='+id_usuario_kiosko);
   }
 
 
