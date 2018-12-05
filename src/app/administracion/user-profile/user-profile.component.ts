@@ -222,6 +222,8 @@ export class UserProfileComponent implements OnInit {
     if (evt.target.files.length > 0) {
       let file = evt.target.files[0]; // FileList object
 
+     
+
       let reader = new FileReader();
 
       reader.readAsDataURL(file);
@@ -243,9 +245,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   uploadImage(): void {
-
-    this.service.uploadImage(this.auth.getIdUsuario(), this.aux_image, 'usuario', this.auth.getIdUsuario()).subscribe(result => {
-      console.log('update user',result)
+    
+    this.service.uploadImage(this.auth.getIdUsuario(), encodeURIComponent(this.aux_image), 'usuario', this.auth.getIdUsuario()).subscribe(result => {
       if (result.response.sucessfull) {
         this.aux_image = '';
         swal('Imagen actualizada!', 'Se actualizó su imagen de perfil', 'success')

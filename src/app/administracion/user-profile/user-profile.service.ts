@@ -35,11 +35,11 @@ export class UserProfileService {
     return this.http.post(this.URL,body);
   }
 
-  uploadImage(id_usuario:number, image_base64:string, object: string, id:number): Observable<any>{
+  uploadImage(id_usuario:number, image_base64:any, object: string, id:number): Observable<any>{
 
     const body = new HttpParams()
     .set('action', 'uploadImage')
-    .set('file', ''+image_base64 )
+    .set('file', image_base64 )
     .set('object', object )
     .set('id', ""+ id )
     .set('id_usuario', ""+id_usuario);
