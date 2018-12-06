@@ -6,6 +6,7 @@ export class Plantas {
         public estado_planta: string,
         public direccion_planta: string,
         public ip_publica: string,
+        public imagen: string,
         public activo: number
     ) { }
 

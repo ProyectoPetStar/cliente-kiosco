@@ -40,7 +40,7 @@ export class FormKioscosComponent implements OnInit {
     this.loading = true;
     this.submitted = false;
     this.action = '';
-    this.planta = new Plantas(-1, '', '', '', '', -1);
+    this.planta = new Plantas(-1, '', '', '', '' ,'default.jpg', -1);
     this.kiosco = new Kiosco(-1, '', -1, '', '', '', -1, -1, '', '', '', this.planta);
 
 

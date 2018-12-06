@@ -243,11 +243,8 @@ export class UserProfileComponent implements OnInit {
 
 
       } else {
-        swal('Oops...', 'La imágen demasiado grande!', 'error')
+        swal('Oops...', 'La imágen es demasiado grande!', 'error')
       }
-
-    } else {
-
 
     }
   }

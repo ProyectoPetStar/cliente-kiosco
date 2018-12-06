@@ -147,10 +147,42 @@
 }
 }
 
+/*
+ * Estilos para scroll
+ */
+
 ::-webkit-scrollbar {width: 6px;cursor: auto}
 ::-webkit-scrollbar-track {background: rgb(27, 17, 42); }
 ::-webkit-scrollbar-thumb {background:transparent; }
 ::-webkit-scrollbar-thumb:hover {background: rgba(255, 75, 168,.75); }
+
+/*
+ * Estilos para input file
+ */
+
+ .upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .btn-custom-file {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: .9rem;
+    font-weight: bold;
+  }
+  
+  .upload-btn-wrapper input[type=file] {
+    font-size: .8rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
 
 
 

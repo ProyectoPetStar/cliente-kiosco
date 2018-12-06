@@ -24,6 +24,8 @@ export class FormPlantasComponent implements OnInit {
   public formulario: FormGroup;
   public action: string;
   public estados: Array<any>;
+  public aux_image: any;
+  public image: any;
 
   constructor(
     private auth: AuthService,
@@ -38,7 +40,7 @@ export class FormPlantasComponent implements OnInit {
     this.notValid = false;
     this.submitted = false;
     this.action = '';
-    this.planta = new Plantas(-1, '', '', '', '', -1);
+    this.planta = new Plantas(-1, '', '', '', '', 'default.jpg', -1);
     this.estados = getCatalogoEstados();
 
     this.route.paramMap.subscribe(params => {
@@ -54,8 +56,22 @@ export class FormPlantasComponent implements OnInit {
             this.planta = result.data.planta;
             this.notValid = false;
             this.loading = false;
-
             this.loadFormulario();
+
+            /*
+            * Get recupera image
+            */
+            this.service.getImage(this.auth.getIdUsuario(), this.planta.imagen).subscribe(result => {
+
+              if (result.response.sucessfull) {
+                this.image = 'data:image/jpg;base64,' + result.response.message;
+              } else {
+                notify('No se cargó imagen de planta', 'danger', 3000);
+              }
+
+            }, error => {
+              notify('No se cargó imagen de planta', 'danger', 3000);
+            });
 
 
 
@@ -176,6 +192,55 @@ export class FormPlantasComponent implements OnInit {
     if (this.planta.activo == 0) {
       swal('Advertencia', 'Los kioscos instalados en esta planta serán desactivados', 'warning');
     }
+
+  }
+
+  seleccionaArchivo(evt): void {
+    evt.preventDefault();
+    //Si existe archivo cargado
+    if (evt.target.files.length > 0) {
+      let file = evt.target.files[0]; // FileList object
+      let size = evt.target.files[0].size;
+
+      if (((size / 1024) / 1024) <= 1.3) {
+
+        let reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        //Se leyó correctamente el file
+        reader.onload = () => {
+
+          this.aux_image = reader.result.split(',')[1];
+          this.image = 'data:image/jpg;base64,' + new String(this.aux_image);
+        }
+
+        //Ocurrio un error al leer file
+        reader.onerror = (error) => {
+          this.aux_image = '';
+        };
+
+
+      } else {
+        swal('Oops...', 'La imágen es demasiado grande!', 'error')
+      }
+
+    }
+
+  }
+
+  uploadImage(): void {
+
+    this.service.uploadImage(this.auth.getIdUsuario(), encodeURIComponent(this.aux_image), 'planta', this.planta.id_planta).subscribe(result => {
+      if (result.response.sucessfull) {
+        this.aux_image = '';
+        swal('Imagen actualizada!', 'Se actualizó imagen de la planta', 'success')
+      } else {
+        swal('Oops...', result.response.message, 'error')
+      }
+    }, error => {
+      swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+    });
 
   }
 
