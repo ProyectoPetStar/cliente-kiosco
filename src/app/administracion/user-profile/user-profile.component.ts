@@ -61,10 +61,10 @@ export class UserProfileComponent implements OnInit {
           /*
            * Get recupera image
            */
-          this.service.getImage(this.auth.getIdUsuario(), this.usuario.imagen).subscribe(result => {    
-          
+          this.service.getImage(this.auth.getIdUsuario(), this.usuario.imagen).subscribe(result => {
+
             if (result.response.sucessfull) {
-              this.image = 'data:image/jpg;base64,'+result.response.message;
+              this.image = 'data:image/jpg;base64,' + result.response.message;
             } else {
               notify('No se cargó imagen de perfil', 'danger', 3000);
             }
@@ -221,31 +221,39 @@ export class UserProfileComponent implements OnInit {
     //Si existe archivo cargado
     if (evt.target.files.length > 0) {
       let file = evt.target.files[0]; // FileList object
+      let size = evt.target.files[0].size;
 
-     
+      if (((size / 1024) / 1024) <= 1.3) {
 
-      let reader = new FileReader();
+        let reader = new FileReader();
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
 
-      //Se leyó correctamente el file
-      reader.onload = () => {
+        //Se leyó correctamente el file
+        reader.onload = () => {
 
-        this.aux_image = reader.result.split(',')[1];
-        this.image = 'data:image/jpg;base64,'+ new String(this.aux_image);
+          this.aux_image = reader.result.split(',')[1];
+          this.image = 'data:image/jpg;base64,' + new String(this.aux_image);
+        }
+
+        //Ocurrio un error al leer file
+        reader.onerror = (error) => {
+          this.aux_image = '';
+        };
+
+
+      } else {
+        swal('Oops...', 'La imágen demasiado grande!', 'error')
       }
 
-      //Ocurrio un error al leer file
-      reader.onerror = (error) => {
-        this.aux_image = '';
-      };
     } else {
-       this.aux_image = '';
+
+
     }
   }
 
   uploadImage(): void {
-    
+
     this.service.uploadImage(this.auth.getIdUsuario(), encodeURIComponent(this.aux_image), 'usuario', this.auth.getIdUsuario()).subscribe(result => {
       if (result.response.sucessfull) {
         this.aux_image = '';
