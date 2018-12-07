@@ -8,6 +8,7 @@ import { App } from '../../models/app';
 export class FormAppWebService {
 
   private URL = BASE_URL_SERVICE + '/UrlKioscos';
+  private URL_IMAGE = BASE_URL_SERVICE + '/UploadImage';
 
   constructor(private http: HttpClient) { }
 
@@ -32,6 +33,22 @@ export class FormAppWebService {
     .set('data', ''+JSON.stringify(datos))
     .set('id_usuario', ""+id_usuario);
     return this.http.post(this.URL,body);
+  }
+
+  uploadImage(id_usuario:number, image_base64:any, object: string, id:number): Observable<any>{
+
+    const body = new HttpParams()
+    .set('action', 'uploadImage')
+    .set('file', image_base64 )
+    .set('object', object )
+    .set('id', ""+ id )
+    .set('id_usuario', ""+id_usuario);
+    return this.http.post(this.URL_IMAGE,body);
+
+  }
+
+  getImage(id_usuario_kiosko: number, nombre_image:string): Observable<any> {
+    return this.http.get<any>(this.URL + '?action=getImage&nombre_image=' + nombre_image+'&id_usuario='+id_usuario_kiosko);
   }
 
 }

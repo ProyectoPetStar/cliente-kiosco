@@ -63,24 +63,24 @@
           <!-- <mat-card-subtitle>Cambiar imagen</mat-card-subtitle> -->
           <mat-card-content>
             <div class="row d-flex justify-content-center">
-              <img src="http://www.redestrategia.com/wp-content/uploads/2015/06/El-apogeo-de-Internet-en-Latinoamerica.jpg" class="img-thumbnail img_prev">
+              <img [src]="image | safe" class="img-thumbnail img_prev">
+            </div>
+            <div class="row" align="center">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <br>
+                <div class="upload-btn-wrapper">
+                  <button class="btn-custom-file">Seleccione Imagen</button>
+                  <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
+                  />
+                </div>
+              </div>
             </div>
             <hr>
           </mat-card-content>
           <mat-card-actions>
             <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="custom-file" id="customFile" lang="es">
-                  <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
-                  <label class="custom-file-label" for="exampleInputFile">
-                    Seleccione imagen
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                <button type="button" class="btn btn-success">CAMBIAR</button>
+                <button class="btn btn-success btn-round" (click)="uploadImage()" [disabled]="aux_image == undefined || aux_image == '' || aux_image == null">CAMBIAR FOTO</button>
               </div>
             </div>
           </mat-card-actions>
