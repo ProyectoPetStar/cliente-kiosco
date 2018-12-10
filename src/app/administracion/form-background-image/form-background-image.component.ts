@@ -22,6 +22,7 @@ export class FormBackgroundImageComponent implements OnInit {
   public imagen: Imagen;
   public submitted: boolean;
   public formulario: FormGroup;
+  public img_selected: string;
 
   constructor(
     private auth: AuthService,
@@ -156,6 +157,38 @@ export class FormBackgroundImageComponent implements OnInit {
       })
     } else {
       notify('Verifique los datos capturados!', 'danger', 2800);
+    }
+
+  }
+
+  seleccionaArchivo(evt): void {
+    evt.preventDefault();
+    //Si existe archivo cargado
+    if (evt.target.files.length > 0) {
+      let file = evt.target.files[0]; // FileList object
+      let size = file.size;
+
+      if (((size / 1024) / 1024) <= 5) {
+
+        let reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        //Se leyó correctamente el file
+        reader.onload = (event) => {
+          this.img_selected = event.target.result;
+        }
+
+        //Ocurrio un error al leer file
+        reader.onerror = (error) => {
+          
+        };
+
+
+      } else {
+        swal('Oops...', 'La imágen es demasiado grande!', 'error')
+      }
+
     }
 
   }
