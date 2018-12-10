@@ -31,9 +31,9 @@ export class MenuBackgroundImageComponent implements OnInit {
 
   ngOnInit() {
 
-   //this.loading = true;
+    //this.loading = true;
     this.submitted = false;
-    this.imagen = new Imagen(-1,'','','',-1,'');
+    this.imagen = new Imagen(-1, '', '', '', -1, '');
 
     this.loadFormulario();
 
@@ -51,14 +51,11 @@ export class MenuBackgroundImageComponent implements OnInit {
         // Options will go here
       });
 
-    
+
 
     }, 900);
   }
 
-  openModal(): void {
-    $('#imagenModal').modal('show')
-  }
 
   loadFormulario(): void {
     this.formulario = this.fb.group({
@@ -81,67 +78,66 @@ export class MenuBackgroundImageComponent implements OnInit {
 
     if (this.formulario.valid) {
 
-          /* 
-          * Configuración del modal de confirmación
+        /* 
+        * Configuración del modal de confirmación
+        */
+        swal({
+          title: '<span style="color: #303f9f ">' + msj + '</span>',
+          type: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#303f9f',
+          cancelButtonColor: '#9fa8da ',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Si!',
+          allowOutsideClick: false,
+          allowEnterKey: false
+        }).then((result) => {
+          /*
+          * Si acepta
           */
-            swal({
-              title: '<span style="color: #303f9f ">' + msj + '</span>',
-              type: 'question',
-              showCancelButton: true,
-              confirmButtonColor: '#303f9f',
-              cancelButtonColor: '#9fa8da ',
-              cancelButtonText: 'Cancelar',
-              confirmButtonText: 'Si!',
-              allowOutsideClick: false,
-              allowEnterKey: false
-            }).then((result) => {
-              /*
-              * Si acepta
-              */
-              if (result.value) {
+          if (result.value) {
 
-                if (accion == 'edit') {
-                  // this.service.updateKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
-                  //   if (result.response.sucessfull) {
-                  //     swal('Actualizado!', 'Datos actualizados', 'success')
-                  //   } else {
-                  //     swal('Oops...', result.response.message, 'error')
-                  //   }
-                  // }, error => {
-                  //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-                  // });
-                } else if (accion == 'add') {
+            if (accion == 'edit') {
+              // this.service.updateKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
+              //   if (result.response.sucessfull) {
+              //     swal('Actualizado!', 'Datos actualizados', 'success')
+              //   } else {
+              //     swal('Oops...', result.response.message, 'error')
+              //   }
+              // }, error => {
+              //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+              // });
+            } else if (accion == 'add') {
 
-                  // this.service.insertKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
-                  //   if (result.response.sucessfull) {
-                  //     $('#formKiosco')[0].reset();
-                  //     this.kiosco.id_planta = -1;
-                  //     this.submitted = false;
-                  //     swal('Exito!', 'Kiosco registrado', 'success')
-                  //   } else {
-                  //     swal('Oops...', result.response.message, 'error')
-                  //   }
-                  // }, error => {
-                  //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-                  // });
+              // this.service.insertKiosco(this.auth.getIdUsuario(), this.kiosco).subscribe(result => {
+              //   if (result.response.sucessfull) {
+              //     $('#formKiosco')[0].reset();
+              //     this.kiosco.id_planta = -1;
+              //     this.submitted = false;
+              //     swal('Exito!', 'Kiosco registrado', 'success')
+              //   } else {
+              //     swal('Oops...', result.response.message, 'error')
+              //   }
+              // }, error => {
+              //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+              // });
 
-                }
+            }
 
-                /*
-                * Si cancela accion
-                */
-              } else if (result.dismiss === swal.DismissReason.cancel) {
-                // this.disabledBtn = false;
-              }
-            })
+            /*
+            * Si cancela accion
+            */
+          } else if (result.dismiss === swal.DismissReason.cancel) {
+            // this.disabledBtn = false;
+          }
+        })
+
     } else {
       //notify('Verifique los datos capturados!', 'danger', 2800);
     }
 
   }
 
-  isValidImage():boolean{
-    return false;
-  }
+
 
 }

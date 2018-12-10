@@ -50,7 +50,8 @@
               </div>
               <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                 <div class="float-right">
-                  <input type="button" class="btn btn-success" value="NUEVA IMAGEN" (click)="openModal()">
+                  <a class="btn btn-success" routerLink="Nueva-imagen">NUEVA IMAGEN</a>
+                  <!-- <input type="button" class="btn btn-success" value="NUEVA IMAGEN"> -->
                 </div>
               </div>
             </div>
@@ -134,52 +135,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- modal para subir imagenes -->
-<div class="modal fade" id="imagenModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
-  data-backdrop="static" data-keyboard="false" *ngIf="!loading">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">SUBIR NUEVA IMAGEN</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="formImage" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
-          <div class="form-group">
-            <label for="nombre_image" class="col-form-label">Nombre:</label>
-            <input type="text" class="form-control" id="nombre_image" formControlName="nombre" [(ngModel)]="imagen.nombre">
-            <mat-hint align="end" *ngIf="formulario.controls.nombre.errors?.required && (formulario.controls.nombre?.touched || submitted)">Requerido</mat-hint>
-            <mat-hint align="end" *ngIf="!formulario.controls.nombre.errors?.required && formulario.controls.nombre.errors?.whitespace && (formulario.controls.nombre?.touched || submitted)">Ingrese nombre</mat-hint>
-          </div>
-          <div class="form-group">
-            <label for="descripcion" class="col-form-label">Descripción:</label>
-            <textarea class="form-control" id="descripcion" formControlName="descripcion" [(ngModel)]="imagen.descripcion"></textarea>
-            <mat-hint align="end" *ngIf="formulario.controls.descripcion.errors?.required && (formulario.controls.descripcion?.touched || submitted)">Requerido</mat-hint>
-            <mat-hint align="end" *ngIf="!formulario.controls.descripcion.errors?.required && formulario.controls.descripcion.errors?.whitespace && (formulario.controls.descripcion?.touched || submitted)">Ingrese descripción</mat-hint>
-            <br>
-          </div>
-          <div class="upload-btn-wrapper">
-            <button class="btn-custom-file">
-              <i class="material-icons">
-                cloud_upload
-              </i>&nbsp;&nbsp;Imagen</button>
-            <input type="file" name="imageBackground" id="imgBackground" accept="image/jpeg, image/png, image/jpg, image/bmp"/>
-            <input type="text" class="form-control" id="imagen">
-          </div>
-          <mat-hint align="end" *ngIf="!isValidImage()">Seleccione imagen</mat-hint>
-          <hr>
-          <div class="float-right">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-            <button type="submit" class="btn btn-success">AGREGAR</button>
-          </div>
-
-        </form>
       </div>
     </div>
   </div>
