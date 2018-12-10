@@ -7,7 +7,10 @@ import { isValidId, getCatalogoEstados, notify, noWhitespaceValidator } from '..
 import { MenuBackgroundImageService } from './menu-background-image.service';
 import swal from 'sweetalert2';
 
+
 declare const $: any;
+declare const moment: any;
+//moment.locale('es');
 @Component({
   selector: 'app-menu-background-image',
   templateUrl: './menu-background-image.component.html',
@@ -20,6 +23,7 @@ export class MenuBackgroundImageComponent implements OnInit {
   public loading: boolean;
   public submitted: boolean;
   public formulario: FormGroup;
+  public ago:string;
 
   constructor(
     private service: MenuBackgroundImageService,
@@ -33,6 +37,7 @@ export class MenuBackgroundImageComponent implements OnInit {
 
     //this.loading = true;
     this.submitted = false;
+    this.ago = moment("20120620", "YYYYMMDD").fromNow();
     this.imagen = new Imagen(-1, '', '', '', -1, '');
 
     this.loadFormulario();

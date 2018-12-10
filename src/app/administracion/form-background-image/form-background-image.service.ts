@@ -15,7 +15,7 @@ export class FormBackgroundImageService {
     return this.http.get<any>(this.URL + '?action=ejemplo&id_usuario=' + id_usuario + '&id_imagen=' + id_imagen);
   }
 
-  insertImage(id_usuario:number, imageForm:FormData): Observable<any>{
+  insertImage(id_usuario:number, formulario:FormData): Observable<any>{
   
     const body = new HttpParams()
     .set('action', '')

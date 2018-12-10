@@ -7,7 +7,7 @@ import { FormBackgroundImageService } from './form-background-image.service';
 import { Imagen } from '../../models/imagen';
 import swal from 'sweetalert2';
 
-
+declare const $: any;
 @Component({
   selector: 'app-form-background-image',
   templateUrl: './form-background-image.component.html',
@@ -23,6 +23,7 @@ export class FormBackgroundImageComponent implements OnInit {
   public submitted: boolean;
   public formulario: FormGroup;
   public img_selected: string;
+  public file_selected: any;
 
   constructor(
     private auth: AuthService,
@@ -37,7 +38,7 @@ export class FormBackgroundImageComponent implements OnInit {
     this.loading = true;
     this.submitted = false;
     this.action = '';
-    this.imagen = new Imagen(-1,'','','',-1,'');
+    this.imagen = new Imagen(-1, '', '', '', -1, '');
 
     this.route.paramMap.subscribe(params => {
 
@@ -134,17 +135,22 @@ export class FormBackgroundImageComponent implements OnInit {
             // });
           } else if (accion == 'add') {
 
-            // this.service.insertCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
-            //   if (result.response.sucessfull) {
-            //     $('#formPlanta')[0].reset();
-            //     this.submitted = false;
-            //     swal('Exito!', 'Planta registrada', 'success')
-            //   } else {
-            //     swal('Oops...', result.response.message, 'error')
-            //   }
-            // }, error => {
-            //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-            // });
+            let formulario = new FormData();
+            formulario.append('nombre', this.imagen.nombre);
+            formulario.append('descripcion', this.imagen.descripcion);
+            formulario.append('field',  this.file_selected);
+
+            this.service.insertImage(this.auth.getIdUsuario(), formulario).subscribe(result => {
+              if (result.response.sucessfull) {
+                $('#formImage')[0].reset();
+                this.submitted = false;
+                swal('Exito!', 'Imagen agregada', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
 
           }
 
@@ -165,23 +171,23 @@ export class FormBackgroundImageComponent implements OnInit {
     evt.preventDefault();
     //Si existe archivo cargado
     if (evt.target.files.length > 0) {
-      let file = evt.target.files[0]; // FileList object
-      let size = file.size;
+      this.file_selected = evt.target.files[0]; // FileList object
+      let size =  this.file_selected.size;
 
       if (((size / 1024) / 1024) <= 5) {
 
         let reader = new FileReader();
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(this.file_selected);
 
         //Se leyó correctamente el file
         reader.onload = (event) => {
-          this.img_selected = event.target.result;
+         // this.img_selected = event.target.result;
         }
 
         //Ocurrio un error al leer file
         reader.onerror = (error) => {
-          
+
         };
 
 
