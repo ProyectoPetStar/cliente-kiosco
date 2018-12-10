@@ -1,4 +1,19 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading && !notValid">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -16,18 +31,19 @@
                 <mat-form-field class="example-full-width">
                   <textarea matInput placeholder="Descripción" value=""></textarea>
                 </mat-form-field>
-                <div class="row">
-                  <div class="upload-btn-wrapper">
-                    <button class="btn-custom-file">Seleccione Imagen</button>
-                    <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
-                    />
-                  </div>
-                </div>
                 <div class="row d-flex justify-content-center">
                   <p>VISTA PREVIA</p>
                 </div>
                 <div class="row d-flex justify-content-center">
                   <img src="https://besthqwallpapers.com/Uploads/5-10-2017/22843/thumb2-ubuntu-linux-4k-logo-metal-background.jpg" class="img-thumbnail img_prev">
+                </div>
+                <div class="row d-flex justify-content-center">
+                  <div class="upload-btn-wrapper">
+                    <button class="btn-custom-file">Seleccione Imagen</button>
+                    <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
+                    />
+                  </div>
+                  <input type="hidden">
                 </div>
               </div>
             </div>
@@ -40,6 +56,16 @@
             </div>
           </mat-card-actions>
         </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading && notValid">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <p class="font_texto"> Imagen no encontrada </p>
+        <a routerLink="../">Ver galería de imagenes </a>
       </div>
     </div>
   </div>
