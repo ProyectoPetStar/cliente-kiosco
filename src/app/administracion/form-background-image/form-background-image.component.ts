@@ -181,8 +181,8 @@ export class FormBackgroundImageComponent implements OnInit {
         reader.readAsDataURL(this.file_selected);
 
         //Se leyó correctamente el file
-        reader.onload = (event) => {
-         // this.img_selected = event.target.result;
+        reader.onload = () => {
+          this.img_selected = reader.result;
         }
 
         //Ocurrio un error al leer file
