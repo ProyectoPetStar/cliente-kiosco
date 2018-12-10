@@ -17,45 +17,53 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <mat-card>
-          <mat-card-title>
-            PROTECTOR DE PANTALLA
-          </mat-card-title>
-          <mat-card-subtitle>Ingrese todos los datos</mat-card-subtitle>
-          <mat-card-content>
-            <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <mat-form-field>
-                  <input matInput placeholder="Nombre de imagen">
-                </mat-form-field>
-                <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Descripción" value=""></textarea>
-                </mat-form-field>
-                <div class="row d-flex justify-content-center">
-                  <p>VISTA PREVIA</p>
-                </div>
-                <div class="row d-flex justify-content-center">
-                  <img src="https://besthqwallpapers.com/Uploads/5-10-2017/22843/thumb2-ubuntu-linux-4k-logo-metal-background.jpg" class="img-thumbnail img_prev">
-                </div>
-                <div class="row d-flex justify-content-center">
-                  <div class="upload-btn-wrapper">
-                    <button class="btn-custom-file">Seleccione Imagen</button>
-                    <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
-                    />
+        <form id="formImage" [formGroup]="formulario" (ngSubmit)="submit($event, action)" autocomplete="off">
+          <mat-card>
+            <mat-card-title>
+              PROTECTOR DE PANTALLA
+            </mat-card-title>
+            <mat-card-subtitle>Ingrese todos los datos</mat-card-subtitle>
+            <mat-card-content>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <mat-form-field>
+                    <input matInput placeholder="Nombre de imagen" formControlName="nombre" [(ngModel)]="imagen.nombre">
+                    <mat-hint align="end" *ngIf="formulario.controls.nombre.errors?.required && (formulario.controls.nombre?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.nombre.errors?.required && formulario.controls.nombre.errors?.whitespace && (formulario.controls.nombre?.touched || submitted)">Ingrese un nombre</mat-hint>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput placeholder="Descripción" formControlName="descripcion" [(ngModel)]="imagen.descripcion"></textarea>
+                    <mat-hint align="end" *ngIf="formulario.controls.descripcion.errors?.required && (formulario.controls.descripcion?.touched || submitted)">Requerido</mat-hint>
+                    <mat-hint align="end" *ngIf="!formulario.controls.descripcion.errors?.required && formulario.controls.descripcion.errors?.whitespace && (formulario.controls.descripcion?.touched || submitted)">Ingrese descripción</mat-hint>
+                  </mat-form-field>
+                  <div class="row d-flex justify-content-center">
+                    <p>VISTA PREVIA</p>
                   </div>
-                  <input type="hidden">
+                  <div class="row d-flex justify-content-center">
+                    <img src="https://besthqwallpapers.com/Uploads/5-10-2017/22843/thumb2-ubuntu-linux-4k-logo-metal-background.jpg" class="img-thumbnail img_prev">
+                  </div>
+                  <div class="row d-flex justify-content-center">
+                    <div class="upload-btn-wrapper">
+                      <button class="btn-custom-file">Seleccione Imagen</button>
+                      <input type="file" name="imagePerfil" accept="image/jpeg, image/png, image/jpg, image/bmp" (change)="seleccionaArchivo($event)"
+                        formControlName="imagen" [(ngModel)]="imagen.imagen" />
+                    </div>
+                  </div>
+                  <div class="row d-flex justify-content-center">
+                    <mat-hint *ngIf="formulario.controls.imagen.errors?.required && (formulario.controls.imagen?.touched || submitted)">Se requiere imagen</mat-hint>
+                  </div>
                 </div>
               </div>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <button type="button" class="btn btn-success float-right">SUBIR IMAGEN</button>
+            </mat-card-content>
+            <mat-card-actions>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <button type="submit" class="btn btn-success float-right">{{ (action == 'add')? 'AGREGAR' : 'ACTUALIZAR' }}</button>
+                </div>
               </div>
-            </div>
-          </mat-card-actions>
-        </mat-card>
+            </mat-card-actions>
+          </mat-card>
+        </form>
       </div>
     </div>
   </div>

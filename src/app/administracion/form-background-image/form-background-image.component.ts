@@ -88,4 +88,76 @@ export class FormBackgroundImageComponent implements OnInit {
     });
   }
 
+  submit(ev, accion) {
+    ev.preventDefault();
+    let msj = '';
+
+    if (accion == 'edit') {
+      msj = '¿ Está seguro de actualizar ?';
+    } else if (accion == 'add') {
+      msj = '¿ Está seguro de agregar ?';
+    }
+
+    this.submitted = true;
+
+    if (this.formulario.valid) {
+
+      /* 
+     * Configuración del modal de confirmación
+     */
+      swal({
+        title: '<span style="color: #303f9f ">' + msj + '</span>',
+        type: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#303f9f',
+        cancelButtonColor: '#9fa8da ',
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si!',
+        allowOutsideClick: false,
+        allowEnterKey: false
+      }).then((result) => {
+        /*
+         * Si acepta
+         */
+        if (result.value) {
+
+          if (accion == 'edit') {
+            // this.service.updateCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
+            //   if (result.response.sucessfull) {
+            //     swal('Actualizado!', 'Datos actualizados', 'success')
+            //   } else {
+            //     swal('Oops...', result.response.message, 'error')
+            //   }
+            // }, error => {
+            //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            // });
+          } else if (accion == 'add') {
+
+            // this.service.insertCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
+            //   if (result.response.sucessfull) {
+            //     $('#formPlanta')[0].reset();
+            //     this.submitted = false;
+            //     swal('Exito!', 'Planta registrada', 'success')
+            //   } else {
+            //     swal('Oops...', result.response.message, 'error')
+            //   }
+            // }, error => {
+            //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            // });
+
+          }
+
+          /*
+          * Si cancela accion
+          */
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          // this.disabledBtn = false;
+        }
+      })
+    } else {
+      notify('Verifique los datos capturados!', 'danger', 2800);
+    }
+
+  }
+
 }
