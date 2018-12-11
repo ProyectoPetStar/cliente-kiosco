@@ -12,7 +12,7 @@ export class FormBackgroundImageService {
   constructor(private http: HttpClient) { }
 
   getImageById(id_usuario: number, id_imagen: number): Observable<any> {
-    return this.http.get<any>(this.URL + '?action=ejemplo&id_usuario=' + id_usuario + '&id_imagen=' + id_imagen);
+    return this.http.get<any>(this.URL + '?action=getProtectorPantalla&id_usuario=' + id_usuario + '&id_imagen=' + id_imagen);
   }
 
   insertImage(formulario:FormData): Observable<any>{ 

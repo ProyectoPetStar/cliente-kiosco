@@ -47,10 +47,10 @@ export class FormBackgroundImageComponent implements OnInit {
       if (isValidId(id_imagen)) {
 
         this.service.getImageById(this.auth.getIdUsuario(), id_imagen).subscribe(result => {
-
           if (result.response.sucessfull) {
             this.action = 'edit';
-            // this.planta = result.data.planta;
+            this.imagen = result.data.imagen;
+            console.log(this.imagen)
             this.notValid = false;
             this.loading = false;
             this.loadFormulario();
