@@ -24,6 +24,7 @@ export class FormBackgroundImageComponent implements OnInit {
   public formulario: FormGroup;
   public img_selected: string;
   public file_selected: any;
+  public disabled_change_img:boolean;
 
   constructor(
     private auth: AuthService,
@@ -39,6 +40,7 @@ export class FormBackgroundImageComponent implements OnInit {
     this.submitted = false;
     this.action = '';
     this.imagen = new Imagen(-1, '', '', '', -1, '');
+    this.disabled_change_img = true;
 
     this.route.paramMap.subscribe(params => {
 
@@ -185,7 +187,13 @@ export class FormBackgroundImageComponent implements OnInit {
 
         //Se leyó correctamente el file
         reader.onload = () => {
-          this.img_selected = reader.result;
+         
+          if(this.action == 'edit'){
+            this.imagen.img_base64 = reader.result.split(',')[1];
+            this.disabled_change_img = false;
+          }else{
+            this.img_selected = reader.result;
+          }
         }
 
         //Ocurrio un error al leer file
@@ -199,6 +207,17 @@ export class FormBackgroundImageComponent implements OnInit {
       }
 
     }
+
+  }
+
+  submitChangeImage(evt): void{
+    evt.preventDefault();
+    let formulario = new FormData();
+    formulario.append('action', '');
+    formulario.append('nombre_actual', this.imagen.imagen);
+    formulario.append('file',  this.file_selected);
+    formulario.append('id_usuario', ''+this.auth.getIdUsuario());
+
 
   }
 
