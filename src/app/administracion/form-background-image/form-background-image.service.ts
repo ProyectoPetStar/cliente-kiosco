@@ -7,7 +7,7 @@ import { Imagen } from '../../models/imagen';
 @Injectable()
 export class FormBackgroundImageService {
 
-  private URL = BASE_URL_SERVICE + '/';
+  private URL = BASE_URL_SERVICE + '/UploadProtectorPantalla';
 
   constructor(private http: HttpClient) { }
 
@@ -15,13 +15,9 @@ export class FormBackgroundImageService {
     return this.http.get<any>(this.URL + '?action=ejemplo&id_usuario=' + id_usuario + '&id_imagen=' + id_imagen);
   }
 
-  insertImage(id_usuario:number, formulario:FormData): Observable<any>{
+  insertImage(formulario:FormData): Observable<any>{ 
   
-    const body = new HttpParams()
-    .set('action', '')
-    .set('id_usuario', ""+id_usuario);
-    
-    return this.http.post(this.URL,body);
+    return this.http.post(this.URL,formulario);
   }
 
 

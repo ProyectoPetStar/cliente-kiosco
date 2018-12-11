@@ -136,11 +136,14 @@ export class FormBackgroundImageComponent implements OnInit {
           } else if (accion == 'add') {
 
             let formulario = new FormData();
+            formulario.append('action', 'insertUploadProtectorPantalla');
             formulario.append('nombre', this.imagen.nombre);
             formulario.append('descripcion', this.imagen.descripcion);
-            formulario.append('field',  this.file_selected);
+            formulario.append('file',  this.file_selected);
+            formulario.append('id_usuario', ''+this.auth.getIdUsuario());
+            
 
-            this.service.insertImage(this.auth.getIdUsuario(), formulario).subscribe(result => {
+            this.service.insertImage(formulario).subscribe(result => {
               if (result.response.sucessfull) {
                 $('#formImage')[0].reset();
                 this.submitted = false;
@@ -174,7 +177,7 @@ export class FormBackgroundImageComponent implements OnInit {
       this.file_selected = evt.target.files[0]; // FileList object
       let size =  this.file_selected.size;
 
-      if (((size / 1024) / 1024) <= 5) {
+      if (((size / 1024) / 1024) <= 10) {
 
         let reader = new FileReader();
 
