@@ -6,7 +6,8 @@ export class Imagen {
         public descripcion: string,
         public imagen: string,
         public seleccion_imagen: number,
-        public fecha_modifica_registro: string
+        public fecha_modifica_registro: string,
+        public img_base64?: string
     ) { }
 
 }

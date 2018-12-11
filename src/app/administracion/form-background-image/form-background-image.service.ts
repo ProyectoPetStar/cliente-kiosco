@@ -16,8 +16,17 @@ export class FormBackgroundImageService {
   }
 
   insertImage(formulario:FormData): Observable<any>{ 
-  
     return this.http.post(this.URL,formulario);
+  }
+
+  updateImagen(id_usuario:number, nombre: string, descripcion: string, id_imagen: number): Observable<any>{
+    const body = new HttpParams()
+    .set('action', 'updateImagen')
+    .set('nombre', nombre)
+    .set('descripcion', descripcion)
+    .set('id_imagen', ""+id_imagen)
+    .set('id_usuario', ""+id_usuario);
+    return this.http.post(this.URL,body);
   }
 
 

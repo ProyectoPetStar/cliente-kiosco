@@ -50,7 +50,6 @@ export class FormBackgroundImageComponent implements OnInit {
           if (result.response.sucessfull) {
             this.action = 'edit';
             this.imagen = result.data.imagen;
-            console.log(this.imagen)
             this.notValid = false;
             this.loading = false;
             this.loadFormulario();
@@ -124,15 +123,16 @@ export class FormBackgroundImageComponent implements OnInit {
         if (result.value) {
 
           if (accion == 'edit') {
-            // this.service.updateCatalogoPlanta(this.auth.getIdUsuario(), this.planta).subscribe(result => {
-            //   if (result.response.sucessfull) {
-            //     swal('Actualizado!', 'Datos actualizados', 'success')
-            //   } else {
-            //     swal('Oops...', result.response.message, 'error')
-            //   }
-            // }, error => {
-            //   swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-            // });
+            this.service.updateImagen(this.auth.getIdUsuario(), this.imagen.nombre, this.imagen.descripcion, this.imagen.id_imagen).subscribe(result => {
+              if (result.response.sucessfull) {
+                swal('Actualizado!', 'Datos actualizados', 'success')
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+            
           } else if (accion == 'add') {
 
             let formulario = new FormData();
