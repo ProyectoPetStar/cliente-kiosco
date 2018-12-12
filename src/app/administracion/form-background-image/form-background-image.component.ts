@@ -214,7 +214,7 @@ export class FormBackgroundImageComponent implements OnInit {
     evt.preventDefault();
     let formulario = new FormData();
     formulario.append('action', 'updateImagen');
-    formulario.append('id_imagen', ""+this.imagen.id_imagen);
+    formulario.append('id_imagen', "" + this.imagen.id_imagen);
     formulario.append('imagen', this.imagen.imagen);
     formulario.append('file', this.file_selected);
     formulario.append('id_usuario', '' + this.auth.getIdUsuario());
@@ -232,16 +232,16 @@ export class FormBackgroundImageComponent implements OnInit {
 
   }
 
- 
+
   eliminarImagen(imagen: Imagen) {
-  
+
     /* 
      * Configuración del modal de confirmación
      */
     swal({
       title: '<span style="color: #156ab1 "> ¿ Eliminar protector de pantalla?  </span>',
       type: 'question',
-      html: '<p style="color: #156ab1 ">Nombre:  <b>'+ imagen.nombre + '</b>',
+      html: '<p style="color: #156ab1 ">Nombre:  <b>' + imagen.nombre + '</b>',
       showCancelButton: true,
       confirmButtonColor: '#156ab1',
       cancelButtonColor: '#8FB6D6 ',
@@ -255,26 +255,26 @@ export class FormBackgroundImageComponent implements OnInit {
        */
       if (result.value) {
 
-            this.service.eliminarImagen(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
-              if (result.response.sucessfull) {
-            
-                swal('Elimanado!', 'Protector de pantalla eliminado', 'success')
-              } else {
-                swal('Oops...', result.response.message, 'error')
-              }
-            }, error => {
-              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-            });
+        this.service.eliminarImagen(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
+          if (result.response.sucessfull) {
+            this.router.navigate(['admin/Protector']);
+            swal('Elimanado!', 'Protector de pantalla eliminado', 'success')
+          } else {
+            swal('Oops...', result.response.message, 'error')
+          }
+        }, error => {
+          swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+        });
 
         /*
         * Si cancela accion
         */
       } else if (result.dismiss === swal.DismissReason.cancel) {
-        
+
       }
     })
 
-}
+  }
 
 
 }
