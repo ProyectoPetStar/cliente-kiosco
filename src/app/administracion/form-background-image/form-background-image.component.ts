@@ -85,8 +85,8 @@ export class FormBackgroundImageComponent implements OnInit {
 
   loadFormulario(): void {
     this.formulario = this.fb.group({
-      nombre: new FormControl({ value: this.imagen.nombre, disabled: false }, [Validators.required, noWhitespaceValidator]),
-      descripcion: new FormControl({ value: this.imagen.descripcion, disabled: false }, [Validators.required, noWhitespaceValidator]),
+      nombre: new FormControl({ value: this.imagen.nombre, disabled: this.imagen.id_imagen == 1 }, [Validators.required, noWhitespaceValidator]),
+      descripcion: new FormControl({ value: this.imagen.descripcion, disabled: this.imagen.id_imagen == 1 }, [Validators.required, noWhitespaceValidator]),
       imagen: new FormControl({ value: this.imagen.imagen, disabled: false }, [Validators.required, noWhitespaceValidator])
     });
   }

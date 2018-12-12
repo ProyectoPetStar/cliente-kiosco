@@ -32,9 +32,7 @@ export class MenuBackgroundImageComponent implements OnInit {
 
   ngOnInit() {
 
-    //this.loading = true;
-
-    this.ago = moment("20120620", "YYYYMMDD").fromNow();
+    this.loading = true;
     this.imagenes = [];
     this.texto_search = "";
 
@@ -43,6 +41,17 @@ export class MenuBackgroundImageComponent implements OnInit {
       this.service.getAllImagen(this.auth.getIdUsuario()).subscribe(result => {
         if (result.response.sucessfull) {
           this.imagenes = result.data.listImagen;
+
+          let seleccionada = this.imagenes.filter(el => el.seleccion_imagen == 1);
+
+          if(seleccionada.length == 0){
+            // id_imagen igual a uno es la imagen por default
+            this.wallpaper = this.imagenes.filter(el => el.id_imagen == 1)[0];
+          }else{
+            this.wallpaper = seleccionada[0];
+          }
+          this.ago = moment(this.wallpaper.fecha_modifica_registro_string, "DD/MM/YYYY HH:mm").fromNow();
+
           this.loading = false;
 
           setTimeout(() => {
@@ -102,9 +111,10 @@ export class MenuBackgroundImageComponent implements OnInit {
       */
       if (result.value) {
 
-        this.service.activeWallpaper(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
-
+        this.service.seleccionImagen(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
           if (result.response.sucessfull) {
+            this.ago = moment(result.response.message, "DD/MM/YYYY HH:mm").fromNow();
+            this.wallpaper = imagen;
             swal('Actualizado!', 'Cambió el fondo de pantalla', 'success')
           } else {
             swal('Oops...', result.response.message, 'error')

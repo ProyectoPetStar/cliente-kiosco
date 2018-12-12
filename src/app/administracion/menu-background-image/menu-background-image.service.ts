@@ -16,10 +16,11 @@ export class MenuBackgroundImageService {
     return this.http.get<any>(this.URL + '?action=getAllImagen&id_usuario=' + id_usuario_kiosko);
   }
 
-  activeWallpaper(id_usuario: number, id_imagen: number): Observable<any> {
+  seleccionImagen(id_usuario: number, id_imagen: number): Observable<any> {
     const body = new HttpParams()
-      .set('action', 'activeWallpaper')
+      .set('action', 'seleccionImagen')
       .set('id_imagen', '' + id_imagen)
+      .set('id_usuario_modifica_registro', '' + id_usuario)
       .set('id_usuario', '' + id_usuario);
     return this.http.post(this.URL, body);
   }
