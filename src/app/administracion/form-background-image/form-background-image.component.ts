@@ -24,7 +24,7 @@ export class FormBackgroundImageComponent implements OnInit {
   public formulario: FormGroup;
   public img_selected: string;
   public file_selected: any;
-  public disabled_change_img:boolean;
+  public disabled_change_img: boolean;
 
   constructor(
     private auth: AuthService,
@@ -125,7 +125,7 @@ export class FormBackgroundImageComponent implements OnInit {
         if (result.value) {
 
           if (accion == 'edit') {
-            this.service.updateImagen(this.auth.getIdUsuario(), this.imagen.nombre, this.imagen.descripcion, this.imagen.id_imagen).subscribe(result => {
+            this.service.updateDatosProtectorPantalla(this.auth.getIdUsuario(), this.imagen.nombre, this.imagen.descripcion, this.imagen.id_imagen).subscribe(result => {
               if (result.response.sucessfull) {
                 swal('Actualizado!', 'Datos actualizados', 'success')
               } else {
@@ -134,16 +134,16 @@ export class FormBackgroundImageComponent implements OnInit {
             }, error => {
               swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
             });
-            
+
           } else if (accion == 'add') {
 
             let formulario = new FormData();
             formulario.append('action', 'insertUploadProtectorPantalla');
             formulario.append('nombre', this.imagen.nombre);
             formulario.append('descripcion', this.imagen.descripcion);
-            formulario.append('file',  this.file_selected);
-            formulario.append('id_usuario', ''+this.auth.getIdUsuario());
-            
+            formulario.append('file', this.file_selected);
+            formulario.append('id_usuario', '' + this.auth.getIdUsuario());
+
 
             this.service.insertImage(formulario).subscribe(result => {
               if (result.response.sucessfull) {
@@ -177,7 +177,7 @@ export class FormBackgroundImageComponent implements OnInit {
     //Si existe archivo cargado
     if (evt.target.files.length > 0) {
       this.file_selected = evt.target.files[0]; // FileList object
-      let size =  this.file_selected.size;
+      let size = this.file_selected.size;
 
       if (((size / 1024) / 1024) <= 10) {
 
@@ -187,11 +187,11 @@ export class FormBackgroundImageComponent implements OnInit {
 
         //Se leyó correctamente el file
         reader.onload = () => {
-         
-          if(this.action == 'edit'){
+
+          if (this.action == 'edit') {
             this.imagen.img_base64 = reader.result.split(',')[1];
             this.disabled_change_img = false;
-          }else{
+          } else {
             this.img_selected = reader.result;
           }
         }
@@ -210,13 +210,25 @@ export class FormBackgroundImageComponent implements OnInit {
 
   }
 
-  submitChangeImage(evt): void{
+  submitChangeImage(evt): void {
     evt.preventDefault();
     let formulario = new FormData();
-    formulario.append('action', '');
-    formulario.append('nombre_actual', this.imagen.imagen);
-    formulario.append('file',  this.file_selected);
-    formulario.append('id_usuario', ''+this.auth.getIdUsuario());
+    formulario.append('action', 'updateImagen');
+    formulario.append('id_imagen', ""+this.imagen.id_imagen);
+    formulario.append('imagen', this.imagen.imagen);
+    formulario.append('file', this.file_selected);
+    formulario.append('id_usuario', '' + this.auth.getIdUsuario());
+
+    this.service.updateImagen(formulario).subscribe(result => {
+      if (result.response.sucessfull) {
+        this.imagen.imagen = result.response.message;
+        swal('Exito!', 'Imagen actualizada', 'success')
+      } else {
+        swal('Oops...', result.response.message, 'error')
+      }
+    }, error => {
+      swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+    });
 
 
   }
