@@ -128,12 +128,21 @@
             <mat-card-actions>
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-                  <button type="submit" class="btn btn-success btn-round"  [disabled]="disabled_change_img">CAMBIAR FOTO</button>
+                  <button type="submit" class="btn btn-success btn-round" [disabled]="disabled_change_img">CAMBIAR FOTO</button>
                 </div>
               </div>
             </mat-card-actions>
           </mat-card>
         </form>
+        <div class="row float-right" *ngIf="imagen.id_imagen > 1">
+          <a href="#" (click)="eliminarImagen(imagen); false" class="error" align="end">
+            <i class="material-icons">
+              delete_outline
+            </i>
+            ELIMINAR
+          </a>
+        </div>
+
       </div>
     </div>
   </div>

@@ -52,12 +52,12 @@ export class MenuAppWebComponent implements OnInit {
        * Configuración del modal de confirmación
        */
       swal({
-        title: '<span style="color: #303f9f "> ¿ Eliminar '+ app.nombre + '?  </span>',
+        title: '<span style="color: #156ab1 "> ¿ Eliminar '+ app.nombre + '?  </span>',
         type: 'question',
-        html: '<p style="color: #303f9f "><b>La aplicación web será eliminada completamente del sistema </b>',
+        html: '<p style="color: #156ab1 "><b>La aplicación web será eliminada completamente del sistema </b>',
         showCancelButton: true,
-        confirmButtonColor: '#303f9f',
-        cancelButtonColor: '#9fa8da ',
+        confirmButtonColor: '#156ab1',
+        cancelButtonColor: '#8FB6D6 ',
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Si!',
         allowOutsideClick: false,
