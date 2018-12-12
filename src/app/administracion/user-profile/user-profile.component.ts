@@ -114,11 +114,11 @@ export class UserProfileComponent implements OnInit {
      * Configuración del modal de confirmación
      */
       swal({
-        title: '<span style="color: #303f9f ">¿ Está seguro de actualizar su perfil ?</span>',
+        title: '<span style="color: #156ab1 ">¿ Está seguro de actualizar su perfil ?</span>',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#303f9f',
-        cancelButtonColor: '#9fa8da ',
+        confirmButtonColor: '#156ab1',
+        cancelButtonColor: '#8FB6D6 ',
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Si!',
         allowOutsideClick: false,
@@ -164,11 +164,11 @@ export class UserProfileComponent implements OnInit {
      * Configuración del modal de confirmación
      */
       swal({
-        title: '<span style="color: #303f9f ">¿ Está seguro de actualizar su contraseña ?</span>',
+        title: '<span style="color: #156ab1 ">¿ Está seguro de actualizar su contraseña ?</span>',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#303f9f',
-        cancelButtonColor: '#9fa8da ',
+        confirmButtonColor: '#156ab1',
+        cancelButtonColor: '#8FB6D6 ',
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Si!',
         allowOutsideClick: false,

@@ -17,9 +17,11 @@ declare const moment: any;
 })
 export class MenuBackgroundImageComponent implements OnInit {
 
-  public imagen: Imagen;
+  public imagenes: Array<Imagen>;
   public loading: boolean;
   public ago: string;
+  public texto_search: string;
+  public wallpaper: Imagen;
 
   constructor(
     private service: MenuBackgroundImageService,
@@ -33,40 +35,63 @@ export class MenuBackgroundImageComponent implements OnInit {
     //this.loading = true;
 
     this.ago = moment("20120620", "YYYYMMDD").fromNow();
-    this.imagen = new Imagen(-1, '', '', '', -1, '');
+    this.imagenes = [];
+    this.texto_search = "";
 
 
+    if (this.auth.getIdUsuario() != null) {
+      this.service.getAllImagen(this.auth.getIdUsuario()).subscribe(result => {
+        if (result.response.sucessfull) {
+          this.imagenes = result.data.listImagen;
+          this.loading = false;
 
-    setTimeout(() => {
+          setTimeout(() => {
+            this.loadPlugins();
+          }, 900);
 
-      $(".zoom").hover(function () {
+        } else {
+          swal('Oops...', result.response.message, 'error')
+          this.loading = false;
+        }
+      }, error => {
+        swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+        this.loading = false;
+      }
+      );
+    } else {
+      swal('Información', 'Inicie sesión de nuevo!', 'info')
+    }
 
-        $(this).addClass('transition');
-      }, function () {
-
-        $(this).removeClass('transition');
-      });
-
-      $('[data-fancybox="gallery"]').fancybox({
-        // Options will go here
-      });
-
-
-
-    }, 900);
   }
 
-  protector(): void {
+  loadPlugins(): void {
 
+    $(".zoom").hover(function () {
+
+      $(this).addClass('transition');
+    }, function () {
+
+      $(this).removeClass('transition');
+    });
+
+    $('[data-fancybox="gallery"]').fancybox({
+      // Options will go here
+    });
+
+
+  }
+
+  select_wallpaper(imagen: Imagen): void {
     /* 
-* Configuración del modal de confirmación
-*/
+     * Configuración del modal de confirmación
+     */
     swal({
-      title: '<span style="color: #303f9f ">¿ Utilizar como protector de pantalla ?</span>',
+      title: '<span style="color: #156ab1 ">¿ Utilizar como protector de pantalla ?</span>',
+      html: '<p style="color: #156ab1 "> Imagen : ' + imagen.nombre + '<b> </b></p>',
       type: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#303f9f',
-      cancelButtonColor: '#9fa8da ',
+      confirmButtonColor: '#156ab1',
+      cancelButtonColor: '#8FB6D6',
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Si!',
       allowOutsideClick: false,
@@ -77,6 +102,16 @@ export class MenuBackgroundImageComponent implements OnInit {
       */
       if (result.value) {
 
+        this.service.activeWallpaper(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
+
+          if (result.response.sucessfull) {
+            swal('Actualizado!', 'Cambió el fondo de pantalla', 'success')
+          } else {
+            swal('Oops...', result.response.message, 'error')
+          }
+        }, error => {
+          swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+        });
 
 
         /*

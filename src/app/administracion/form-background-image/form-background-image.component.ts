@@ -109,11 +109,11 @@ export class FormBackgroundImageComponent implements OnInit {
      * Configuración del modal de confirmación
      */
       swal({
-        title: '<span style="color: #303f9f ">' + msj + '</span>',
+        title: '<span style="color: #156ab1 ">' + msj + '</span>',
         type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#303f9f',
-        cancelButtonColor: '#9fa8da ',
+        confirmButtonColor: '#156ab1',
+        cancelButtonColor: '#8FB6D6',
         cancelButtonText: 'Cancelar',
         confirmButtonText: 'Si!',
         allowOutsideClick: false,
