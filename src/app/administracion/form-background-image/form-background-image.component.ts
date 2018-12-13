@@ -255,7 +255,7 @@ export class FormBackgroundImageComponent implements OnInit {
        */
       if (result.value) {
 
-        this.service.eliminarImagen(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
+        this.service.deleteImagen(this.auth.getIdUsuario(), imagen).subscribe(result => {
           if (result.response.sucessfull) {
             this.router.navigate(['admin/Protector']);
             swal('Elimanado!', 'Protector de pantalla eliminado', 'success')

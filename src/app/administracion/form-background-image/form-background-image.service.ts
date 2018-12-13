@@ -31,10 +31,11 @@ export class FormBackgroundImageService {
   }
 
 
-  eliminarImagen(id_usuario:number,  id_imagen: number): Observable<any>{
+  deleteImagen(id_usuario:number,  imagen: Imagen): Observable<any>{
     const body = new HttpParams()
-    .set('action', 'eliminarImagen')
-    .set('id_imagen', ""+id_imagen)
+    .set('action', 'deleteImagen')
+    .set('id_imagen', ""+imagen.id_imagen)
+    .set('imagen', ""+imagen.imagen)
     .set('id_usuario', ""+id_usuario);
     return this.http.post(this.URL,body);
   }
