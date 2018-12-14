@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Highcharts } from 'highcharts';
 import { configAppUsed, configByTurn, configAppUsedGral } from './config.charts';
+import { Message } from '../../models/message';
+import { SOCKET_WS } from '../../constants';
+
 
 declare const $: any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
+  public mensaje: Message;
+  public kioscos_now: number;
+  public ws_admin = new WebSocket(SOCKET_WS + '/ADMIN');
 
   plantas: any[] = [
     { value: 'steak-0', viewValue: 'TOLUCA' },
@@ -26,6 +34,9 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.mensaje = new Message('info_dashboard', 'info', '');
+    this.kioscos_now = 0;
+
     setTimeout(() => {
       let data = [10, 9];
       configAppUsed.series = [];
@@ -51,7 +62,19 @@ export class DashboardComponent implements OnInit {
       configByTurn.series.push({ name: 'Conexiones ', data: data1 });
       $('#byTurn').highcharts(configByTurn);
 
+
+      this.ws_admin.send(JSON.stringify(this.mensaje));
+
+
+      this.ws_admin.onmessage = (response) => {
+        this.kioscos_now = response.data;
+      };
+
     }, 500);
+  }
+
+  ngOnDestroy() {
+    this.ws_admin.close();
   }
 
 }
