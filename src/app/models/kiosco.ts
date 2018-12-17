@@ -19,7 +19,8 @@ export class Kiosco {
         public modelo_kiosco: string,
         public planta: Plantas,
         public fecha_registro?: string,
-        public fecha_modifica_registro?: string
+        public fecha_modifica_registro?: string,
+        public online: boolean = false
         
     ){}
 }

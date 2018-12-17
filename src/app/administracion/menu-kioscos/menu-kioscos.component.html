@@ -72,19 +72,19 @@
                     <tr *ngFor="let kiosco of kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string','marca_kiosco','modelo_kiosco']: texto_search">
                       <td>{{ kiosco.planta.nombre_planta }}</td>
                       <td>
-                        <a [routerLink]="kiosco.id_kiosko" >{{ kiosco.nombre_kiosko }}</a>
+                        <a [routerLink]="kiosco.id_kiosko">{{ kiosco.nombre_kiosko }}</a>
                       </td>
                       <td>{{ kiosco.ip_privada }}</td>
                       <td>
-                          {{ kiosco.marca_kiosco }}
+                        {{ kiosco.marca_kiosco }}
                       </td>
                       <td>
-                          {{ kiosco.modelo_kiosco }}
-                      </td>                      
+                        {{ kiosco.modelo_kiosco }}
+                      </td>
                       <td>{{ kiosco.fecha_registro_string }}</td>
                       <td>
-                        <!-- <p *ngIf="kiosco.activo == 1">SI</p>
-                        <p *ngIf="kiosco.activo == 0">NO</p> -->
+                        <p *ngIf="!kiosco.online">OFFLINE</p>
+                        <p *ngIf="kiosco.online">ONLINE</p>
                       </td>
                     </tr>
                     <tr *ngIf="(kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string','marca_kiosco','modelo_kiosco'] : texto_search ).length == 0">
@@ -107,7 +107,7 @@
     </div>
     <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <a *ngIf="kioscos.length > 0" href="#" (click)="exportarExcel()">
+        <a *ngIf="kioscos.length > 0" href="#" (click)="exportarExcel($event)">
           <img src="assets/img/download_excel.png"> DESCARGAR
         </a>
       </div>
