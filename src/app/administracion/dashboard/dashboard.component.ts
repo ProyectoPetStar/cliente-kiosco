@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.mensaje = new Message('info_dashboard', 'info', '');
+    this.mensaje = new Message('info_dashboard', 'info');
     this.kioscos_now = 0;
 
     setTimeout(() => {

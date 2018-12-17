@@ -65,7 +65,7 @@
                       FECHA REGISTRO
                     </th>
                     <th>
-                      ACTIVO
+                      ESTATUS
                     </th>
                   </thead>
                   <tbody>
@@ -83,8 +83,8 @@
                       </td>                      
                       <td>{{ kiosco.fecha_registro_string }}</td>
                       <td>
-                        <p *ngIf="kiosco.activo == 1">SI</p>
-                        <p *ngIf="kiosco.activo == 0">NO</p>
+                        <!-- <p *ngIf="kiosco.activo == 1">SI</p>
+                        <p *ngIf="kiosco.activo == 0">NO</p> -->
                       </td>
                     </tr>
                     <tr *ngIf="(kioscos | filterBy: ['nombre_planta','nombre_kiosko','ip_privada','fecha_registro_string','marca_kiosco','modelo_kiosco'] : texto_search ).length == 0">

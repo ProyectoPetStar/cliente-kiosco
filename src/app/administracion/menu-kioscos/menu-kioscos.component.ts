@@ -5,6 +5,8 @@ import { MenuKioscosService } from './menu-kioscos.service';
 import { Kiosco } from '../../models/kiosco';
 import { getTablaUtf8 } from '../../utils';
 import swal from 'sweetalert2';
+import { SOCKET_WS } from '../../constants';
+import { Message } from '../../models/message';
 
 declare const $: any;
 @Component({
@@ -18,6 +20,8 @@ export class MenuKioscosComponent implements OnInit {
   public loading: boolean;
   public kioscos: Array<Kiosco>;
   public texto_search: string;
+  public mensaje: Message;
+  public ws_admin = new WebSocket(SOCKET_WS + '/ADMIN');
 
   constructor(
     private service: MenuKioscosService,
@@ -28,12 +32,17 @@ export class MenuKioscosComponent implements OnInit {
     this.loading = true;
     this.kioscos = [];
     this.texto_search = "";
+    this.mensaje = new Message('connect_kiosco', 'info');
 
     if (this.auth.getIdUsuario() != null) {
       this.service.getAllKioscos(this.auth.getIdUsuario()).subscribe(result => {
 
         if (result.response.sucessfull) {
           this.kioscos = result.data.listKiosco;
+          this.ws_admin.send(JSON.stringify(this.mensaje));
+          this.ws_admin.onmessage = (response) => {
+            console.log('ok',response.data);
+          };
           this.loading = false;
         } else {
           swal('Oops...', result.response.message, 'error')

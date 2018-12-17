@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { PortalService } from './portal.service';
-import { SOCKET_WS } from '../../constants';
+import { SOCKET_WS, API_IP } from '../../constants';
 import { App } from '../../models/app';
 import { AuthService } from '../../auth/auth.service';
-import swal from 'sweetalert2';
 import { Message } from '../../models/message';
+import swal from 'sweetalert2';
+
+
 
 
 declare const $: any;
 declare const WOW: any;
+declare const window: any;
 
 
 @Component({
@@ -33,8 +36,10 @@ export class PortalComponent implements OnInit {
 
   /*
    * Abre socket de comunicación
-   */ 
-  public ws_kiosco = new WebSocket(SOCKET_WS+'/KIOSCO');
+   */
+  public privateIp: string;
+  public publicIP: string;
+  public ws_kiosco: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -46,19 +51,20 @@ export class PortalComponent implements OnInit {
     this.available = true;
     this.showSystem = false;
     this.apps = [];
+    this.privateIp = "";
+    this.publicIP = "";
     this.app = new App(-1, '', '', '', '', -1);
-    this.mensaje = new Message('info_dashboard', 'connect', '');
+    this.mensaje = new Message('connect_kiosco', 'connect');
+
 
     this.service.getAllApps().subscribe(result => {
+
       if (result.response.sucessfull) {
-
-
         this.apps = result.data.listUrlKiosco;
-        this.available = true;
+        this.privateIp = result.data.privateIp;
         this.loading = false;
-
         setTimeout(() => {
-          this.pluginEffect();        
+          this.pluginEffect();
         }, 50);
 
 
@@ -96,7 +102,28 @@ export class PortalComponent implements OnInit {
     setTimeout(() => {
       $('.start_contenido,.start_contenido_nav').show();
       new WOW().init();
-      this.ws_kiosco.send(JSON.stringify(this.mensaje));
+
+ /*
+   * Obtiene IP Publica del kiosco
+   */
+      $.ajax({
+        type: 'GET',
+        url: API_IP,
+        dataType: 'json',
+        success: (data) => {
+          // Activa el socket
+          this.publicIP = data.ip;
+          this.ws_kiosco = new WebSocket(SOCKET_WS+'/KIOSCO?publicIp='+this.publicIP+'&privateIp='+this.privateIp);
+
+          setTimeout(() => {
+            this.ws_kiosco.send(JSON.stringify(this.mensaje));
+          }, 500);
+        }
+      });
+      /*
+       * Fin IP Publica del kiosco
+       */
+      
     }, 1000);
   }
 
@@ -173,6 +200,8 @@ export class PortalComponent implements OnInit {
       $.unblockUI();
     }
   }
+
+
 
   ngOnDestroy() {
     this.ws_kiosco.close();

@@ -15,4 +15,6 @@ export class PortalService {
     return this.http.get<any>(this.URL + '?action=getAllApps');
   }
 
+
+
 }
