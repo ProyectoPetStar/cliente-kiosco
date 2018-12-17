@@ -82,7 +82,7 @@
                         {{ kiosco.modelo_kiosco }}
                       </td>
                       <td>{{ kiosco.fecha_registro_string }}</td>
-                      <td>
+                      <td [ngClass]="(kiosco.online? 'oneline': 'offline')">
                         <p *ngIf="!kiosco.online">OFFLINE</p>
                         <p *ngIf="kiosco.online">ONLINE</p>
                       </td>
