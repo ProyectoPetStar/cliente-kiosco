@@ -186,8 +186,7 @@ export class FormBackgroundImageComponent implements OnInit {
         reader.readAsDataURL(this.file_selected);
 
         //Se leyó correctamente el file
-        reader.onload = () => {
-
+        reader.onload = () => {        
           if (this.action == 'edit') {
             this.imagen.img_base64 = reader.result.split(',')[1];
             this.disabled_change_img = false;

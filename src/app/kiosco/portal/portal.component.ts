@@ -103,9 +103,9 @@ export class PortalComponent implements OnInit {
       $('.start_contenido,.start_contenido_nav').show();
       new WOW().init();
 
- /*
-   * Obtiene IP Publica del kiosco
-   */
+      /*
+        * Obtiene IP Publica del kiosco
+        */
       $.ajax({
         type: 'GET',
         url: API_IP,
@@ -113,7 +113,7 @@ export class PortalComponent implements OnInit {
         success: (data) => {
           // Activa el socket
           this.publicIP = data.ip;
-          this.ws_kiosco = new WebSocket(SOCKET_WS+'/KIOSCO?publicIp='+this.publicIP+'&privateIp='+this.privateIp);
+          this.ws_kiosco = new WebSocket(SOCKET_WS + '/KIOSCO?publicIp=' + this.publicIP + '&privateIp=' + this.privateIp);
 
           setTimeout(() => {
             this.ws_kiosco.send(JSON.stringify(this.mensaje));
@@ -123,7 +123,22 @@ export class PortalComponent implements OnInit {
       /*
        * Fin IP Publica del kiosco
        */
-      
+
+      setTimeout(() => {
+        $.blockUI({
+          fadeIn: 1000,      
+          message: $('#wallpaper'),
+          css: {
+            border: 'none',
+            //opacity: .9, 
+            top: '1px',
+            left: '1px',
+            width: $(window).width() +'px',
+            height: $(window).height()+'px'
+          }
+        });
+      }, 10000)
+
     }, 1000);
   }
 
