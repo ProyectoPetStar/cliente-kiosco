@@ -5,6 +5,7 @@ import { App } from '../../models/app';
 import { AuthService } from '../../auth/auth.service';
 import { Message } from '../../models/message';
 import swal from 'sweetalert2';
+import { Idle } from 'idlejs/dist';
 
 
 
@@ -40,6 +41,7 @@ export class PortalComponent implements OnInit {
   public privateIp: string;
   public publicIP: string;
   public ws_kiosco: any;
+  public idle: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -124,20 +126,31 @@ export class PortalComponent implements OnInit {
        * Fin IP Publica del kiosco
        */
 
-      setTimeout(() => {
-        $.blockUI({
-          fadeIn: 1000,      
-          message: $('#wallpaper'),
-          css: {
-            border: 'none',
-            //opacity: .9, 
-            top: '1px',
-            left: '1px',
-            width: $(window).width() +'px',
-            height: $(window).height()+'px'
-          }
-        });
-      }, 10000)
+      /*
+       * Configuracion del protector de pantalla
+       */   
+
+      this.idle = new Idle()
+        .whenNotInteractive()
+        .within(1)
+        .do(() => {
+          $.blockUI({
+            fadeIn: 1000,
+            message: $('#wallpaper'),
+            css: {
+              border: 'none',
+              //opacity: .9, 
+              top: '1px',
+              left: '1px',
+              width: $(window).width() + 'px',
+              height: $(window).height() + 'px'
+            }
+          });
+        })
+        .start();
+        /*
+         * Fin configuración del protector de pantalla
+         */ 
 
     }, 1000);
   }
