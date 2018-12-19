@@ -5,7 +5,7 @@ import { App } from '../../models/app';
 import { AuthService } from '../../auth/auth.service';
 import { Message } from '../../models/message';
 import swal from 'sweetalert2';
-import { Idle } from 'idlejs/dist';
+import { Idle, NotIdle } from 'idlejs/dist';
 
 
 
@@ -34,6 +34,7 @@ export class PortalComponent implements OnInit {
   public showSystem: boolean;
   public app: App;
   public mensaje: Message;
+  public wallpaper_active:boolean;
 
   /*
    * Abre socket de comunicación
@@ -57,7 +58,7 @@ export class PortalComponent implements OnInit {
     this.publicIP = "";
     this.app = new App(-1, '', '', '', '', -1);
     this.mensaje = new Message('connect_kiosco', 'connect');
-
+    this.wallpaper_active = false;
 
     this.service.getAllApps().subscribe(result => {
 
@@ -132,7 +133,7 @@ export class PortalComponent implements OnInit {
 
       this.idle = new Idle()
         .whenNotInteractive()
-        .within(1)
+        .within(20,1000)
         .do(() => {
           $.blockUI({
             fadeIn: 1000,
