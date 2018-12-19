@@ -137,6 +137,7 @@ export class PortalComponent implements OnInit {
         .whenNotInteractive()
         .within(60, 1000)
         .do(() => {
+
           $.blockUI({
             fadeIn: 1000,
             message: $('#wallpaper'),
@@ -152,6 +153,18 @@ export class PortalComponent implements OnInit {
 
           this.wallpaper_active = true;
 
+          /*
+           *Resetea vista
+           */
+          this.ws_kiosco_using.close();
+          setTimeout(() => {
+            this.showSystem = false;
+            this.app = new App(-1, '', '', '', '', -1);
+            $('.section-about').fadeOut();
+            $('.section-labs').fadeOut();
+          }, 300);
+
+
         })
         .start();
       /*
@@ -165,6 +178,11 @@ export class PortalComponent implements OnInit {
           if (this.wallpaper_active) {
             $.unblockUI();
             this.wallpaper_active = false;
+            setTimeout(() => {
+              $('.section-about').fadeIn();
+              $('.start_contenido,.start_contenido_nav').show();
+              new WOW().init();
+            }, 300);
           }
         })
         .start();
@@ -203,8 +221,8 @@ export class PortalComponent implements OnInit {
         }, 100);
         //Registra acceso en la base de datos
         this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
-         
-        }, error => {});
+
+        }, error => { });
 
       }, 25000);
 
