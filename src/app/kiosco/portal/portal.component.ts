@@ -42,6 +42,7 @@ export class PortalComponent implements OnInit {
   public privateIp: string;
   public publicIP: string;
   public ws_kiosco: any;
+  public ws_kiosco_using: any;
   public idle: any;
   public idle_quit: any;
 
@@ -134,7 +135,7 @@ export class PortalComponent implements OnInit {
 
       this.idle = new Idle()
         .whenNotInteractive()
-        .within(20, 1000)
+        .within(60, 1000)
         .do(() => {
           $.blockUI({
             fadeIn: 1000,
@@ -159,7 +160,7 @@ export class PortalComponent implements OnInit {
 
       this.idle_quit = new NotIdle()
         .whenInteractive()
-        .within(1,1000)
+        .within(1, 1000)
         .do(() => {
           if (this.wallpaper_active) {
             $.unblockUI();
@@ -191,8 +192,22 @@ export class PortalComponent implements OnInit {
 
     setTimeout(() => {
       let heightsize = $(window).height();
-
       $('.ajuste_alto').height(heightsize);
+
+
+      setTimeout(() => {
+        //Abre socket para notificar al administrador que el kiosco esta en uso
+        this.ws_kiosco_using = new WebSocket(SOCKET_WS + '/KIOSCO_USING_NOW');
+        setTimeout(() => {
+          this.ws_kiosco_using.send(JSON.stringify(new Message('using_kiosco_now', 'using')));
+        }, 100);
+        //Registra acceso en la base de datos
+        this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
+         
+        }, error => {});
+
+      }, 25000);
+
     }, 1000);
 
   }
@@ -225,6 +240,7 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           this.startApp();
+          this.ws_kiosco_using.close();
           $('.start_contenido_nav').show();
         }, 50);
         /*
@@ -249,6 +265,7 @@ export class PortalComponent implements OnInit {
 
   ngOnDestroy() {
     this.ws_kiosco.close();
+    this.ws_kiosco_using.close();
   }
 
 }

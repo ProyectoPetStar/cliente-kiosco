@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
 
       this.ws_admin.onmessage = (response) => {
-        this.kioscos_now = JSON.parse(response.data)[0];
+        this.kioscos_now = JSON.parse(response.data)[0];       
       };
 
     }, 500);
