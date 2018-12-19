@@ -34,7 +34,7 @@ export class PortalComponent implements OnInit {
   public showSystem: boolean;
   public app: App;
   public mensaje: Message;
-  public wallpaper_active:boolean;
+  public wallpaper_active: boolean;
 
   /*
    * Abre socket de comunicación
@@ -43,6 +43,7 @@ export class PortalComponent implements OnInit {
   public publicIP: string;
   public ws_kiosco: any;
   public idle: any;
+  public idle_quit: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -129,11 +130,11 @@ export class PortalComponent implements OnInit {
 
       /*
        * Configuracion del protector de pantalla
-       */   
+       */
 
       this.idle = new Idle()
         .whenNotInteractive()
-        .within(20,1000)
+        .within(20, 1000)
         .do(() => {
           $.blockUI({
             fadeIn: 1000,
@@ -147,11 +148,25 @@ export class PortalComponent implements OnInit {
               height: $(window).height() + 'px'
             }
           });
+
+          this.wallpaper_active = true;
+
         })
         .start();
-        /*
-         * Fin configuración del protector de pantalla
-         */ 
+      /*
+       * Fin configuración del protector de pantalla
+       */
+
+      this.idle_quit = new NotIdle()
+        .whenInteractive()
+        .within(1,1000)
+        .do(() => {
+          if (this.wallpaper_active) {
+            $.unblockUI();
+            this.wallpaper_active = false;
+          }
+        })
+        .start();
 
     }, 1000);
   }
