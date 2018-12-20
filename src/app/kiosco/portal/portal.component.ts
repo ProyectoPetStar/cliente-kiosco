@@ -45,6 +45,7 @@ export class PortalComponent implements OnInit {
   public ws_kiosco_using: any;
   public idle: any;
   public idle_quit: any;
+  public temporizador: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -152,17 +153,21 @@ export class PortalComponent implements OnInit {
           });
 
           this.wallpaper_active = true;
+          clearTimeout(this.temporizador);
 
           /*
            *Resetea vista
            */
-          this.ws_kiosco_using.close();
+
           setTimeout(() => {
             this.showSystem = false;
             this.app = new App(-1, '', '', '', '', -1);
             $('.section-about').fadeOut();
             $('.section-labs').fadeOut();
+          
           }, 300);
+
+          this.ws_kiosco_using.close();
 
 
         })
@@ -182,6 +187,7 @@ export class PortalComponent implements OnInit {
               $('.section-about').fadeIn();
               $('.start_contenido,.start_contenido_nav').show();
               new WOW().init();
+             
             }, 300);
           }
         })
@@ -213,7 +219,7 @@ export class PortalComponent implements OnInit {
       $('.ajuste_alto').height(heightsize);
 
 
-      setTimeout(() => {
+      this.temporizador = setTimeout(() => {
         //Abre socket para notificar al administrador que el kiosco esta en uso
         this.ws_kiosco_using = new WebSocket(SOCKET_WS + '/KIOSCO_USING_NOW');
         setTimeout(() => {
@@ -223,8 +229,9 @@ export class PortalComponent implements OnInit {
         this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
 
         }, error => { });
+      
 
-      }, 25000);
+      }, 63000);
 
     }, 1000);
 
@@ -255,11 +262,13 @@ export class PortalComponent implements OnInit {
 
         this.showSystem = false;
         this.loading_system = false;
+        clearTimeout(this.temporizador);
 
         setTimeout(() => {
           this.startApp();
-          this.ws_kiosco_using.close();
           $('.start_contenido_nav').show();
+          this.ws_kiosco_using.close();
+          
         }, 50);
         /*
         * Si cancela accion
