@@ -1,4 +1,19 @@
-<div class="main-content">
+<div class="main-content justify-content-center align-items-center" *ngIf="loading">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div id="loading">
+          <ul class="bokeh">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="main-content" *ngIf="!loading">
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-4 col-md-6 col-sm-6">
@@ -24,11 +39,11 @@
               <i class="fa fa-star"></i>
             </div>
             <p class="card-category">Aplicación web mas utilizada</p>
-            <h3 class="card-title">SONARH</h3>
+            <h3 class="card-title">{{ app_more_used }}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">update</i> Actualizar
+              <i class="material-icons">access_time</i> Actualmente
             </div>
           </div>
         </div>
@@ -40,11 +55,11 @@
               <i class="fa fa-building"></i>
             </div>
             <p class="card-category">Planta con mas accesos</p>
-            <h3 class="card-title">TOLUCA</h3>
+            <h3 class="card-title">{{ planta_more_access }}</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
-              <i class="material-icons">update</i> Actualizar
+              <i class="material-icons">access_time</i> Actualmente
             </div>
           </div>
         </div>
@@ -73,40 +88,38 @@
             <b>INGRESE DATOS PARA VER REPORTES</b>
           </div>
           <div class="card-body">
-            <div class="row">
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <mat-form-field>
-                  <mat-select placeholder="Planta">
-                    <mat-option *ngFor="let planta of plantas" [value]="planta.value">
-                      {{planta.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
+            <form [formGroup]="formulario" (ngSubmit)="submit($event)" autocomplete="off">
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <mat-form-field>
+                    <mat-select placeholder="Seleccione planta" formControlName="id_planta" [(ngModel)]="paramsFind.id_planta">
+                      <mat-option *ngFor="let planta of plantas" [value]="planta.id_planta">
+                        {{planta.nombre_planta}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint align="end" *ngIf="formulario.controls.id_planta.errors?.pattern && (formulario.controls.id_planta?.touched || submitted)">Requerido</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <mat-form-field>
+                    <mat-select placeholder="Seleccione kiosco" formControlName="id_kiosco" [(ngModel)]="paramsFind.id_kiosco">
+                      <mat-option *ngFor="let kiosco of kioscos" [value]="kiosco.id_kiosko">
+                        {{kiosco.nombre_kiosko}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint align="end" *ngIf="formulario.controls.id_kiosco.errors?.pattern && (formulario.controls.id_kiosco?.touched || submitted)">Requerido</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <mat-form-field>
+                    <input matInput readonly [matDatepicker]="pickerinicio" placeholder="Día" formControlName="fecha" [(ngModel)]="paramsFind.fecha">
+                    <mat-datepicker-toggle matSuffix [for]="pickerinicio"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerinicio></mat-datepicker>
+                    <mat-hint align="end" *ngIf="formulario.controls.fecha.errors?.required && (formulario.controls.fecha?.touched || submitted)">Requerido</mat-hint>
+                  </mat-form-field>
+                </div>
               </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <mat-form-field>
-                  <mat-select placeholder="Kiosco">
-                    <mat-option *ngFor="let kiosco of kioscos" [value]="kiosco.value">
-                      {{kiosco.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <mat-form-field>
-                  <input matInput [matDatepicker]="pickerinicio" placeholder="Fecha inicio">
-                  <mat-datepicker-toggle matSuffix [for]="pickerinicio"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerinicio></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3">
-                <mat-form-field>
-                  <input matInput [matDatepicker]="pickerfin" placeholder="Fecha fin">
-                  <mat-datepicker-toggle matSuffix [for]="pickerfin"></mat-datepicker-toggle>
-                  <mat-datepicker #pickerfin></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
