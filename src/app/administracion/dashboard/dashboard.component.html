@@ -103,7 +103,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <mat-form-field>
                     <mat-select placeholder="Seleccione kiosco" formControlName="id_kiosco" [(ngModel)]="paramsFind.id_kiosco">
-                      <mat-option *ngFor="let kiosco of kioscos" [value]="kiosco.id_kiosko">
+                      <mat-option *ngFor="let kiosco of getFilterKioscos(paramsFind.id_planta)" [value]="kiosco.id_kiosko">
                         {{kiosco.nombre_kiosko}}
                       </mat-option>
                     </mat-select>
@@ -119,6 +119,7 @@
                   </mat-form-field>
                 </div>
               </div>
+              <input id="btnConsulta" type="submit" hidden>
             </form>
           </div>
         </div>
@@ -133,13 +134,13 @@
                 <span class="nav-tabs-title">CLICK PARA VER:</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
-                    <a mat-button class="nav-link active" href="#rpt1" data-toggle="tab">
-                      <i class="material-icons">description</i> Conexiones por turno
+                    <a mat-button class="nav-link active" href="#rpt1" data-toggle="tab" (click)="consultaReporteByDia()">
+                      <i class="material-icons">description</i> Conexiones por día
                       <div class="ripple-container"></div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a mat-button class="nav-link" href="#rpt2" data-toggle="tab">
+                    <a mat-button class="nav-link" href="#rpt2" data-toggle="tab" (click)="consultaReporteByApp()">
                       <i class="material-icons">description</i> Conexiones por aplicación
                       <div class="ripple-container"></div>
                     </a>

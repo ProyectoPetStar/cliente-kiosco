@@ -9,6 +9,7 @@ import { Kiosco } from '../../models/kiosco';
 import { SOCKET_WS } from '../../constants';
 import { AuthService } from '../../auth/auth.service';
 import swal from 'sweetalert2';
+import { notify } from '../../utils';
 
 
 declare const $: any;
@@ -33,6 +34,7 @@ export class DashboardComponent implements OnInit {
   public formulario: FormGroup;
   public paramsFind: any;
   public dataGral: Array<any>;
+  public tipoRpt: number;
 
 
   constructor(
@@ -42,11 +44,12 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loading =  true;
+    this.loading = true;
     this.mensaje = new Message('info_dashboard', 'info');
     this.plantas = [];
     this.kioscos = [];
     this.dataGral = [];
+    this.tipoRpt = -1;
     this.kioscos_now = 0;
     this.app_more_used = '';
     this.planta_more_access = '';
@@ -114,6 +117,8 @@ export class DashboardComponent implements OnInit {
     // }, 500);
   }
 
+
+
   buildChartGral(accesos: Array<any>): void {
     setTimeout(() => {
       let datos = accesos.map(el => el.conteo);
@@ -136,7 +141,56 @@ export class DashboardComponent implements OnInit {
 
   submit(ev) {
     ev.preventDefault();
-    alert('CONSULTA DATOS')
+
+    this.submitted = true;
+
+    if (this.formulario.valid) {
+
+      if (this.tipoRpt == 1) {
+
+        this.service.reporteByDia(this.auth.getIdUsuario(), this.paramsFind).subscribe(result => {
+          console.log(result)
+          if (result.response.sucessfull) {
+
+          } else {
+            swal('Oops...', result.response.message, 'error')
+          }
+        }, error => {
+          swal('Oops...', 'Ocurrió un error en el servicio!', 'error')
+        });
+
+      } else if (this.tipoRpt == 2) {
+        this.service.reporteByAplicacion(this.auth.getIdUsuario(), this.paramsFind).subscribe(result => {
+          console.log(result)
+          if (result.response.sucessfull) {
+
+          } else {
+            swal('Oops...', result.response.message, 'error')
+          }
+        }, error => {
+          swal('Oops...', 'Ocurrió un error en el servicio!', 'error')
+        });
+      }
+
+    } else {
+      notify('Verifique los datos capturados!', 'danger', 2800);
+    }
+
+  }
+
+  consultaReporteByDia(): void {
+    this.tipoRpt = 1;
+    $('#btnConsulta').trigger("click");
+  }
+
+
+  consultaReporteByApp(): void {
+    this.tipoRpt = 2;
+    $('#btnConsulta').trigger("click");
+  }
+
+  getFilterKioscos(id_planta: number): Array<Kiosco> {
+    return this.kioscos.filter(el => el.planta.id_planta == id_planta);
   }
 
   ngOnDestroy() {
