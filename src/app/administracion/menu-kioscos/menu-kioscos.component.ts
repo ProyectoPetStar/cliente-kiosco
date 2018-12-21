@@ -98,7 +98,8 @@ export class MenuKioscosComponent implements OnInit {
         let ip_publica = kiosco_registrado.planta.ip_publica;
         let ip_privada = kiosco_registrado.ip_privada;
 
-        let element = kioscos_online.filter(kiosco_online=> (kiosco_online.ip_publica == ip_publica && kiosco_online.ip_privada));
+        let element = kioscos_online.filter(kiosco_online=> (kiosco_online.ip_publica == ip_publica && kiosco_online.ip_privada == ip_privada));
+        
         if(element.length > 0){
           kiosco_registrado.online = true;
         }else{
