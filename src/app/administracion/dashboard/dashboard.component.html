@@ -92,7 +92,7 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4">
                   <mat-form-field>
-                    <mat-select placeholder="Seleccione planta" formControlName="id_planta" [(ngModel)]="paramsFind.id_planta">
+                    <mat-select placeholder="Seleccione planta" formControlName="id_planta" [(ngModel)]="paramsFind.id_planta" (ngModelChange)="cambiaCombo()">
                       <mat-option *ngFor="let planta of plantas" [value]="planta.id_planta">
                         {{planta.nombre_planta}}
                       </mat-option>

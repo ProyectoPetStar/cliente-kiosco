@@ -62,10 +62,13 @@ export class DashboardComponent implements OnInit {
     this.service.conteoKiosco(this.auth.getIdUsuario()).subscribe(result => {
 
       if (result.response.sucessfull) {
+        let planta = new Plantas(-1,'SELECCIONE','','','','',1);
         this.app_more_used = result.data.aplicacion.aplicacion;
         this.planta_more_access = result.data.planta.planta;
         this.plantas = result.data.listPlanta;
+        this.plantas.splice(0,0,planta)
         this.kioscos = result.data.listKiosco;
+        this.kioscos.splice(0,0,new Kiosco(-1,'SELECCIONE',-1,'','','',1,-1,'','','',planta,'','', true));
         this.ws_admin.send(JSON.stringify(this.mensaje));
 
         this.ws_admin.onmessage = (response) => {
@@ -175,6 +178,10 @@ export class DashboardComponent implements OnInit {
     }, 500);
   }
 
+  cambiaCombo(): void{
+    this.paramsFind.id_kiosco = -1;
+  }
+
   consultaReporteByDia(): void {
     this.tipoRpt = 1;
     $('#btnConsulta').trigger("click");
@@ -187,7 +194,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getFilterKioscos(id_planta: number): Array<Kiosco> {
-    return this.kioscos.filter(el => el.planta.id_planta == id_planta);
+    return this.kioscos.filter(el => (el.planta.id_planta == id_planta || el.id_kiosko == -1));
   }
 
   ngOnDestroy() {
