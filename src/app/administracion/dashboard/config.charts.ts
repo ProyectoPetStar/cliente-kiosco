@@ -139,7 +139,7 @@ let configAppUsedGral = {
 let configByTurn = {
     chart: {
         height: null,
-        type: 'column',
+        type: 'line',
         borderWidth: 0,
         borderRadius: 0,
         plotBackgroundColor: null,
@@ -161,13 +161,13 @@ let configByTurn = {
     title: {
         text: '',
         style: {
-            color: '#b71c1c'
+            color: '#156ab1'
         }
     },
     subtitle: {
         text: '',
         style: {
-            color: '#b71c1c'
+            color: '#156ab1'
         }
     },
     xAxis: {
@@ -192,7 +192,7 @@ let configByTurn = {
             }
         },
         gridLineWidth: .5,
-        gridLineColor: '#e57373',
+        gridLineColor: '#4987BB',
         gridLineDashStyle: 'dot'
 
     },
@@ -220,7 +220,7 @@ let configByTurn = {
             depth: 75
         }
     },
-    colors: ['#ef5350'],
+    colors: ['#156ab1'],
     series: [],
 };
 

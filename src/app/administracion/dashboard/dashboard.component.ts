@@ -117,20 +117,6 @@ export class DashboardComponent implements OnInit {
     // }, 500);
   }
 
-
-
-  buildChartGral(accesos: Array<any>): void {
-    setTimeout(() => {
-      let datos = accesos.map(el => el.conteo);
-      configAppUsedGral.series = [];
-      configAppUsedGral.title.text = 'Aplicación mas utilizada';
-      configAppUsedGral.subtitle.text = '';
-      configAppUsedGral.xAxis.categories = accesos.map(el => el.nombre);
-      configAppUsedGral.series.push({ name: ' Cantidad de accesos ', data: datos });
-      $('#appUsedGral').highcharts(configAppUsedGral);
-    }, 500);
-  }
-
   loadFormulario(): void {
     this.formulario = this.fb.group({
       id_planta: new FormControl({ value: this.paramsFind.id_planta, disabled: false }, [Validators.pattern(/^\d+$/)]),
@@ -145,22 +131,27 @@ export class DashboardComponent implements OnInit {
     this.submitted = true;
 
     if (this.formulario.valid) {
+      //Formatea fecha
+      let format = new Date(this.paramsFind.fecha);
+      let new_date = format.toLocaleString().split(' ')[0];
+      let name_kiosco = this.kioscos.filter(el => el.id_kiosko == this.paramsFind.id_kiosco)[0].nombre_kiosko;
 
       if (this.tipoRpt == 1) {
 
-        this.service.reporteByDia(this.auth.getIdUsuario(), this.paramsFind).subscribe(result => {
-          console.log(result)
-          if (result.response.sucessfull) {
+        this.service.reporteByDia(this.auth.getIdUsuario(), this.paramsFind, new_date).subscribe(result => {
 
+          if (result.response.sucessfull) {
+            this.bluidChartByDay(result.data.listReportes, name_kiosco, new_date);
           } else {
             swal('Oops...', result.response.message, 'error')
           }
+
         }, error => {
           swal('Oops...', 'Ocurrió un error en el servicio!', 'error')
         });
 
       } else if (this.tipoRpt == 2) {
-        this.service.reporteByAplicacion(this.auth.getIdUsuario(), this.paramsFind).subscribe(result => {
+        this.service.reporteByAplicacion(this.auth.getIdUsuario(), this.paramsFind, new_date).subscribe(result => {
           console.log(result)
           if (result.response.sucessfull) {
 
@@ -176,6 +167,30 @@ export class DashboardComponent implements OnInit {
       notify('Verifique los datos capturados!', 'danger', 2800);
     }
 
+  }
+
+  buildChartGral(accesos: Array<any>): void {
+    setTimeout(() => {
+      let datos = accesos.map(el => el.conteo);
+      configAppUsedGral.series = [];
+      configAppUsedGral.title.text = 'Aplicación mas utilizada';
+      configAppUsedGral.subtitle.text = '';
+      configAppUsedGral.xAxis.categories = accesos.map(el => el.nombre);
+      configAppUsedGral.series.push({ name: ' Cantidad de accesos ', data: datos });
+      $('#appUsedGral').highcharts(configAppUsedGral);
+    }, 500);
+  }
+
+  bluidChartByDay(accesos: Array<any>, name_kiosco: string, dia: string): void {
+    setTimeout(() => {
+      let datos = accesos.map(el => el.conteo);
+      configByTurn.series = [];
+      configByTurn.title.text = 'Conexiones '+dia;
+      configByTurn.subtitle.text = name_kiosco;
+      configByTurn.xAxis.categories = accesos.map(el => el.nombre);
+      configByTurn.series.push({ name: 'Cantidad  ', data: datos });
+      $('#byDay').highcharts(configByTurn);
+    }, 500);
   }
 
   consultaReporteByDia(): void {
