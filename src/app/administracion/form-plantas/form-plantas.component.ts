@@ -189,9 +189,9 @@ export class FormPlantasComponent implements OnInit {
   changeStatus(estatus: number) {
     this.planta.activo = (estatus == 0) ? 1 : 0;
 
-    if (this.planta.activo == 0) {
-      swal('Advertencia', 'Los kioscos instalados en esta planta serán desactivados', 'warning');
-    }
+    // if (this.planta.activo == 0) {
+    //   swal('Advertencia', 'Los kioscos instalados en esta planta serán desactivados', 'warning');
+    // }
 
   }
 
