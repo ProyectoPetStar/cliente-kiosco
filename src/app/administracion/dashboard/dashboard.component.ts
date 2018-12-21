@@ -66,6 +66,11 @@ export class DashboardComponent implements OnInit {
         this.planta_more_access = result.data.planta.planta;
         this.plantas = result.data.listPlanta;
         this.kioscos = result.data.listKiosco;
+        this.ws_admin.send(JSON.stringify(this.mensaje));
+
+        this.ws_admin.onmessage = (response) => {
+          this.kioscos_now = JSON.parse(response.data)[0];
+        };
         this.loading = false;
         this.loadFormulario();
         this.buildChartGral(result.data.listReportes);
@@ -80,41 +85,6 @@ export class DashboardComponent implements OnInit {
       this.loading = false;
 
     });
-
-    // setTimeout(() => {
-    //   let data = [10, 9];
-    //   configAppUsed.series = [];
-    //   configAppUsed.title.text = 'Conexiones por aplicación';
-    //   configAppUsed.subtitle.text = 'Kiosco PC-TOLUCA123';
-    //   configAppUsed.xAxis.categories = ['SONARH', 'GO INTEGRO'];
-    //   configAppUsed.series.push({ name: ' Total de conexiones ', data: data });
-    //   $('#appUsed').highcharts(configAppUsed);
-
-    //   let data2 = [200, 90];
-    //   configAppUsedGral.series = [];
-    //   configAppUsedGral.title.text = 'Aplicación mas utilizada';
-    //   configAppUsedGral.subtitle.text = '';
-    //   configAppUsedGral.xAxis.categories = ['SONARH', 'GO INTEGRO'];
-    //   configAppUsedGral.series.push({ name: ' Cantidad de accesos ', data: data2 });
-    //   $('#appUsedGral').highcharts(configAppUsedGral);
-
-    //   let data1 = [3, 6, 10];
-    //   configByTurn.series = [];
-    //   configByTurn.title.text = 'Conexiones por turno';
-    //   configByTurn.subtitle.text = 'Kiosco PC-TOLUCA123';
-    //   configByTurn.xAxis.categories = ['TURNO 1', 'TURNO 2', 'TURNO 3'];
-    //   configByTurn.series.push({ name: 'Conexiones ', data: data1 });
-    //   $('#byTurn').highcharts(configByTurn);
-
-
-    //   this.ws_admin.send(JSON.stringify(this.mensaje));
-
-
-    //   this.ws_admin.onmessage = (response) => {
-    //     this.kioscos_now = JSON.parse(response.data)[0];
-    //   };
-
-    // }, 500);
   }
 
   loadFormulario(): void {
@@ -152,9 +122,9 @@ export class DashboardComponent implements OnInit {
 
       } else if (this.tipoRpt == 2) {
         this.service.reporteByAplicacion(this.auth.getIdUsuario(), this.paramsFind, new_date).subscribe(result => {
-          console.log(result)
-          if (result.response.sucessfull) {
 
+          if (result.response.sucessfull) {
+            this.bluidChartByApp(result.data.listReportes, name_kiosco, new_date)
           } else {
             swal('Oops...', result.response.message, 'error')
           }
@@ -185,11 +155,23 @@ export class DashboardComponent implements OnInit {
     setTimeout(() => {
       let datos = accesos.map(el => el.conteo);
       configByTurn.series = [];
-      configByTurn.title.text = 'Conexiones '+dia;
+      configByTurn.title.text = 'Conexiones ' + dia;
       configByTurn.subtitle.text = name_kiosco;
       configByTurn.xAxis.categories = accesos.map(el => el.nombre);
       configByTurn.series.push({ name: 'Cantidad  ', data: datos });
       $('#byDay').highcharts(configByTurn);
+    }, 500);
+  }
+
+  bluidChartByApp(accesos: Array<any>, name_kiosco: string, dia: string): void {
+    setTimeout(() => {
+      let data = accesos.map(el => el.conteo);
+      configAppUsed.series = [];
+      configAppUsed.title.text = 'Conexiones por aplicación ' + dia;
+      configAppUsed.subtitle.text = name_kiosco;
+      configAppUsed.xAxis.categories = accesos.map(el => el.nombre);
+      configAppUsed.series.push({ name: ' Total de conexiones ', data: data });
+      $('#appUsed').highcharts(configAppUsed);
     }, 500);
   }
 

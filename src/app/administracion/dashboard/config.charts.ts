@@ -78,20 +78,20 @@ let configAppUsedGral = {
     title: {
         text: '',
         style: {
-            color: '#00796b'
+            color: '#43a047'
         }
     },
     subtitle: {
         text: '',
         style: {
-            color: '#00796b'
+            color: '#43a047'
         }
     },
     xAxis: {
         categories: [],
         labels: {
             style: {
-                color: '#00796b'
+                color: '#43a047'
             }
         }
     },
@@ -105,7 +105,7 @@ let configAppUsedGral = {
         },
         labels: {
             style: {
-                color: '#00796b',
+                color: '#43a047',
             },
             formatter: function () {
                 return this.value + '';
@@ -132,7 +132,7 @@ let configAppUsedGral = {
             depth: 75
         }
     },
-    colors: ['#00796b'],
+    colors: ['#43a047'],
     series: [],
 };
 
