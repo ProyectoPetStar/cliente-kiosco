@@ -41,6 +41,7 @@ export class PortalComponent implements OnInit {
    */
   public privateIp: string;
   public publicIP: string;
+  public wallpaper: string;
   public ws_kiosco: any;
   public ws_kiosco_using: any;
   public idle: any;
@@ -59,15 +60,17 @@ export class PortalComponent implements OnInit {
     this.apps = [];
     this.privateIp = "";
     this.publicIP = "";
+    this.wallpaper = "";
     this.app = new App(-1, '', '', '', '', -1);
     this.mensaje = new Message('connect_kiosco', 'connect');
     this.wallpaper_active = false;
 
-    this.service.getAllApps().subscribe(result => {
+    this.service.getStartKiosco().subscribe(result => {
 
       if (result.response.sucessfull) {
-        this.apps = result.data.listUrlKiosco;
+
         this.privateIp = result.data.privateIp;
+        this.wallpaper = result.data.wallpaper;
         this.loading = false;
         setTimeout(() => {
           this.pluginEffect();
@@ -93,8 +96,28 @@ export class PortalComponent implements OnInit {
 
 
   startApp(): void {
-    $('.section-about').fadeOut();
-    $('.section-labs').fadeIn();
+
+    this.service.getAllApps().subscribe(result => {
+
+      if (result.response.sucessfull) {
+        this.apps = result.data.listUrlKiosco;
+        this.wallpaper = result.data.wallpaper;
+
+        setTimeout(() => {
+          $('.section-about').fadeOut();
+          $('.section-labs').fadeIn();
+
+
+        }, 300);
+
+      } else {
+        swal('Oops...', result.response.message, 'error');
+      }
+
+    }, error => {
+      swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
+    });
+
   }
 
   showInicio() {
@@ -164,10 +187,12 @@ export class PortalComponent implements OnInit {
             this.app = new App(-1, '', '', '', '', -1);
             $('.section-about').fadeOut();
             $('.section-labs').fadeOut();
-          
+
           }, 300);
 
-          this.ws_kiosco_using.close();
+          if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
+            this.ws_kiosco_using.close();
+          }
 
 
         })
@@ -187,7 +212,7 @@ export class PortalComponent implements OnInit {
               $('.section-about').fadeIn();
               $('.start_contenido,.start_contenido_nav').show();
               new WOW().init();
-             
+
             }, 300);
           }
         })
@@ -229,7 +254,7 @@ export class PortalComponent implements OnInit {
         this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
 
         }, error => { });
-      
+
 
       }, 63000);
 
@@ -268,7 +293,7 @@ export class PortalComponent implements OnInit {
           this.startApp();
           $('.start_contenido_nav').show();
           this.ws_kiosco_using.close();
-          
+
         }, 50);
         /*
         * Si cancela accion

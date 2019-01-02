@@ -12,6 +12,10 @@ export class PortalService {
 
   constructor(private http: HttpClient) { }
 
+  getStartKiosco(): Observable<any> {
+    return this.http.get<any>(this.URL + '?action=getStartKiosco');
+  }
+
   getAllApps(): Observable<any> {
     return this.http.get<any>(this.URL + '?action=getAllApps');
   }
