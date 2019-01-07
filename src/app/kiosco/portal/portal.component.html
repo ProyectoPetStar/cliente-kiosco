@@ -1,5 +1,5 @@
 <div class="floating-btn" *ngIf="showSystem">
-  <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()" [hidden]="loading_system">REGRESAR&nbsp;&nbsp;
+  <button class="btn btn-rounded btn-primary btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;
     <i class="fa fa fa-arrow-left pl-1"></i>
   </button>
 </div>
@@ -85,7 +85,7 @@
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
   <iframe [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
-    scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" [hidden]="loading_system">
+    scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 </div>
 <div class="container-fluid full-width">
