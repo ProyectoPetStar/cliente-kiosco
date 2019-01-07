@@ -85,7 +85,7 @@
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
   <iframe [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
-    scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" [hidden]="loading_system">
+    scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" [hidden]="loading_system">
   </iframe>
 </div>
 <div class="container-fluid full-width">
