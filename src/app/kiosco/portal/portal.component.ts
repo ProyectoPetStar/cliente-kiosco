@@ -101,6 +101,7 @@ export class PortalComponent implements OnInit {
 
       if (result.response.sucessfull) {
         this.apps = result.data.listUrlKiosco;
+        this.apps = this.apps.filter(el=>el.activo == 1);
         this.wallpaper = result.data.wallpaper;
 
         setTimeout(() => {
