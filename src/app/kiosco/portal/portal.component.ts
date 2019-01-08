@@ -102,8 +102,8 @@ export class PortalComponent implements OnInit {
         this.wallpaper = result.data.wallpaper;
 
         setTimeout(() => {
-          $('.section-about').fadeOut();
-          $('.section-labs').fadeIn();
+          $('.section-welcome').fadeOut();
+          $('.section-apps').fadeIn();
 
 
         }, 300);
@@ -119,9 +119,9 @@ export class PortalComponent implements OnInit {
   }
 
   showInicio() {
-    $('.section-labs').fadeOut();
+    $('.section-apps').fadeOut();
     setTimeout(() => {
-      $('.section-about').fadeIn();
+      $('.section-welcome').fadeIn();
     }, 900);
   }
 
@@ -183,8 +183,8 @@ export class PortalComponent implements OnInit {
           setTimeout(() => {
             this.showSystem = false;
             this.app = new App(-1, '', '', '', '', -1);
-            $('.section-about').fadeOut();
-            $('.section-labs').fadeOut();
+            $('.section-welcome').fadeOut();
+            $('.section-apps').fadeOut();
 
           }, 300);
 
@@ -207,7 +207,7 @@ export class PortalComponent implements OnInit {
             $.unblockUI();
             this.wallpaper_active = false;
             setTimeout(() => {
-              $('.section-about').fadeIn();
+              $('.section-welcome').fadeIn();
               $('.start_contenido,.start_contenido_nav').show();
             
             }, 300);
