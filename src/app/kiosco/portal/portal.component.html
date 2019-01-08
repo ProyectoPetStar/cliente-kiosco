@@ -4,79 +4,9 @@
   </button>
 </div>
 <div id="body" *ngIf="!loading && available && !showSystem">
-  <!--- toggle sm-->
-  <div class="pos-f-t d-md-none toggle-sm">
-    <div class="collapse" id="toggle-sm">
-      <div class="p-4">
-        <ul class="list-unstyled navigate">
-          <li>INICIO</li>
-        </ul>
-      </div>
-    </div>
-    <nav class="navbar navbar-dark ">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggle-sm" aria-controls="toggle-sm" aria-expanded="false"
-        aria-label="toggle-sm">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </nav>
-  </div>
-  <!--- end toggle sm-->
-
   <div class="container-fluid">
-    <div class="row">
-      <!-- nav left-->
-
-      <div class="col-12  col-md-3   col-lg-2 nav-left fadeInLeft">
-        <img src="assets/img/avatar_kiosco.png" alt="logo empresa" class="img-fluid start_contenido_nav">
-        <ul class="list-unstyled navigate">
-          <li class="start_contenido_nav" (click)="showInicio()">INICIO</li>
-        </ul>
-      </div>
-      <!--end  nav left-->
-
-      <!-- right element-->
-      <div class="col-12  col-md-9 col-lg-10  right-element">
-        <section class="section-welcome start_contenido">
-          <div class="container">
-            <h2 class="h1 about-h  fadeInRight">INICIO</h2>
-            <div class="row">
-              <div class="col-md-7  fadeInRight" >
-                <h2 class="h1 about-h-2">BIENVENIDO
-                </h2>
-                <h3>KIOSCO VIRTUAL</h3>
-                <p class="lead">
-                  KIOSCOS PETSTAR ES UN PORTAL QUE OFRECE ACCESO RÁPIDO A LOS DIFERENTES SISTEMAS DE INFORMACIÓN PROPIOS DE LA EMPRESA
-                </p>
-                <a href="#" class="btn bt1 hvr-grow" (click)="startApp();false" id="btnStart">ENTRAR</a>
-              </div>
-              <div class="col-md-5 d-none d-md-inline-block fadeInRight">
-                <img src="assets/img/marca_agua_fondo_kiosco.png" class="img-fluid">
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- labs section-->
-        <section class="section-apps app_contenido">
-          <div class="container">
-            <h2 class="h1 labs-h fadeInUp">Aplicaciones</h2>
-            <div class="row">
-              <div class="col-12 col-md-6 col-lg-4 fadeInUp" *ngFor="let app of apps">
-                <div class="card" style="width: 100%;">
-                  <img class="card-img-top" [src]="'data:image/jpg;base64,'+app.imagen | safe" alt="Card image cap">
-                  <div class="card-body">
-                    <h5>{{ app.nombre }}</h5>
-                    <p class="card-text">{{ app.descripcion }}
-                      <a href="#" (click)="goSystem(app);false">Entrar</a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!--end  labs section-->
-      </div>
+    <div class="row config">
+       <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="90%" >
     </div>
   </div>
 </div>

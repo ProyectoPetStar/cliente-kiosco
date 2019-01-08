@@ -1,7 +1,22 @@
 #body{
-   // background: url('../img/fondo_kiosco.png') no-repeat  fixed  ;
+    background: url('/assets/img/fondo_kiosco.png') no-repeat  fixed  ;
     -webkit-background-size:cover;
     -o-background-size:cover;
     -moz-background-size:cover;
     background-size:cover;
+}
+
+
+
+.config{
+    height: 100%;
+    height: -moz-available;
+    height: stretch;
+    display: flex;
+}
+
+.fondo_super{
+    margin-left: 3%;
+    opacity: 0.9;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
 }
