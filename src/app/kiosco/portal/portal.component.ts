@@ -11,7 +11,6 @@ import { Idle, NotIdle } from 'idlejs/dist';
 
 
 declare const $: any;
-declare const WOW: any;
 declare const window: any;
 
 
@@ -20,8 +19,6 @@ declare const window: any;
   templateUrl: './portal.component.html',
   styleUrls: [
     './portal.component.scss',
-    '../../../assets/css/style.css',
-    '../../../assets/css/animate.min.css'
   ],
   providers: [PortalService]
 })
@@ -131,7 +128,7 @@ export class PortalComponent implements OnInit {
   pluginEffect(): void {
     setTimeout(() => {
       $('.start_contenido,.start_contenido_nav').show();
-      new WOW().init();
+     
 
       /*
         * Obtiene IP Publica del kiosco
@@ -212,8 +209,7 @@ export class PortalComponent implements OnInit {
             setTimeout(() => {
               $('.section-about').fadeIn();
               $('.start_contenido,.start_contenido_nav').show();
-              new WOW().init();
-
+            
             }, 300);
           }
         })

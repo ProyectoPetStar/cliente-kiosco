@@ -36,9 +36,7 @@
         "../node_modules/highcharts/highcharts.js",
         "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js",
         "../node_modules/block-ui/jquery.blockUI.js",
-        "../node_modules/moment/locale/es.js",
-        "./assets/js/wow.min.js",
-        "./assets/js/plugin.js"
+        "../node_modules/moment/locale/es.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
