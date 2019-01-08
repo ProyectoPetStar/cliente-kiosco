@@ -6,8 +6,6 @@
     background-size:cover;
 }
 
-
-
 .config{
     height: 100%;
     height: -moz-available;
@@ -17,6 +15,18 @@
 
 .fondo_super{
     margin-left: 3%;
-    opacity: 0.9;
-    filter: alpha(opacity=90); /* For IE8 and earlier */
+    opacity: 0.95;
+    filter: alpha(opacity=95); /* For IE8 and earlier */
+}
+
+.logo_petstar{
+    position:absolute;
+    top: 4%;
+    left: 3%;
+    z-index: 1;
+}
+
+.botellin{
+    position: absolute;
+    z-index: 2;
 }
