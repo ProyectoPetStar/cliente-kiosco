@@ -127,7 +127,7 @@ export class PortalComponent implements OnInit {
 
   pluginEffect(): void {
     setTimeout(() => {
-      $('.start_contenido,.start_contenido_nav').show();
+    
      
 
       /*
@@ -208,8 +208,7 @@ export class PortalComponent implements OnInit {
             this.wallpaper_active = false;
             setTimeout(() => {
               $('.section-welcome').fadeIn();
-              $('.start_contenido,.start_contenido_nav').show();
-            
+             
             }, 300);
           }
         })
@@ -287,8 +286,7 @@ export class PortalComponent implements OnInit {
         clearTimeout(this.temporizador);
 
         setTimeout(() => {
-          this.startApp();
-          $('.start_contenido_nav').show();
+          this.startApp();          
           this.ws_kiosco_using.close();
 
         }, 50);

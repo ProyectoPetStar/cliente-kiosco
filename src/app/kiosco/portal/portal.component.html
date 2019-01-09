@@ -6,21 +6,38 @@
 <div id="body" *ngIf="!loading && available && !showSystem">
   <div class="container-fluid">
     <div class="row config">
-      <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="90%">
-      <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%">
-      <img src="assets/img/botellin.png" class="botellin" width="55%">
-      <div class="bienvenida tipo_letra">
-        <p class="titulo">Bienvenido</p>
-        <br>
-        <p class="texto_portal">
-          <strong>Kiosco PetStar,</strong> es un portal que te ofrece
-          <br> acceso directo a las diferentes plataformas
-          <br> de información de la empresa.</p>
-        <br>
-        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
-          <b class="btn-texto">ENTRAR</b>
-        </button>
-      </div>
+      <section class="section-welcome">
+        <!-- <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="90%"> -->
+        <!-- <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%">
+        <img src="assets/img/botellin.png" class="botellin" width="55%">
+        <div class="bienvenida tipo_letra">
+          <p class="titulo">Bienvenido</p>
+          <br>
+          <p class="texto_portal">
+            <strong>Kiosco PetStar,</strong> es un portal que te ofrece
+            <br> acceso directo a las diferentes plataformas
+            <br> de información de la empresa.</p>
+          <br>
+          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="startApp()">
+            <b class="btn-texto">ENTRAR</b>
+          </button>
+        </div> -->
+      </section>
+      <section class="section-apps">
+        <img src="assets/img/fondo_super2.png" class="fondo_super" width="95%" height="90%">
+        <div class="plataformas">
+          <p class="titulo tipo_letra">Plataformas</p>
+        </div>
+        <div class="card_app">
+          <div class="content_card_app">
+            <img class="img_app" src="https://www.itespresso.es/wp-content/uploads/2012/03/LinuxWindows1.jpg" >
+            <br>
+            <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
+              <b class="btn-texto">ENTRAR</b>
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>

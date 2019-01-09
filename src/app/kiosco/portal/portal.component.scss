@@ -26,9 +26,22 @@
     z-index: 1;
 }
 
+.plataformas{
+    position:absolute;
+    top: 15%;
+    left: 10%;
+    z-index: 1;
+}
+
 .botellin{
     position: absolute;
     right: 3%;
+    z-index: 2;
+}
+
+.colaborador{
+    position: absolute;
+    right: 1%;
     z-index: 2;
 }
 
@@ -62,4 +75,28 @@
 
 .btn-texto{
     letter-spacing: 2px;
+}
+
+.img_app{
+    border-radius: 30%;
+    width: 20em;
+    margin-bottom: 25px;
+}
+
+.card_app{
+    position: absolute;
+    top:30%;
+    left: 9%;
+    display: flex;
+    width: 25em; 
+    height: 25em; 
+    border-radius: 50%;
+    background-color: #076ab3;
+    z-index: 4;
+    justify-content: center;
+	align-items: center;
+	text-align: center;
+    -webkit-box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
+    box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
 }
