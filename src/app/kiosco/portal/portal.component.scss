@@ -39,17 +39,27 @@
     z-index: 3;
 }
 
-.titulo{   
+.tipo_letra{
+    font-family: 'Arial';   
+}
+
+.titulo{
+   
     color: #076ab3;
     font-weight: bold;
-    font-size: 55px;   
+    font-size: 55px;
+    letter-spacing: 3px;   
 }
 
 .texto_portal{
     color: #999999;
-    font-size: 18px;
+    font-size: 18px;   
 }
 
 .btn-custom{
     border-radius: 30px;
+}
+
+.btn-texto{
+    letter-spacing: 2px;
 }
