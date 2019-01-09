@@ -26,6 +26,7 @@
     z-index: 1;
 }
 
+
 .plataformas{
     position:absolute;
     top: 15%;
@@ -82,6 +83,27 @@
     width: 75%;
     height: 200px;
     margin-bottom: 25px;
+}
+
+.material-icons.md-30 { 
+    font-size: 30px;
+   
+}
+
+.btn-home{
+    position: absolute;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    top: 13%;
+    right: 8%;
+    z-index: 1;
+
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px 
+   
 }
 
 .card_app{
