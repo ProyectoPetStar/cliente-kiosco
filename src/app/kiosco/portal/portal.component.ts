@@ -29,9 +29,9 @@ declare const window: any;
   ],
   providers: [PortalService],
   animations: [
-    ANIMATION_BACKGROUND_WELCOME, 
+    ANIMATION_BACKGROUND_WELCOME,
     ANIMATION_BACKGROUND_APP,
-    ANIMATIONS_WELCOME1, 
+    ANIMATIONS_WELCOME1,
     ANIMATIONS_BOTELLIN,
     ANIMATION_COLABORADOR
   ]
@@ -117,7 +117,7 @@ export class PortalComponent implements OnInit {
 
       if (result.response.sucessfull) {
         this.apps = result.data.listUrlKiosco;
-        this.apps = this.apps.filter(el=>el.activo == 1);
+        this.apps = this.apps.filter(el => el.activo == 1);
         this.wallpaper = result.data.wallpaper;
 
         setTimeout(() => {
@@ -149,8 +149,8 @@ export class PortalComponent implements OnInit {
 
   pluginEffect(): void {
     setTimeout(() => {
-    
-     
+
+
 
       /*
         * Obtiene IP Publica del kiosco
@@ -196,6 +196,8 @@ export class PortalComponent implements OnInit {
           });
 
           this.wallpaper_active = true;
+          this.welcome_status = 'inactive';
+          this.app_status = 'inactive';
           clearTimeout(this.temporizador);
 
           /*
@@ -230,7 +232,7 @@ export class PortalComponent implements OnInit {
             this.wallpaper_active = false;
             setTimeout(() => {
               $('.section-welcome').fadeIn();
-             
+              this.welcome_status = 'active';
             }, 300);
           }
         })
@@ -308,7 +310,7 @@ export class PortalComponent implements OnInit {
         clearTimeout(this.temporizador);
 
         setTimeout(() => {
-          this.startApp();          
+          this.startApp();
           this.ws_kiosco_using.close();
 
         }, 50);
