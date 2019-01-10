@@ -21,6 +21,27 @@ trigger('fondoFirst', [
     transition('active => inactive', animate('50ms'))
 ]);
 
+const ANIMATION_BACKGROUND_APP = 
+
+trigger('fondoSecond', [
+    state('inactive', style({
+        position: 'absolute',     
+        opacity: 0,
+        display: 'none'
+    })),
+    state('active', style({
+        position: 'absolute',    
+        opacity: 0.8,
+        display: 'block',
+    })),
+    state('void', style({
+        opacity: 0,
+        display: 'none'
+    })),
+    transition('inactive => active', animate('100ms')),
+    transition('active => inactive', animate('50ms'))
+]);
+
 const ANIMATIONS_WELCOME1 =
     trigger('welcome1', [
         state('inactive', style({
@@ -67,6 +88,7 @@ const ANIMATIONS_WELCOME2 =
 
 export {
     ANIMATION_BACKGROUND_WELCOME,
+    ANIMATION_BACKGROUND_APP,
     ANIMATIONS_WELCOME1,
     ANIMATIONS_WELCOME2,
     AnimationPlayer,

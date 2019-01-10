@@ -8,6 +8,7 @@ import swal from 'sweetalert2';
 import { Idle, NotIdle } from 'idlejs/dist';
 import {
   ANIMATION_BACKGROUND_WELCOME,
+  ANIMATION_BACKGROUND_APP,
   ANIMATIONS_WELCOME1,
   ANIMATIONS_WELCOME2,
   AnimationPlayer,
@@ -26,7 +27,12 @@ declare const window: any;
     './portal.component.scss',
   ],
   providers: [PortalService],
-  animations: [ANIMATION_BACKGROUND_WELCOME, ANIMATIONS_WELCOME1, ANIMATIONS_WELCOME2]
+  animations: [
+    ANIMATION_BACKGROUND_WELCOME, 
+    ANIMATION_BACKGROUND_APP,
+    ANIMATIONS_WELCOME1, 
+    ANIMATIONS_WELCOME2
+  ]
 })
 export class PortalComponent implements OnInit {
 
@@ -39,6 +45,7 @@ export class PortalComponent implements OnInit {
   public mensaje: Message;
   public wallpaper_active: boolean;
   public welcome_status: string;
+  public app_status: string;
 
   /*
    * Abre socket de comunicación
@@ -69,6 +76,7 @@ export class PortalComponent implements OnInit {
     this.mensaje = new Message('connect_kiosco', 'connect');
     this.wallpaper_active = false;
     this.welcome_status = 'inactive';
+    this.app_status = 'inactive';
 
     this.service.getStartKiosco().subscribe(result => {
 
@@ -112,8 +120,9 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           $('.section-welcome').fadeOut();
+          this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
-
+          this.app_status = 'active';
 
         }, 300);
 
@@ -129,9 +138,11 @@ export class PortalComponent implements OnInit {
 
   showInicio() {
     $('.section-apps').fadeOut();
+    this.app_status = 'inactive';
     setTimeout(() => {
       $('.section-welcome').fadeIn();
-    }, 900);
+      this.welcome_status = 'active';
+    }, 500);
   }
 
   pluginEffect(): void {
