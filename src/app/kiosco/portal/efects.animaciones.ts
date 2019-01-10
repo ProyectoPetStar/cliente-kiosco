@@ -10,7 +10,7 @@ trigger('fondoFirst', [
     })),
     state('active', style({
         position: 'absolute',    
-        opacity: 1,
+        opacity: 0.8,
         display: 'block',
     })),
     state('void', style({
