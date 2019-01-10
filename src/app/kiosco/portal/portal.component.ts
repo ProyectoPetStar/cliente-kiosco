@@ -6,8 +6,12 @@ import { AuthService } from '../../auth/auth.service';
 import { Message } from '../../models/message';
 import swal from 'sweetalert2';
 import { Idle, NotIdle } from 'idlejs/dist';
-
-
+import {
+  ANIMATIONS_WELCOME1,
+  ANIMATIONS_WELCOME2,
+  AnimationPlayer,
+  AnimationBuilder
+} from './efects.animaciones';
 
 
 declare const $: any;
@@ -20,7 +24,8 @@ declare const window: any;
   styleUrls: [
     './portal.component.scss',
   ],
-  providers: [PortalService]
+  providers: [PortalService],
+  animations: [ANIMATIONS_WELCOME1, ANIMATIONS_WELCOME2]
 })
 export class PortalComponent implements OnInit {
 
@@ -32,6 +37,7 @@ export class PortalComponent implements OnInit {
   public app: App;
   public mensaje: Message;
   public wallpaper_active: boolean;
+  public welcome1_status: string;
 
   /*
    * Abre socket de comunicación
@@ -61,6 +67,7 @@ export class PortalComponent implements OnInit {
     this.app = new App(-1, '', '', '', '', -1);
     this.mensaje = new Message('connect_kiosco', 'connect');
     this.wallpaper_active = false;
+    this.welcome1_status = 'inactive';
 
     this.service.getStartKiosco().subscribe(result => {
 
@@ -71,6 +78,7 @@ export class PortalComponent implements OnInit {
         this.loading = false;
         setTimeout(() => {
           this.pluginEffect();
+          this.welcome1_status = 'active';
         }, 50);
 
 
