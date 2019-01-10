@@ -10,7 +10,8 @@ import {
   ANIMATION_BACKGROUND_WELCOME,
   ANIMATION_BACKGROUND_APP,
   ANIMATIONS_WELCOME1,
-  ANIMATIONS_WELCOME2,
+  ANIMATIONS_BOTELLIN,
+  ANIMATION_COLABORADOR,
   AnimationPlayer,
   AnimationBuilder
 } from './efects.animaciones';
@@ -31,7 +32,8 @@ declare const window: any;
     ANIMATION_BACKGROUND_WELCOME, 
     ANIMATION_BACKGROUND_APP,
     ANIMATIONS_WELCOME1, 
-    ANIMATIONS_WELCOME2
+    ANIMATIONS_BOTELLIN,
+    ANIMATION_COLABORADOR
   ]
 })
 export class PortalComponent implements OnInit {
