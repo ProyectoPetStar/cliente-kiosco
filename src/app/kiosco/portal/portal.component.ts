@@ -125,6 +125,7 @@ export class PortalComponent implements OnInit {
           this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
           this.app_status = 'active';
+          $('#contenedor_apps').carousel('pause');
 
         }, 300);
 
