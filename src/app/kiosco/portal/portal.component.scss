@@ -33,12 +33,6 @@
 }
 
 
-// .colaborador{
-//     position: absolute;
-//     right: 5%;
-//     top: 30%;
-//     z-index: 2;
-// }
 
 .bienvenida{
     position: absolute;
@@ -100,20 +94,38 @@
    
 }
 
-.card_app{
+.carousel_custom{
     position: absolute;
     top:30%;
-    left: 9%;
+    left: 7%;
+    width: 60em; 
+    height: 30em; 
+}
+
+.carousel-item{
+    height: 27em;
+    
+}
+
+.card_app{
     display: flex;
     width: 25em; 
     height: 25em; 
     border-radius: 50%;
     background-color: #076ab3;
-    z-index: 4;
     justify-content: center;
 	align-items: center;
 	text-align: center;
-    -webkit-box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
-    box-shadow: 8px 5px 25px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 8px 8px 25px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 8px 8px 25px 0px rgba(0,0,0,0.75);
+    box-shadow: 8px 8px 25px 0px rgba(0,0,0,0.75);
 }
+
+
+// .carousel-control-prev[_ngcontent-c1] {
+//     width: 5%;
+// }
+
+// .carousel-control-prev{
+//     left: -3%;
+// }

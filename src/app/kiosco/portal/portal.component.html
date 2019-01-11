@@ -7,9 +7,9 @@
   <div class="container-fluid">
     <div class="row config">
       <section class="section-welcome">
-        <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="98%"  [@fondoFirst]="welcome_status">
-        <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%"  [@welcome1]="welcome_status">
-        <img src="assets/img/botellin.png" class="botellin" width="55%"  [@botellin]="welcome_status" style="z-index: 2;">
+        <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="98%" [@fondoFirst]="welcome_status">
+        <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%" [@welcome1]="welcome_status">
+        <img src="assets/img/botellin.png" class="botellin" width="55%" [@botellin]="welcome_status" style="z-index: 2;">
         <div class="bienvenida tipo_letra" [@welcome1]="welcome_status">
           <p class="titulo">Bienvenido</p>
           <br>
@@ -24,25 +24,73 @@
         </div>
       </section>
       <section class="section-apps" style="display: none">
-        <img src="assets/img/fondo_super2.png" class="fondo_super" width="95%" height="98%"  [@fondoSecond]="app_status">
-        <img src="assets/img/colaborador.png" class="colaborador" width="30%" [@colaborador]="app_status">        
-        <div class="plataformas"  [@welcome1]="app_status">
+        <img src="assets/img/fondo_super2.png" class="fondo_super" width="95%" height="98%" [@fondoSecond]="app_status">
+        <img src="assets/img/colaborador.png" class="colaborador" width="30%" [@colaborador]="app_status">
+        <div class="plataformas" [@welcome1]="app_status">
           <p class="titulo tipo_letra">Plataformas</p>
         </div>
         <button type="button" class="btn btn-success btn-home" (click)="showInicio()" [@welcome1]="app_status">
-            <span class="material-icons md-30">
-              home
-            </span>
+          <span class="material-icons md-30">
+            home
+          </span>
         </button>
-        <div class="card_app">
-          <div class="content_card_app">
-            <img class="img_app" src="https://vignette.wikia.nocookie.net/inciclopedia/images/a/af/Tux.png/revision/latest?cb=20060818222757">
-            <br>
-            <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
-              <b class="btn-texto">ENTRAR</b>
-            </button>
+
+        <!-- Codigo carousel -->
+        <div id="contenedor_apps" class="carousel slide carousel_custom">
+
+          <!-- Indicators -->
+          <ul class="carousel-indicators">
+            <li data-target="#contenedor_apps" data-slide-to="0" class="active"></li>
+            <li data-target="#contenedor_apps" data-slide-to="1"></li>
+          </ul>
+
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active row container">
+              <!-- template card app -->
+              <div class="col-xl-12" style="display: inline;">
+              <div class="col-xl-6">
+                <div class="card_app">
+                  <div class="content_card_app">
+                    <img class="img_app" src="https://vignette.wikia.nocookie.net/inciclopedia/images/a/af/Tux.png/revision/latest?cb=20060818222757">
+                    <br>
+                    <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
+                      <b class="btn-texto">ENTRAR</b>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- template card app -->
+              <!-- template card app -->
+              <div class="col-xl-6">
+                <h1>hola dos ddsd</h1>
+                <!-- <div class="card_app">
+                  <div class="content_card_app">
+                    <img class="img_app" src="https://vignette.wikia.nocookie.net/inciclopedia/images/a/af/Tux.png/revision/latest?cb=20060818222757">
+                    <br>
+                    <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
+                      <b class="btn-texto">ENTRAR2</b>
+                    </button>
+                  </div>
+                </div> -->
+              </div>
+              <!-- template card app -->
+            </div>
+            </div>
+            <div class="carousel-item">
+              <h1>DOS</h1>
+            </div>
           </div>
+
+          <!-- Left and right controls -->
+          <a class="carousel-control-prev" href="#contenedor_apps" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </a>
+          <a class="carousel-control-next" href="#contenedor_apps" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </a>
         </div>
+        <!-- Fin codigo carousel -->
       </section>
     </div>
   </div>
