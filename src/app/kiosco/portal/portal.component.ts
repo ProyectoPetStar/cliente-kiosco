@@ -126,7 +126,7 @@ export class PortalComponent implements OnInit {
           $('.section-welcome').fadeOut();
           this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
-          this.app_status = 'active';
+          this.app_status = 'active';         
           $('#contenedor_apps').carousel('pause');
 
         }, 300);
@@ -145,6 +145,7 @@ export class PortalComponent implements OnInit {
     $('.section-apps').fadeOut();
     this.app_status = 'inactive';
     setTimeout(() => {
+      $('#contenedor_apps').carousel(0);
       $('.section-welcome').fadeIn();
       this.welcome_status = 'active';
     }, 500);
@@ -201,6 +202,7 @@ export class PortalComponent implements OnInit {
           this.wallpaper_active = true;
           this.welcome_status = 'inactive';
           this.app_status = 'inactive';
+         
           clearTimeout(this.temporizador);
 
           /*
@@ -212,7 +214,9 @@ export class PortalComponent implements OnInit {
             this.app = new App(-1, '', '', '', '', -1);
             $('.section-welcome').fadeOut();
             $('.section-apps').fadeOut();
-
+            setTimeout(()=>{
+              $('#contenedor_apps').carousel(0);
+            }, 800)
           }, 300);
 
           if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
