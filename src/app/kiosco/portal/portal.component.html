@@ -51,9 +51,9 @@
                   <td width="50%">
                     <div class="card_app" *ngIf="apps[0]">
                       <div class="content_card_app">
-                        <img class="img_app" src="https://vignette.wikia.nocookie.net/inciclopedia/images/a/af/Tux.png/revision/latest?cb=20060818222757">
+                        <img class="img_app" [src]="'data:image/jpg;base64,'+apps[0].imagen | safe">
                         <br>
-                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
+                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="goSystem(apps[0]);false">
                           <b class="btn-texto">ENTRAR</b>
                         </button>
                       </div>
@@ -62,9 +62,9 @@
                   <td width="50%">
                     <div class="card_app" *ngIf="apps[1]">
                       <div class="content_card_app">
-                        <img class="img_app" src="https://vignette.wikia.nocookie.net/inciclopedia/images/a/af/Tux.png/revision/latest?cb=20060818222757">
+                        <img class="img_app" [src]="'data:image/jpg;base64,'+apps[1].imagen | safe">
                         <br>
-                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom">
+                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="goSystem(apps[1]);false">
                           <b class="btn-texto">ENTRAR</b>
                         </button>
                       </div>
