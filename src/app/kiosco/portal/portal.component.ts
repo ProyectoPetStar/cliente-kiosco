@@ -50,6 +50,7 @@ export class PortalComponent implements OnInit {
   public wallpaper_active: boolean;
   public welcome_status: string;
   public app_status: string;
+  public apps_auxiliar: Array<any>;
 
   /*
    * Abre socket de comunicación
@@ -72,6 +73,7 @@ export class PortalComponent implements OnInit {
     this.loading_system = false;
     this.available = true;
     this.showSystem = false;
+    this.apps_auxiliar = [];
     this.apps = [];
     this.privateIp = "";
     this.publicIP = "";
@@ -114,6 +116,7 @@ export class PortalComponent implements OnInit {
 
 
   startApp(): void {
+    this.apps_auxiliar = [];
 
     this.service.getAllApps().subscribe(result => {
 
@@ -121,6 +124,21 @@ export class PortalComponent implements OnInit {
         this.apps = result.data.listUrlKiosco;
         this.apps = this.apps.filter(el => el.activo == 1);
         this.wallpaper = result.data.wallpaper;
+
+        let cantidad_diapositivas  = parseInt(""+this.apps.length/2);
+
+       
+        if((this.apps.length%2)!= 0){
+            cantidad_diapositivas +=1;
+        }
+
+        for(let i = 0; i < this.apps.length; i+=2){
+            this.apps_auxiliar.push(this.apps.slice(i,i+2));
+        }
+
+
+
+      
 
         setTimeout(() => {
           $('.section-welcome').fadeOut();
