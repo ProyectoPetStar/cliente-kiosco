@@ -98,9 +98,31 @@ const ANIMATION_COLABORADOR =
             opacity: 1,
             position: 'absolute',
             'z-index': 2,
-            top: '30%',            
+            top: '30%',
             right: '5%',
             display: 'block',
+        })),
+        state('void', style({
+            opacity: 0,
+            display: 'none'
+        })),
+        transition('inactive => active', animate('1400ms')),
+        transition('active => inactive', animate('1000ms'))
+    ]);
+
+const ANIMATION_CAROUSEL =
+    trigger('carousel', [
+        state('inactive', style({
+            opacity: 0,
+            position: 'absolute',
+            top: '70%',
+            left: '7%'
+        })),
+        state('active', style({
+            opacity: 1,
+            position: 'absolute',
+            top: '30%',
+            left: '7%'
         })),
         state('void', style({
             opacity: 0,
@@ -116,6 +138,7 @@ export {
     ANIMATIONS_WELCOME1,
     ANIMATIONS_BOTELLIN,
     ANIMATION_COLABORADOR,
+    ANIMATION_CAROUSEL,
     AnimationPlayer,
     AnimationBuilder
 }
