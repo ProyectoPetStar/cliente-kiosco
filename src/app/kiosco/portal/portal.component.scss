@@ -1,5 +1,5 @@
 #body{
-    background: url('/assets/img/fondo_kiosco.png') no-repeat  fixed  ;
+    background: url('../../../assets/img/fondo_kiosco.png') no-repeat  fixed  ;
     -webkit-background-size:cover;
     -o-background-size:cover;
     -moz-background-size:cover;
@@ -121,3 +121,34 @@
 .carousel-control-prev {
     left: -9%;
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+   .botellin{
+       top: 10%;
+   }
+
+   .card_app{
+        width: 17em; 
+        height: 17em; 
+   }
+
+   .btn-custom.btn-app{
+        padding-top: 5px;
+        padding-bottom: 5px;
+   }
+
+   .img_app{
+    height: 130px;
+   }
+
+   .carousel_custom{  
+    width: 40em; 
+    height: 30em; 
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+        position: absolute;
+        top: -40%;
+    }
+} 

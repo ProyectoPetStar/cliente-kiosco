@@ -269,7 +269,7 @@ export class PortalComponent implements OnInit {
   goSystem(app_selected: App): void {
 
     $.blockUI({
-      message: '<h3><img src="assets/img/loader_icon_kiosco.gif" /> Cargando contenido ...</h3>',
+      message: '<h5><img src="assets/img/loader_icon_kiosco.gif" /> Cargando contenido ...</h5>',
       css: {
         border: 'none',
         padding: '15px',
