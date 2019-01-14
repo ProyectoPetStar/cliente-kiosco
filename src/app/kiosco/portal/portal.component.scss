@@ -122,6 +122,17 @@
     left: -9%;
 }
 
+.floating-btn {
+    position: fixed;
+    //bottom: 5px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.btn-rounded{
+    border-radius: 50px;
+}
+
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
    .botellin{

@@ -269,7 +269,7 @@ export class PortalComponent implements OnInit {
   goSystem(app_selected: App): void {
 
     $.blockUI({
-      message: '<h5><img src="assets/img/loader_icon_kiosco.gif" /> Cargando contenido ...</h5>',
+      message: '<h5><img src="assets/img/loader_icon_kiosco.gif" style="padding-right:15px; padding-top: 15px;"/> Cargando contenido ...</h5>',
       css: {
         border: 'none',
         padding: '15px',
@@ -283,6 +283,9 @@ export class PortalComponent implements OnInit {
 
     this.app = app_selected;
     this.showSystem = true;
+
+    this.welcome_status = 'inactive';
+    this.app_status = 'inactive';
 
     setTimeout(() => {
       let heightsize = $(window).height();
