@@ -125,26 +125,26 @@ export class PortalComponent implements OnInit {
         this.apps = this.apps.filter(el => el.activo == 1);
         this.wallpaper = result.data.wallpaper;
 
-        let cantidad_diapositivas  = parseInt(""+this.apps.length/2);
+        let cantidad_diapositivas = parseInt("" + this.apps.length / 2);
 
-       
-        if((this.apps.length%2)!= 0){
-            cantidad_diapositivas +=1;
+
+        if ((this.apps.length % 2) != 0) {
+          cantidad_diapositivas += 1;
         }
 
-        for(let i = 0; i < this.apps.length; i+=2){
-            this.apps_auxiliar.push(this.apps.slice(i,i+2));
+        for (let i = 0; i < this.apps.length; i += 2) {
+          this.apps_auxiliar.push(this.apps.slice(i, i + 2));
         }
 
 
 
-      
+
 
         setTimeout(() => {
           $('.section-welcome').fadeOut();
           this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
-          this.app_status = 'active';         
+          this.app_status = 'active';
           $('#contenedor_apps').carousel('pause');
 
         }, 300);
@@ -171,7 +171,6 @@ export class PortalComponent implements OnInit {
 
   pluginEffect(): void {
     setTimeout(() => {
-
 
 
       /*
@@ -204,42 +203,51 @@ export class PortalComponent implements OnInit {
         .within(60, 1000)
         .do(() => {
 
-          $.blockUI({
-            fadeIn: 1000,
-            message: $('#wallpaper'),
-            css: {
-              border: 'none',
-              //opacity: .9, 
-              top: '1px',
-              left: '1px',
-              width: $(window).width() + 'px',
-              height: $(window).height() + 'px'
-            }
-          });
 
-          this.wallpaper_active = true;
-          this.welcome_status = 'inactive';
-          this.app_status = 'inactive';
-         
-          clearTimeout(this.temporizador);
-
-          /*
-           *Resetea vista
-           */
+          if (swal.isVisible()) {
+            swal.close();
+          }
 
           setTimeout(() => {
-            this.showSystem = false;
-            this.app = new App(-1, '', '', '', '', -1);
-            $('.section-welcome').fadeOut();
-            $('.section-apps').fadeOut();
-            setTimeout(()=>{
-              $('#contenedor_apps').carousel(0);
-            }, 800)
-          }, 300);
 
-          if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
-            this.ws_kiosco_using.close();
-          }
+            $.blockUI({
+              fadeIn: 1000,
+              message: $('#wallpaper'),
+              css: {
+                border: 'none',
+                //opacity: .9, 
+                top: '1px',
+                left: '1px',
+                width: $(window).width() + 'px',
+                height: $(window).height() + 'px'
+              }
+            });
+
+            this.wallpaper_active = true;
+            this.welcome_status = 'inactive';
+            this.app_status = 'inactive';
+
+            clearTimeout(this.temporizador);
+
+            /*
+            *Resetea vista
+            */
+
+            setTimeout(() => {
+              this.showSystem = false;
+              this.app = new App(-1, '', '', '', '', -1);
+              $('.section-welcome').fadeOut();
+              $('.section-apps').fadeOut();
+              setTimeout(() => {
+                $('#contenedor_apps').carousel(0);
+              }, 800)
+            }, 300);
+
+            if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
+              this.ws_kiosco_using.close();
+            }
+
+          }, 800)
 
 
         })
@@ -358,6 +366,7 @@ export class PortalComponent implements OnInit {
     if (!this.loading_system) {
       $.unblockUI();
     }
+
   }
 
 

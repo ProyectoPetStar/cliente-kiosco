@@ -92,7 +92,7 @@
   <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
-  <iframe [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
+  <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
     scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 </div>
