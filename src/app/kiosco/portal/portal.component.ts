@@ -75,7 +75,7 @@ export class PortalComponent implements OnInit {
     this.showSystem = false;
     this.apps_auxiliar = [];
     this.apps = [];
-    this.privateIp = "";
+    this.privateIp = "127.0.0.1";
     this.publicIP = "";
     this.wallpaper = "";
     this.app = new App(-1, '', '', '', '', -1);
@@ -84,33 +84,52 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
 
-    this.service.getStartKiosco().subscribe(result => {
+    this.getIpPrivateJs();
 
-      if (result.response.sucessfull) {
+    setTimeout(()=>{
+      this.service.getStartKiosco().subscribe(result => {
 
-        this.privateIp = result.data.privateIp;
-        this.wallpaper = result.data.wallpaper;
-        this.loading = false;
-        setTimeout(() => {
-          this.pluginEffect();
-          this.welcome_status = 'active';
-        }, 50);
+        if (result.response.sucessfull) {       
+          this.wallpaper = result.data.wallpaper;
+          this.loading = false;
+          setTimeout(() => {
+            this.pluginEffect();
+            this.welcome_status = 'active';
+          }, 50);
 
 
-      } else {
+        } else {
 
-        swal('Oops...', result.response.message, 'error');
+          swal('Oops...', result.response.message, 'error');
+          this.available = false;
+          this.loading = false;
+
+        }
+
+      }, error => {
+        swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
         this.available = false;
         this.loading = false;
+      });
 
-      }
+    }, 1000)
 
-    }, error => {
-      swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
-      this.available = false;
-      this.loading = false;
-    });
+  }
 
+  getIpPrivateJs(){
+    // Codigo para obtener la ip privada del cliente
+    window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
+    let pc: any = new RTCPeerConnection({ iceServers: [] }), noop = function () { };
+    pc.createDataChannel("");    //create a bogus data channel
+    pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
+
+    pc.onicecandidate =  (ice) => {
+      //listen for candidate events
+      if (!ice || !ice.candidate || !ice.candidate.candidate) return;
+      this.privateIp = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
+      pc.onicecandidate = noop;
+    };
+    // Fin de codigo para obtener ip privada
   }
 
 

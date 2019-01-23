@@ -44,7 +44,7 @@ export class MenuKioscosComponent implements OnInit {
           this.ws_admin.send(JSON.stringify(this.mensaje));
           this.ws_admin.onmessage = (response) => {
             this.kioscos_online = JSON.parse(response.data)[1];
-            this.checkStatusKiosco(this.kioscos_online);          
+            this.checkStatusKiosco(this.kioscos_online);
           };
           this.loading = false;
         } else {
@@ -93,25 +93,25 @@ export class MenuKioscosComponent implements OnInit {
 
   checkStatusKiosco(kioscos_online: Array<any>): void {
 
-  
-      this.kioscos.map((kiosco_registrado) => {
-        let ip_publica = kiosco_registrado.planta.ip_publica;
-        let ip_privada = kiosco_registrado.ip_privada;
 
-        let element = kioscos_online.filter(kiosco_online=> (kiosco_online.ip_publica == ip_publica && kiosco_online.ip_privada == ip_privada));
-        
-        if(element.length > 0){
-          kiosco_registrado.online = true;
-        }else{
-          kiosco_registrado.online = false;
-        }
+    this.kioscos.map((kiosco_registrado) => {
+      let ip_publica = kiosco_registrado.planta.ip_publica;
+      let ip_privada = kiosco_registrado.ip_privada;
 
-      });
+      let element = kioscos_online.filter(kiosco_online => (kiosco_online.ip_publica == ip_publica && kiosco_online.ip_privada == ip_privada));
+
+      if (element.length > 0) {
+        kiosco_registrado.online = true;
+      } else {
+        kiosco_registrado.online = false;
+      }
+
+    });
 
 
   }
 
-
+ 
 
   ngOnDestroy() {
     this.ws_admin.close();
