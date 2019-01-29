@@ -84,12 +84,21 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
 
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/keyboard-demo/hidden',
+      dataType: 'json',
+      success: (data) => {
+         console.log('responsee hi',data)
+      }
+    });
+
     this.getIpPrivateJs();
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.service.getStartKiosco().subscribe(result => {
 
-        if (result.response.sucessfull) {       
+        if (result.response.sucessfull) {
           this.wallpaper = result.data.wallpaper;
           this.loading = false;
           setTimeout(() => {
@@ -116,14 +125,14 @@ export class PortalComponent implements OnInit {
 
   }
 
-  getIpPrivateJs(){
+  getIpPrivateJs() {
     // Codigo para obtener la ip privada del cliente
     window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;   //compatibility for firefox and chrome
     let pc: any = new RTCPeerConnection({ iceServers: [] }), noop = function () { };
     pc.createDataChannel("");    //create a bogus data channel
     pc.createOffer(pc.setLocalDescription.bind(pc), noop);    // create offer and set local description
 
-    pc.onicecandidate =  (ice) => {
+    pc.onicecandidate = (ice) => {
       //listen for candidate events
       if (!ice || !ice.candidate || !ice.candidate.candidate) return;
       this.privateIp = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
@@ -339,6 +348,15 @@ export class PortalComponent implements OnInit {
 
   volverApps(): void {
 
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/keyboard-demo/hidden',
+      dataType: 'json',
+      success: (data) => {
+         console.log('responsee hi',data)
+      }
+    });
+
     /* 
     * Configuración del modal confirma salir
     */
@@ -386,6 +404,18 @@ export class PortalComponent implements OnInit {
       $.unblockUI();
     }
 
+  }
+
+  showKeyBoard(): void {
+    //Consulta servicio para activar teclado virtual
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/keyboard-demo/show',
+      dataType: 'json',
+      success: (data) => {
+         console.log('responsee',data)
+      }
+    });
   }
 
 

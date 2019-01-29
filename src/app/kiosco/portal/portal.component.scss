@@ -129,6 +129,21 @@
     z-index: 1000;
 }
 
+.floating-btn-keyboard {
+    position: fixed;
+    bottom: 50px;
+    right: 24px;
+    z-index: 1000;
+}
+
+.btn-keyboard{
+    background-color: #076ab3;
+}
+
+.material-icons.keyboard-icon{
+    font-size: 1.4rem;
+}
+
 .btn-rounded{
     border-radius: 50px;
 }

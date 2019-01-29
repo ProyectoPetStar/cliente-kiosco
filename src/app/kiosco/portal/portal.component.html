@@ -3,6 +3,13 @@
     <i class="fa fa fa-arrow-left pl-1"></i>
   </button>
 </div>
+<div class="floating-btn-keyboard" *ngIf="showSystem">
+  <button class="btn btn-rounded btn-keyboard btn-sm" (click)="showKeyBoard()">
+    <i class="material-icons keyboard-icon">
+      keyboard
+    </i>
+  </button>
+</div>
 <div id="body" *ngIf="!loading && available && !showSystem">
   <div class="container-fluid">
     <div class="row config">
@@ -40,7 +47,8 @@
 
           <!-- Indicators -->
           <ul class="carousel-indicators">
-            <li *ngFor="let diapositivas of apps_auxiliar; let index = index" data-target="#contenedor_apps" [attr.data-slide-to]="index" [ngClass]="{'active': index ==  0}"></li>
+            <li *ngFor="let diapositivas of apps_auxiliar; let index = index" data-target="#contenedor_apps" [attr.data-slide-to]="index"
+              [ngClass]="{'active': index ==  0}"></li>
           </ul>
 
           <!-- The slideshow -->
