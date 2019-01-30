@@ -399,6 +399,7 @@ export class PortalComponent implements OnInit {
 
   loadingSystem(): void {
     this.loading_system = this.loading_system ? false : true;
+    console.log('ok carga sistema',this.loading_system)
 
     if (!this.loading_system) {
       $.unblockUI();
