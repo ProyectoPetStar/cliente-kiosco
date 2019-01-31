@@ -89,7 +89,7 @@ export class PortalComponent implements OnInit {
       url: 'http://localhost:8080/keyboard-demo/hidden',
       dataType: 'json',
       success: (data) => {
-         console.log('responsee hi',data)
+        console.log('responsee hi', data)
       }
     });
 
@@ -353,7 +353,7 @@ export class PortalComponent implements OnInit {
       url: 'http://localhost:8080/keyboard-demo/hidden',
       dataType: 'json',
       success: (data) => {
-         console.log('responsee hi',data)
+        console.log('responsee hi', data)
       }
     });
 
@@ -398,11 +398,14 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
-    this.loading_system = this.loading_system ? false : true;
-    console.log('ok carga sistema',this.loading_system)
 
-    if (!this.loading_system) {
+    if (this.getNavegador() == "Firefox") {
       $.unblockUI();
+    } else {
+      this.loading_system = this.loading_system ? false : true;
+      if (!this.loading_system) {
+        $.unblockUI();
+      }
     }
 
   }
@@ -414,9 +417,20 @@ export class PortalComponent implements OnInit {
       url: 'http://localhost:8080/keyboard-demo/show',
       dataType: 'json',
       success: (data) => {
-         console.log('responsee',data)
+        console.log('responsee', data)
       }
     });
+  }
+
+
+  getNavegador(): string {
+    let agente = window.navigator.userAgent;
+    let navegadores = ["Chrome", "Firefox", "Safari", "Opera", "Trident", "MSIE", "Edge"];
+    for (let i in navegadores) {
+      if (agente.indexOf(navegadores[i]) != -1) {
+        return navegadores[i];
+      }
+    }
   }
 
 
