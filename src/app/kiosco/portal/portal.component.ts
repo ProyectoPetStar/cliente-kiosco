@@ -86,7 +86,7 @@ export class PortalComponent implements OnInit {
 
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/keyboard-demo/hidden',
+      url: 'https://localhost:8080/keyboard-demo/hidden',
       dataType: 'json',
       success: (data) => {
         console.log('responsee hi', data)
@@ -350,7 +350,7 @@ export class PortalComponent implements OnInit {
 
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/keyboard-demo/hidden',
+      url: 'https://localhost:8080/keyboard-demo/hidden',
       dataType: 'json',
       success: (data) => {
         console.log('responsee hi', data)
@@ -414,7 +414,7 @@ export class PortalComponent implements OnInit {
     //Consulta servicio para activar teclado virtual
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8080/keyboard-demo/show',
+      url: 'https://localhost:8080/keyboard-demo/show',
       dataType: 'json',
       success: (data) => {
         console.log('responsee', data)
