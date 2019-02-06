@@ -215,7 +215,7 @@ export class PortalComponent implements OnInit {
 
           setTimeout(() => {
             this.ws_kiosco.send(JSON.stringify(this.mensaje));
-          }, 500);
+          }, 5000);
         }
       });
       /*
@@ -333,7 +333,7 @@ export class PortalComponent implements OnInit {
         this.ws_kiosco_using = new WebSocket(SOCKET_WS + '/KIOSCO_USING_NOW');
         setTimeout(() => {
           this.ws_kiosco_using.send(JSON.stringify(new Message('using_kiosco_now', 'using')));
-        }, 100);
+        }, 5000);
         //Registra acceso en la base de datos
         this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
 
