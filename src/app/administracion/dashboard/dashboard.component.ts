@@ -69,12 +69,16 @@ export class DashboardComponent implements OnInit {
         this.plantas.splice(0,0,planta)
         this.kioscos = result.data.listKiosco;
         this.kioscos.splice(0,0,new Kiosco(-1,'SELECCIONE',-1,'','','',1,-1,'','','',planta,'','', true));
-        this.ws_admin.send(JSON.stringify(this.mensaje));
+        
+        setTimeout(()=>{
+          this.ws_admin.send(JSON.stringify(this.mensaje));
 
-        this.ws_admin.onmessage = (response) => {
-          this.kioscos_now = JSON.parse(response.data)[0];
-        };
-        this.loading = false;
+          this.ws_admin.onmessage = (response) => {
+            this.kioscos_now = JSON.parse(response.data)[0];
+          };
+          
+          this.loading = false;
+        },2000);
         this.loadFormulario();
         this.buildChartGral(result.data.listReportes);
 

@@ -41,12 +41,15 @@ export class MenuKioscosComponent implements OnInit {
 
         if (result.response.sucessfull) {
           this.kioscos = result.data.listKiosco;
-          this.ws_admin.send(JSON.stringify(this.mensaje));
-          this.ws_admin.onmessage = (response) => {
-            this.kioscos_online = JSON.parse(response.data)[1];
-            this.checkStatusKiosco(this.kioscos_online);
-          };
-          this.loading = false;
+          setTimeout(()=>{
+            this.ws_admin.send(JSON.stringify(this.mensaje));
+            this.ws_admin.onmessage = (response) => {
+              this.kioscos_online = JSON.parse(response.data)[1];
+              this.checkStatusKiosco(this.kioscos_online);
+            };
+            this.loading = false;
+          },2000);
+         
         } else {
           swal('Oops...', result.response.message, 'error')
           this.loading = false;
