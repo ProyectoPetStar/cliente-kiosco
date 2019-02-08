@@ -82,7 +82,7 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
 
-    
+
     this.hiddenKeyBoard();
     this.getIpPrivateJs();
 
@@ -214,7 +214,7 @@ export class PortalComponent implements OnInit {
        */
 
 
-       this.inactivityForMenu();
+      this.inactivityForMenu();
 
 
     }, 1000);
@@ -225,7 +225,7 @@ export class PortalComponent implements OnInit {
     * Configuracion idle
     */
 
-   $('.zone-activity').idle({
+    $('.zone-activity').idle({
 
       //idle time in ms
       idle: 10000,
@@ -234,15 +234,17 @@ export class PortalComponent implements OnInit {
       events: 'mousemove keydown mousedown touchstart',
 
       // executed after idle time
-      onIdle:  () => {
-        if(!this.showSystem){
-          console.log('onIOdle')
+      onIdle: () => {
+        if (!this.showSystem) {
+          console.log('ocioso para menu')
+          this.idleActions();
         }
       },
 
       // executed after back from idleness
-      onActive: function () {
-        console.log('onActive')
+      onActive: () => {
+        console.log('activarrrrrrrrr')
+        this.notIdleActions();
       },
       // set to false if you want to track only the first time
       keepTracking: true,
@@ -271,8 +273,9 @@ export class PortalComponent implements OnInit {
 
       // executed after idle time
       onIdle: () => {
-        if(this.showSystem){
-          console.log('quita')
+        if (this.showSystem) {
+          console.log('ocioso para apps')          
+          this.idleActions();
         }
       },
 
@@ -290,6 +293,65 @@ export class PortalComponent implements OnInit {
     /*
      * Fin configuración idle
      */
+  }
+
+  idleActions(): void {
+
+    if (swal.isVisible()) {
+      swal.close();
+    }
+
+    setTimeout(() => {
+
+      $.blockUI({
+        fadeIn: 1000,
+        message: $('#wallpaper'),
+        css: {
+          border: 'none',
+          //opacity: .9, 
+          top: '1px',
+          left: '1px',
+          width: $(window).width() + 'px',
+          height: $(window).height() + 'px'
+        }
+      });
+
+      this.wallpaper_active = true;
+      this.welcome_status = 'inactive';
+      this.app_status = 'inactive';
+
+      clearTimeout(this.temporizador);
+
+      /*
+      *Resetea vista
+      */
+
+      setTimeout(() => {
+        this.showSystem = false;
+        this.app = new App(-1, '', '', '', '', -1);
+        $('.section-welcome').fadeOut();
+        $('.section-apps').fadeOut();
+        setTimeout(() => {
+          $('#contenedor_apps').carousel(0);
+        }, 800)
+      }, 300);
+
+      if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
+        this.ws_kiosco_using.close();
+      }
+
+    }, 800)
+  }
+
+  notIdleActions(): void {
+    if (this.wallpaper_active) {
+      $.unblockUI();
+      this.wallpaper_active = false;
+      setTimeout(() => {
+        $('.section-welcome').fadeIn();
+        this.welcome_status = 'active';
+      }, 300);
+    }
   }
 
   goSystem(app_selected: App): void {
@@ -397,26 +459,26 @@ export class PortalComponent implements OnInit {
 
   showKeyBoard(): void {
     //Consulta servicio para activar teclado virtual
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/show',
-      dataType: 'json',
-      success: (data) => {
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'https://localhost:8080/keyboard-demo/show',
+    //   dataType: 'json',
+    //   success: (data) => {
 
-      }
-    });
+    //   }
+    // });
   }
 
   hiddenKeyBoard(): void {
     //Consulta servicio para desactivar teclado virtual
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/hidden',
-      dataType: 'json',
-      success: (data) => {
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'https://localhost:8080/keyboard-demo/hidden',
+    //   dataType: 'json',
+    //   success: (data) => {
 
-      }
-    });
+    //   }
+    // });
 
   }
 

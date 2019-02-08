@@ -8,6 +8,8 @@
     height: 100vh;
 }
 
+
+
 .config{
     height: 100%;
     height: -moz-available;
@@ -41,6 +43,12 @@
     top:40%;
     left: 9%;
     z-index: 3;
+}
+
+.img_wallpaper {
+
+    cursor: default; 
+    display: none;
 }
 
 .tipo_letra{
