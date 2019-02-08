@@ -5,7 +5,6 @@ import { App } from '../../models/app';
 import { AuthService } from '../../auth/auth.service';
 import { Message } from '../../models/message';
 import swal from 'sweetalert2';
-import { Idle, NotIdle } from 'idlejs/dist';
 import {
   ANIMATION_BACKGROUND_WELCOME,
   ANIMATION_BACKGROUND_APP,
@@ -20,6 +19,7 @@ import {
 
 declare const $: any;
 declare const window: any;
+
 
 
 @Component({
@@ -60,8 +60,6 @@ export class PortalComponent implements OnInit {
   public wallpaper: string;
   public ws_kiosco: any;
   public ws_kiosco_using: any;
-  public idle: any;
-  public idle_quit: any;
   public temporizador: any;
 
   constructor(private service: PortalService,
@@ -84,15 +82,8 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
 
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/hidden',
-      dataType: 'json',
-      success: (data) => {
-        console.log('responsee hi', data)
-      }
-    });
-
+    
+    this.hiddenKeyBoard();
     this.getIpPrivateJs();
 
     setTimeout(() => {
@@ -222,84 +213,83 @@ export class PortalComponent implements OnInit {
        * Fin IP Publica del kiosco
        */
 
-      /*
-       * Configuracion del protector de pantalla
-       */
 
-      this.idle = new Idle()
-        .whenNotInteractive()
-        .within(60, 1000)
-        .do(() => {
+       this.inactivityForMenu();
 
-
-          if (swal.isVisible()) {
-            swal.close();
-          }
-
-          setTimeout(() => {
-
-            $.blockUI({
-              fadeIn: 1000,
-              message: $('#wallpaper'),
-              css: {
-                border: 'none',
-                //opacity: .9, 
-                top: '1px',
-                left: '1px',
-                width: $(window).width() + 'px',
-                height: $(window).height() + 'px'
-              }
-            });
-
-            this.wallpaper_active = true;
-            this.welcome_status = 'inactive';
-            this.app_status = 'inactive';
-
-            clearTimeout(this.temporizador);
-
-            /*
-            *Resetea vista
-            */
-
-            setTimeout(() => {
-              this.showSystem = false;
-              this.app = new App(-1, '', '', '', '', -1);
-              $('.section-welcome').fadeOut();
-              $('.section-apps').fadeOut();
-              setTimeout(() => {
-                $('#contenedor_apps').carousel(0);
-              }, 800)
-            }, 300);
-
-            if (this.ws_kiosco_using != undefined && this.ws_kiosco_using.readyState === this.ws_kiosco_using.OPEN) {
-              this.ws_kiosco_using.close();
-            }
-
-          }, 800)
-
-
-        })
-        .start();
-      /*
-       * Fin configuración del protector de pantalla
-       */
-
-      this.idle_quit = new NotIdle()
-        .whenInteractive()
-        .within(1, 1000)
-        .do(() => {
-          if (this.wallpaper_active) {
-            $.unblockUI();
-            this.wallpaper_active = false;
-            setTimeout(() => {
-              $('.section-welcome').fadeIn();
-              this.welcome_status = 'active';
-            }, 300);
-          }
-        })
-        .start();
 
     }, 1000);
+  }
+
+  inactivityForMenu() {
+    /*
+    * Configuracion idle
+    */
+
+   $('.zone-activity').idle({
+
+      //idle time in ms
+      idle: 10000,
+
+      //events that will trigger the idle resetter
+      events: 'mousemove keydown mousedown touchstart',
+
+      // executed after idle time
+      onIdle:  () => {
+        if(!this.showSystem){
+          console.log('onIOdle')
+        }
+      },
+
+      // executed after back from idleness
+      onActive: function () {
+        console.log('onActive')
+      },
+      // set to false if you want to track only the first time
+      keepTracking: true,
+      startAtIdle: false,
+      recurIdleCall: false
+
+    });
+
+    /*
+     * Fin configuración idle
+     */
+  }
+
+  inactivityForApp() {
+    /*
+    * Configuracion idle
+    */
+
+    $('.zone-activity-btn').idle({
+
+      //idle time in ms
+      idle: 10000,
+
+      //events that will trigger the idle resetter
+      events: 'mousedown touchstart',
+
+      // executed after idle time
+      onIdle: () => {
+        if(this.showSystem){
+          console.log('quita')
+        }
+      },
+
+      // executed after back from idleness
+      onActive: function () {
+        console.log('reset time')
+      },
+      // set to false if you want to track only the first time
+      keepTracking: true,
+      startAtIdle: false,
+      recurIdleCall: false
+
+    });
+
+    /*
+     * Fin configuración idle
+     */
   }
 
   goSystem(app_selected: App): void {
@@ -348,14 +338,7 @@ export class PortalComponent implements OnInit {
 
   volverApps(): void {
 
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/hidden',
-      dataType: 'json',
-      success: (data) => {
-        console.log('responsee hi', data)
-      }
-    });
+    this.hiddenKeyBoard();
 
     /* 
     * Configuración del modal confirma salir
@@ -384,6 +367,7 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           this.startApp();
+          this.inactivityForMenu();
           this.ws_kiosco_using.close();
 
         }, 50);
@@ -398,13 +382,14 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
-
     if (this.getNavegador() == "Firefox") {
       $.unblockUI();
+      this.inactivityForApp();
     } else {
       this.loading_system = this.loading_system ? false : true;
       if (!this.loading_system) {
         $.unblockUI();
+        this.inactivityForApp();
       }
     }
 
@@ -417,11 +402,23 @@ export class PortalComponent implements OnInit {
       url: 'https://localhost:8080/keyboard-demo/show',
       dataType: 'json',
       success: (data) => {
-        console.log('responsee', data)
+
       }
     });
   }
 
+  hiddenKeyBoard(): void {
+    //Consulta servicio para desactivar teclado virtual
+    $.ajax({
+      type: 'GET',
+      url: 'https://localhost:8080/keyboard-demo/hidden',
+      dataType: 'json',
+      success: (data) => {
+
+      }
+    });
+
+  }
 
   getNavegador(): string {
     let agente = window.navigator.userAgent;

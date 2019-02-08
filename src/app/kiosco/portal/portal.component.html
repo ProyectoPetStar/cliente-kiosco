@@ -10,7 +10,7 @@
     </i>
   </button>
 </div>
-<div id="body" *ngIf="!loading && available && !showSystem">
+<div id="body" class="zone-activity" *ngIf="!loading && available && !showSystem">
   <div class="container-fluid">
     <div class="row config">
       <section class="section-welcome">
@@ -100,7 +100,8 @@
   <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
-  <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
+  <button class="zone-activity-btn">CONTINUAR</button>
+  <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="98%" style="border:none;overflow:hidden"
     scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 </div>
