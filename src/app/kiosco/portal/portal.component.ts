@@ -61,6 +61,7 @@ export class PortalComponent implements OnInit {
   public ws_kiosco: any;
   public ws_kiosco_using: any;
   public temporizador: any;
+  public countdown: string;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -81,6 +82,7 @@ export class PortalComponent implements OnInit {
     this.wallpaper_active = false;
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
+    this.countdown = '00:00';
 
 
     this.hiddenKeyBoard();

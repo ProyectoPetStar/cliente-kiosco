@@ -146,6 +146,23 @@
     z-index: 1000;
 }
 
+.btn-countdown{
+    background-color: #076ab3;
+    top: -15px;    
+}
+
+.countdown{
+    color:#076ab3;
+    font-weight: bold;
+}
+
+.floating-btn-countdown {
+    position: fixed;
+    // bottom: 50px;
+    left: 24px;
+    z-index: 1000;
+}
+
 .btn-keyboard{
     background-color: #076ab3;
 }

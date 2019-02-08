@@ -10,6 +10,10 @@
     </i>
   </button>
 </div>
+<div class="floating-btn-countdown" *ngIf="showSystem">
+  <h4 class="countdown">Tiempo {{ countdown }}</h4>
+  <button class="btn btn-rounded btn-countdown btn-sm">SEGUIR AQUÍ</button>
+</div>
 <div id="body" class="zone-activity" *ngIf="!loading && available && !showSystem">
   <div class="container-fluid">
     <div class="row config">
@@ -100,12 +104,10 @@
   <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
 <div class="ajuste_alto" *ngIf="showSystem">
-  <button class="zone-activity-btn">CONTINUAR</button>
   <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="98%" style="border:none;overflow:hidden"
     scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 </div>
 <div class="container-fluid full-width">
-  <img id="wallpaper" [src]="'data:image/png;base64,'+wallpaper | safe" class="img_wallpaper zone-activity" width="100%"
-    height="100%">
+  <img id="wallpaper" [src]="'data:image/png;base64,'+wallpaper | safe" class="img_wallpaper zone-activity" width="100%" height="100%">
 </div>
