@@ -19,7 +19,7 @@ import {
 
 declare const $: any;
 declare const window: any;
-
+declare const moment: any;
 
 
 @Component({
@@ -62,6 +62,10 @@ export class PortalComponent implements OnInit {
   public ws_kiosco_using: any;
   public temporizador: any;
   public countdown: string;
+  public funcCountDown: any;
+
+  public time: number;
+  public duration: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -83,6 +87,9 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
+    this.time = 30;
+
+
 
 
     this.hiddenKeyBoard();
@@ -230,7 +237,7 @@ export class PortalComponent implements OnInit {
     $('.zone-activity').idle({
 
       //idle time in ms
-      idle: 10000,
+      idle: this.time * 1000,
 
       //events that will trigger the idle resetter
       events: 'mousemove keydown mousedown touchstart',
@@ -261,6 +268,18 @@ export class PortalComponent implements OnInit {
   }
 
   inactivityForApp() {
+
+    this.duration = moment.duration(this.time, 's');
+    this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
+
+
+
+    this.funcCountDown = setInterval(() => {
+      this.duration = moment.duration(this.duration.asMilliseconds() - 1000, 'milliseconds');
+      //show how many hours, minutes and seconds are left 
+      this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
+    }, 1000);
+
     /*
     * Configuracion idle
     */
@@ -268,22 +287,22 @@ export class PortalComponent implements OnInit {
     $('.zone-activity-btn').idle({
 
       //idle time in ms
-      idle: 10000,
+      idle: this.time * 1000,
 
       //events that will trigger the idle resetter
       events: 'mousedown touchstart',
 
       // executed after idle time
       onIdle: () => {
+        console.log('xxxxxxxxx')
         if (this.showSystem) {
-          console.log('ocioso para apps')          
+          console.log('ocioso para apps')
           this.idleActions();
         }
       },
 
       // executed after back from idleness
       onActive: function () {
-        console.log('reset time')
       },
       // set to false if you want to track only the first time
       keepTracking: true,
@@ -323,6 +342,7 @@ export class PortalComponent implements OnInit {
       this.app_status = 'inactive';
 
       clearTimeout(this.temporizador);
+      clearTimeout(this.funcCountDown);
 
       /*
       *Resetea vista
@@ -354,6 +374,11 @@ export class PortalComponent implements OnInit {
         this.welcome_status = 'active';
       }, 300);
     }
+  }
+
+  resetCountDown() {
+    this.duration = moment.duration(this.time, 's');
+    this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
   }
 
   goSystem(app_selected: App): void {
@@ -428,6 +453,7 @@ export class PortalComponent implements OnInit {
         this.showSystem = false;
         this.loading_system = false;
         clearTimeout(this.temporizador);
+        clearTimeout(this.funcCountDown);
 
         setTimeout(() => {
           this.startApp();

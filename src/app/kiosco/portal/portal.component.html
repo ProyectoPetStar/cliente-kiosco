@@ -11,8 +11,8 @@
   </button>
 </div>
 <div class="floating-btn-countdown" *ngIf="showSystem">
-  <h4 class="countdown">Tiempo {{ countdown }}</h4>
-  <button class="btn btn-rounded btn-countdown btn-sm">SEGUIR AQUÍ</button>
+  <h4 class="countdown">Tiempo {{ (countdown == '59:59')? '00:00' : countdown }}</h4>
+  <button class="btn btn-rounded btn-countdown btn-sm zone-activity-btn" (click)="resetCountDown()">SEGUIR AQUÍ</button>
 </div>
 <div id="body" class="zone-activity" *ngIf="!loading && available && !showSystem">
   <div class="container-fluid">
