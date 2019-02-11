@@ -67,6 +67,8 @@ export class PortalComponent implements OnInit {
   public time: number;
   public duration: any;
 
+  public inactivityOnSystem: boolean;
+
   constructor(private service: PortalService,
     private auth: AuthService) { }
 
@@ -88,7 +90,7 @@ export class PortalComponent implements OnInit {
     this.app_status = 'inactive';
     this.countdown = '00:00';
     this.time = 30;
-
+    this.inactivityOnSystem = false;
 
 
 
@@ -224,10 +226,48 @@ export class PortalComponent implements OnInit {
 
 
       this.inactivityForMenu();
+      this.inactivityForImage();
 
 
     }, 1000);
   }
+
+
+  inactivityForImage() {
+    /*
+    * Configuracion idle
+    */
+    $('.zone-activity-image').idle({
+      //idle time in ms
+      idle: this.time * 1000,
+      //events that will trigger the idle resetter
+      events: 'mousemove keydown mousedown touchstart',
+      // executed after idle time
+      onIdle: () => { },
+      // executed after back from idleness
+      onActive: () => {
+
+        this.notIdleActions();
+
+        if (this.inactivityOnSystem) {
+          this.inactivityOnSystem = false;
+          this.inactivityForMenu();
+        } else {
+          $('.zone-activity').trigger("mousedown");
+        }
+
+      },
+      // set to false if you want to track only the first time
+      keepTracking: true,
+      startAtIdle: false,
+      recurIdleCall: false
+    });
+
+    /*
+     * Fin configuración idle
+     */
+  }
+
 
   inactivityForMenu() {
     /*
@@ -244,15 +284,15 @@ export class PortalComponent implements OnInit {
 
       // executed after idle time
       onIdle: () => {
+
         if (!this.showSystem) {
-          console.log('ocioso para menu')
           this.idleActions();
         }
       },
 
       // executed after back from idleness
       onActive: () => {
-        console.log('activarrrrrrrrr')
+
         this.notIdleActions();
       },
       // set to false if you want to track only the first time
@@ -294,9 +334,9 @@ export class PortalComponent implements OnInit {
 
       // executed after idle time
       onIdle: () => {
-        console.log('xxxxxxxxx')
+
         if (this.showSystem) {
-          console.log('ocioso para apps')
+          this.inactivityOnSystem = true;
           this.idleActions();
         }
       },
@@ -349,6 +389,7 @@ export class PortalComponent implements OnInit {
       */
 
       setTimeout(() => {
+
         this.showSystem = false;
         this.app = new App(-1, '', '', '', '', -1);
         $('.section-welcome').fadeOut();
@@ -366,6 +407,7 @@ export class PortalComponent implements OnInit {
   }
 
   notIdleActions(): void {
+
     if (this.wallpaper_active) {
       $.unblockUI();
       this.wallpaper_active = false;
@@ -398,6 +440,7 @@ export class PortalComponent implements OnInit {
 
     this.app = app_selected;
     this.showSystem = true;
+    
 
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
@@ -452,6 +495,7 @@ export class PortalComponent implements OnInit {
 
         this.showSystem = false;
         this.loading_system = false;
+        this.inactivityOnSystem = false;
         clearTimeout(this.temporizador);
         clearTimeout(this.funcCountDown);
 
