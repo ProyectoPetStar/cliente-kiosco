@@ -69,6 +69,7 @@ export class PortalComponent implements OnInit {
 
   public inactivityOnSystem: boolean;
   public backBtn: boolean;
+  public status_btn_entrar: boolean;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -93,6 +94,7 @@ export class PortalComponent implements OnInit {
     this.time = 30;
     this.inactivityOnSystem = false;
     this.backBtn = false;
+    this.status_btn_entrar = false;
 
 
 
@@ -148,6 +150,7 @@ export class PortalComponent implements OnInit {
 
 
   startApp(): void {
+    this.status_btn_entrar = true;
     this.apps_auxiliar = [];
 
     this.service.getAllApps().subscribe(result => {
@@ -173,6 +176,7 @@ export class PortalComponent implements OnInit {
 
 
         setTimeout(() => {
+          this.status_btn_entrar =  false;
           $('.section-welcome').fadeOut();
           this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
@@ -183,10 +187,13 @@ export class PortalComponent implements OnInit {
 
       } else {
         swal('Oops...', result.response.message, 'error');
+        this.status_btn_entrar = false;
+
       }
 
     }, error => {
       swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
+      this.status_btn_entrar = false;      
     });
 
   }
@@ -288,18 +295,18 @@ export class PortalComponent implements OnInit {
       onIdle: () => {
 
         if (!this.showSystem && !this.backBtn) {
-          
+
           this.idleActions();
         }
 
-        if(this.backBtn){
+        if (this.backBtn) {
           this.backBtn = false;
         }
       },
 
       // executed after back from idleness
       onActive: () => {
-        
+
         this.notIdleActions();
       },
       // set to false if you want to track only the first time
@@ -369,6 +376,7 @@ export class PortalComponent implements OnInit {
     }
 
     setTimeout(() => {
+      this.hiddenKeyBoard();
 
       $.blockUI({
         fadeIn: 1000,
@@ -447,7 +455,7 @@ export class PortalComponent implements OnInit {
     this.app = app_selected;
     this.backBtn = false;
     this.showSystem = true;
-    
+
 
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
@@ -505,11 +513,11 @@ export class PortalComponent implements OnInit {
         this.inactivityOnSystem = false;
         clearTimeout(this.temporizador);
         clearTimeout(this.funcCountDown);
-        
+
         setTimeout(() => {
           this.startApp();
           this.inactivityForMenu();
-          
+
           this.ws_kiosco_using.close();
 
         }, 50);

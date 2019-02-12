@@ -29,7 +29,8 @@
             <br> acceso directo a las diferentes plataformas
             <br> de información de la empresa.</p>
           <br>
-          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="startApp()">
+          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="startApp()" [disabled]="status_btn_entrar">
+            <img src="assets/img/loader-btn-entrar.gif" class="loader-btn-entrar" [hidden]="!status_btn_entrar">
             <b class="btn-texto">ENTRAR</b>
           </button>
         </div>
