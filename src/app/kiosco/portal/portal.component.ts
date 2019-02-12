@@ -539,26 +539,26 @@ export class PortalComponent implements OnInit {
 
   showKeyBoard(): void {
     //Consulta servicio para activar teclado virtual
-    // $.ajax({
-    //   type: 'GET',
-    //   url: 'https://localhost:8080/keyboard-demo/show',
-    //   dataType: 'json',
-    //   success: (data) => {
+    $.ajax({
+      type: 'GET',
+      url: 'https://localhost:8080/keyboard-demo/show',
+      dataType: 'json',
+      success: (data) => {
 
-    //   }
-    // });
+      }
+    });
   }
 
   hiddenKeyBoard(): void {
     //Consulta servicio para desactivar teclado virtual
-    // $.ajax({
-    //   type: 'GET',
-    //   url: 'https://localhost:8080/keyboard-demo/hidden',
-    //   dataType: 'json',
-    //   success: (data) => {
+    $.ajax({
+      type: 'GET',
+      url: 'https://localhost:8080/keyboard-demo/hidden',
+      dataType: 'json',
+      success: (data) => {
 
-    //   }
-    // });
+      }
+    });
 
   }
 
