@@ -76,11 +76,12 @@ export class DashboardComponent implements OnInit {
           this.ws_admin.onmessage = (response) => {
             this.kioscos_now = JSON.parse(response.data)[0];
           };
-          
+
+          this.buildChartGral(result.data.listReportes);
           this.loading = false;
-        },2000);
-        this.loadFormulario();
-        this.buildChartGral(result.data.listReportes);
+          this.loadFormulario();
+        },1500);
+     
 
       } else {
 
