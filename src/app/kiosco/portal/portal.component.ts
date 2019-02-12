@@ -68,6 +68,7 @@ export class PortalComponent implements OnInit {
   public duration: any;
 
   public inactivityOnSystem: boolean;
+  public backBtn: boolean;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -91,6 +92,7 @@ export class PortalComponent implements OnInit {
     this.countdown = '00:00';
     this.time = 30;
     this.inactivityOnSystem = false;
+    this.backBtn = false;
 
 
 
@@ -285,14 +287,19 @@ export class PortalComponent implements OnInit {
       // executed after idle time
       onIdle: () => {
 
-        if (!this.showSystem) {
+        if (!this.showSystem && !this.backBtn) {
+          
           this.idleActions();
+        }
+
+        if(this.backBtn){
+          this.backBtn = false;
         }
       },
 
       // executed after back from idleness
       onActive: () => {
-
+        
         this.notIdleActions();
       },
       // set to false if you want to track only the first time
@@ -334,7 +341,6 @@ export class PortalComponent implements OnInit {
 
       // executed after idle time
       onIdle: () => {
-
         if (this.showSystem) {
           this.inactivityOnSystem = true;
           this.idleActions();
@@ -439,6 +445,7 @@ export class PortalComponent implements OnInit {
     });
 
     this.app = app_selected;
+    this.backBtn = false;
     this.showSystem = true;
     
 
@@ -492,16 +499,17 @@ export class PortalComponent implements OnInit {
        * Si acepta
        */
       if (result.value) {
-
+        this.backBtn = true;
         this.showSystem = false;
         this.loading_system = false;
         this.inactivityOnSystem = false;
         clearTimeout(this.temporizador);
         clearTimeout(this.funcCountDown);
-
+        
         setTimeout(() => {
           this.startApp();
           this.inactivityForMenu();
+          
           this.ws_kiosco_using.close();
 
         }, 50);
