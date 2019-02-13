@@ -156,6 +156,18 @@
     font-weight: bold;
 }
 
+.elemento-padre {
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+}
+
+.elemento-hijo {
+	display: flex;
+	background: #999;
+}
+
 .loader-btn-entrar{
     padding-right: 5px;
 }

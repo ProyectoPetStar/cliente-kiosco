@@ -102,13 +102,13 @@
   </div>
 </div>
 <!-- Inicio Template para mostrar offline kiosk -->
-<div *ngIf="!loading && !available">
-  <div class="floating-btn">
-    <button class="btn btn-rounded btn-success btn-sm" (click)="refreshKiosco()">INTENTAR ACCEDER&nbsp;&nbsp;
-      <i class="fa fa-refresh pl-1"></i>
-    </button>
-  </div>
-  <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
+<div class="floating-btn" *ngIf="!loading && !available">
+  <button class="btn btn-rounded btn-success btn-sm" (click)="refreshKiosco()">INTENTAR ACCEDER&nbsp;&nbsp;
+    <i class="fa fa-refresh pl-1"></i>
+  </button>
+</div>
+<div class="elemento-padre" *ngIf="!loading && !available">
+  <img src="assets/img/construccion.png" class="elemento-hijo">
 </div>
 <!-- Fin Template para mostrar offline kiosk -->
 
