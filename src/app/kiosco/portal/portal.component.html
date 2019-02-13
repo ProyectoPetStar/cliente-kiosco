@@ -101,14 +101,23 @@
     </div>
   </div>
 </div>
+<!-- Inicio Template para mostrar offline kiosk -->
 <div *ngIf="!loading && !available">
+  <div class="floating-btn">
+    <button class="btn btn-rounded btn-success btn-sm" (click)="refreshKiosco()">INTENTAR ACCEDER&nbsp;&nbsp;
+      <i class="fa fa-refresh pl-1"></i>
+    </button>
+  </div>
   <img src="assets/img/construccion.png" class="img-responsive img_size centrado">
 </div>
+<!-- Fin Template para mostrar offline kiosk -->
+
 <div class="ajuste_alto" *ngIf="showSystem">
   <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
     scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
   </iframe>
 </div>
 <div class="container-fluid full-width">
-  <img id="wallpaper" [src]="'data:image/png;base64,'+wallpaper | safe" class="img_wallpaper zone-activity-image" width="100%" height="100%">
+  <img id="wallpaper" [src]="'data:image/png;base64,'+wallpaper | safe" class="img_wallpaper zone-activity-image" width="100%"
+    height="100%">
 </div>

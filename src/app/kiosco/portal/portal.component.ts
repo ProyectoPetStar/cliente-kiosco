@@ -70,12 +70,13 @@ export class PortalComponent implements OnInit {
   public inactivityOnSystem: boolean;
   public backBtn: boolean;
   public status_btn_entrar: boolean;
+  public tmp_out_of_service: any;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
 
   ngOnInit() {
-
+    clearInterval(this.tmp_out_of_service);
     this.loading = true;
     this.loading_system = false;
     this.available = true;
@@ -115,20 +116,33 @@ export class PortalComponent implements OnInit {
 
         } else {
 
-          swal('Oops...', result.response.message, 'error');
+          // swal('Oops...', result.response.message, 'error');
+          swal('Lo sentimos', 'Kiosco fuera de servicio!. Haga clic en el botón <b>Intentar acceder</b> para comprobar disponibilidad' , 'error');          
           this.available = false;
           this.loading = false;
+          this.OutSideService();
 
         }
 
       }, error => {
-        swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
+        
+        swal('Lo sentimos', 'Kiosco fuera de servicio!.  <br>Haga clic en el botón <u>Intentar acceder</u> para comprobar disponibilidad', 'error');
         this.available = false;
         this.loading = false;
+        this.OutSideService();
+
       });
 
     }, 1000)
 
+  }
+
+
+
+  OutSideService(): void {
+    this.tmp_out_of_service = setInterval(() => {
+      window.location.reload();
+    }, 600000);
   }
 
   getIpPrivateJs() {
@@ -176,12 +190,13 @@ export class PortalComponent implements OnInit {
 
 
         setTimeout(() => {
-          this.status_btn_entrar =  false;
+
           $('.section-welcome').fadeOut();
           this.welcome_status = 'inactive';
           $('.section-apps').fadeIn();
           this.app_status = 'active';
           $('#contenedor_apps').carousel('pause');
+          this.status_btn_entrar = false;
 
         }, 300);
 
@@ -193,7 +208,7 @@ export class PortalComponent implements OnInit {
 
     }, error => {
       swal('Oops...', 'Ocurrió un error en el servicio!', 'error');
-      this.status_btn_entrar = false;      
+      this.status_btn_entrar = false;
     });
 
   }
@@ -578,6 +593,10 @@ export class PortalComponent implements OnInit {
         return navegadores[i];
       }
     }
+  }
+
+  refreshKiosco() {
+    window.location.reload();
   }
 
 
