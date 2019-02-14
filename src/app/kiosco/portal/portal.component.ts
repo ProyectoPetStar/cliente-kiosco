@@ -92,7 +92,7 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    this.time = 30;
+    this.time = 300;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
