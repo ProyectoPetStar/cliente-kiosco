@@ -92,7 +92,8 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    this.time = 300;
+    // this.time = 300;
+    this.time = 30;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
@@ -117,7 +118,7 @@ export class PortalComponent implements OnInit {
         } else {
 
           // swal('Oops...', result.response.message, 'error');
-          swal('Lo sentimos', 'Kiosco fuera de servicio!. Haga clic en el botón <b>Intentar acceder</b> para comprobar disponibilidad' , 'error');          
+          swal('Lo sentimos', 'Kiosco fuera de servicio!. Haga clic en el botón <b>Intentar acceder</b> para comprobar disponibilidad', 'error');
           this.available = false;
           this.loading = false;
           this.OutSideService();
@@ -125,7 +126,7 @@ export class PortalComponent implements OnInit {
         }
 
       }, error => {
-        
+
         swal('Lo sentimos', 'Kiosco fuera de servicio!.  <br>Haga clic en el botón <u>Intentar acceder</u> para comprobar disponibilidad', 'error');
         this.available = false;
         this.loading = false;
@@ -274,6 +275,7 @@ export class PortalComponent implements OnInit {
         this.notIdleActions();
 
         if (this.inactivityOnSystem) {
+          localStorage.clear();
           this.inactivityOnSystem = false;
           this.inactivityForMenu();
         } else {
