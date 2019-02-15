@@ -92,8 +92,8 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    this.time = 300;
-    //this.time = 30;
+    //this.time = 300;
+    this.time = 20;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
@@ -249,93 +249,55 @@ export class PortalComponent implements OnInit {
        * Fin IP Publica del kiosco
        */
 
+       this.inactivityForMenu();
 
-      this.inactivityForMenu();
-      this.inactivityForImage();
+      $('.zone-activity').on("idle.idleTimer", (event, elem, obj) => {
+        // function you want to fire when the user goes idle
+        console.log('TIEMPO DE OSICIO EN EL MENU')
+        $('.zone-activity').idleTimer("destroy");
+        this.idleActions();
+        this.inactivityForWallpaper();
+  
+      });
+  
+      $('.zone-activity').on("active.idleTimer", (event, elem, obj, triggerevent) => {
+        // function you want to fire when the user becomes active again
+    
+        console.log('TIEMPO DE ACTIVIDAD menu')
+        // this.notIdleActions();
+  
+      });
+       
 
-
+      $('.zone-activity-wallpaper').on("idle.idleTimer", (event, elem, obj) => {
+        // function you want to fire when the user goes idle
+        console.log('TIEMPO DE OSICIO EN EL wall')
+       
+  
+      });
+  
+      $('.zone-activity-wallpaper').on("active.idleTimer", (event, elem, obj, triggerevent) => {
+        // function you want to fire when the user becomes active again
+        $('.zone-activity-wallpaper').idleTimer("destroy");
+        console.log('TIEMPO DE ACTIVIDAD wall')
+        this.notIdleActions();
+        this.inactivityForMenu();
+  
+      });
+       
     }, 1000);
   }
 
+  inactivityForWallpaper(){
+    console.log('carga plugin wallpaper')
+    $('.zone-activity-wallpaper').idleTimer(this.time);
 
-  inactivityForImage() {
-    /*
-    * Configuracion idle
-    */
-    $('.zone-activity-image').idle({
-      //idle time in ms
-      idle: this.time * 1000,
-      //events that will trigger the idle resetter
-      events: 'mousemove keydown mousedown touchstart',
-      // executed after idle time
-      onIdle: () => { },
-      // executed after back from idleness
-      onActive: () => {
-
-        this.notIdleActions();
-
-        if (this.inactivityOnSystem) {
-          localStorage.clear();
-          this.inactivityOnSystem = false;
-          this.inactivityForMenu();
-        } else {
-          $('.zone-activity').trigger("mousedown");
-        }
-
-      },
-      // set to false if you want to track only the first time
-      keepTracking: true,
-      startAtIdle: false,
-      recurIdleCall: false
-    });
-
-    /*
-     * Fin configuración idle
-     */
   }
 
 
   inactivityForMenu() {
-    /*
-    * Configuracion idle
-    */
-
-    $('.zone-activity').idle({
-
-      //idle time in ms
-      idle: this.time * 1000,
-
-      //events that will trigger the idle resetter
-      events: 'mousemove keydown mousedown touchstart',
-
-      // executed after idle time
-      onIdle: () => {
-
-        if (!this.showSystem && !this.backBtn) {
-
-          this.idleActions();
-        }
-
-        if (this.backBtn) {
-          this.backBtn = false;
-        }
-      },
-
-      // executed after back from idleness
-      onActive: () => {
-
-        this.notIdleActions();
-      },
-      // set to false if you want to track only the first time
-      keepTracking: true,
-      startAtIdle: false,
-      recurIdleCall: false
-
-    });
-
-    /*
-     * Fin configuración idle
-     */
+    console.log('Carga plugin menu')
+    $('.zone-activity').idleTimer(this.time * 1000);
   }
 
   inactivityForApp() {
@@ -351,42 +313,12 @@ export class PortalComponent implements OnInit {
       this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
     }, 1000);
 
-    /*
-    * Configuracion idle
-    */
 
-    $('.zone-activity-btn').idle({
 
-      //idle time in ms
-      idle: this.time * 1000,
-
-      //events that will trigger the idle resetter
-      events: 'mousedown touchstart',
-
-      // executed after idle time
-      onIdle: () => {
-        if (this.showSystem) {
-          this.inactivityOnSystem = true;
-          this.idleActions();
-        }
-      },
-
-      // executed after back from idleness
-      onActive: function () {
-      },
-      // set to false if you want to track only the first time
-      keepTracking: true,
-      startAtIdle: false,
-      recurIdleCall: false
-
-    });
-
-    /*
-     * Fin configuración idle
-     */
   }
 
   idleActions(): void {
+    
 
     if (swal.isVisible()) {
       swal.close();
@@ -414,10 +346,12 @@ export class PortalComponent implements OnInit {
 
       clearTimeout(this.temporizador);
       clearTimeout(this.funcCountDown);
-
+     
       /*
       *Resetea vista
       */
+    
+  
 
       setTimeout(() => {
 
@@ -427,6 +361,7 @@ export class PortalComponent implements OnInit {
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
+          
         }, 800)
       }, 300);
 
@@ -438,13 +373,16 @@ export class PortalComponent implements OnInit {
   }
 
   notIdleActions(): void {
+     
 
     if (this.wallpaper_active) {
+
       $.unblockUI();
       this.wallpaper_active = false;
       setTimeout(() => {
         $('.section-welcome').fadeIn();
         this.welcome_status = 'active';
+        
       }, 300);
     }
   }
@@ -533,7 +471,7 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           this.startApp();
-          this.inactivityForMenu();
+          
 
           this.ws_kiosco_using.close();
 
@@ -551,12 +489,12 @@ export class PortalComponent implements OnInit {
   loadingSystem(): void {
     if (this.getNavegador() == "Firefox") {
       $.unblockUI();
-      this.inactivityForApp();
+     
     } else {
       this.loading_system = this.loading_system ? false : true;
       if (!this.loading_system) {
         $.unblockUI();
-        this.inactivityForApp();
+       
       }
     }
 

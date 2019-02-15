@@ -37,7 +37,7 @@
         "../node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js",
         "../node_modules/block-ui/jquery.blockUI.js",
         "../node_modules/moment/locale/es.js",
-        "../node_modules/jquery.idle/jquery.idle.min.js"
+        "./assets/js/idle.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
