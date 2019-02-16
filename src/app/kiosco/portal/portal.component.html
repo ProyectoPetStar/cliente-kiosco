@@ -10,10 +10,10 @@
     </i>
   </button>
 </div>
-<div class="zone-activity-btn" [hidden]="!showSystem">
-  <div class="floating-btn-countdown" *ngIf="showSystem">
+<div [hidden]="!showSystem">
+  <div class="floating-btn-countdown">
     <h4 class="countdown">Tiempo {{ (countdown == '59:59')? '00:00' : countdown }}</h4>
-    <button class="btn btn-rounded btn-countdown btn-sm" (click)="resetCountDown()">SEGUIR AQUÍ</button>
+    <button class="btn btn-rounded btn-countdown btn-sm zone-activity-btn" (click)="resetCountDown()">SEGUIR AQUÍ</button>
   </div>
 </div>
 <div class="zone-activity" [hidden]="!(!loading && available && !showSystem)">
