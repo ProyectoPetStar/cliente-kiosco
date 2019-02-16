@@ -249,58 +249,75 @@ export class PortalComponent implements OnInit {
        * Fin IP Publica del kiosco
        */
 
-       this.inactivityForMenu();
+      this.inactivityForMenu();
 
       $('.zone-activity').on("idle.idleTimer", (event, elem, obj) => {
         // function you want to fire when the user goes idle
-        console.log('TIEMPO DE OSICIO EN EL MENU')
         $('.zone-activity').idleTimer("destroy");
         this.idleActions();
         this.inactivityForWallpaper();
-  
+
       });
-  
+
       $('.zone-activity').on("active.idleTimer", (event, elem, obj, triggerevent) => {
         // function you want to fire when the user becomes active again
-    
-        console.log('TIEMPO DE ACTIVIDAD menu')
-        // this.notIdleActions();
-  
       });
-       
+
+
+
 
       $('.zone-activity-wallpaper').on("idle.idleTimer", (event, elem, obj) => {
         // function you want to fire when the user goes idle
-        console.log('TIEMPO DE OSICIO EN EL wall')
-       
-  
       });
-  
+
       $('.zone-activity-wallpaper').on("active.idleTimer", (event, elem, obj, triggerevent) => {
         // function you want to fire when the user becomes active again
         $('.zone-activity-wallpaper').idleTimer("destroy");
-        console.log('TIEMPO DE ACTIVIDAD wall')
+
         this.notIdleActions();
         this.inactivityForMenu();
-  
+
       });
-       
+
+
+      
+    $('.zone-activity-btn').on("idle.idleTimer", (event, elem, obj) => {
+      // function you want to fire when the user goes idle
+      console.log('ocioso para boton y se pone protector xxxx')
+      $('.zone-activity-btn').idleTimer("destroy");
+      this.idleActions();
+      this.inactivityForWallpaper();
+      
+    });
+
+    $('.zone-activity-btn').on("active.idleTimer", (event, elem, obj, triggerevent) => {
+      // function you want to fire when the user becomes active again
+      console.log('activo para boton  xxx')
+    });
+
     }, 1000);
   }
 
-  inactivityForWallpaper(){
-    console.log('carga plugin wallpaper')
+  inactivityForWallpaper() {
+    // console.log('carga plugin wallpaper')
     $('.zone-activity-wallpaper').idleTimer(this.time);
 
   }
 
 
   inactivityForMenu() {
-    console.log('Carga plugin menu')
+    // console.log('Carga plugin menu')
     $('.zone-activity').idleTimer(this.time * 1000);
   }
 
   inactivityForApp() {
+    console.log('Carga plugin en boton')
+    $('.zone-activity-btn').idleTimer({
+      timeout: this.time * 1000,
+      events: 'mousedown touchstart'
+    });
+
+
 
     this.duration = moment.duration(this.time, 's');
     this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
@@ -318,7 +335,7 @@ export class PortalComponent implements OnInit {
   }
 
   idleActions(): void {
-    
+
 
     if (swal.isVisible()) {
       swal.close();
@@ -346,12 +363,12 @@ export class PortalComponent implements OnInit {
 
       clearTimeout(this.temporizador);
       clearTimeout(this.funcCountDown);
-     
+
       /*
       *Resetea vista
       */
-    
-  
+
+
 
       setTimeout(() => {
 
@@ -361,7 +378,7 @@ export class PortalComponent implements OnInit {
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
-          
+
         }, 800)
       }, 300);
 
@@ -373,7 +390,7 @@ export class PortalComponent implements OnInit {
   }
 
   notIdleActions(): void {
-     
+
 
     if (this.wallpaper_active) {
 
@@ -382,7 +399,7 @@ export class PortalComponent implements OnInit {
       setTimeout(() => {
         $('.section-welcome').fadeIn();
         this.welcome_status = 'active';
-        
+
       }, 300);
     }
   }
@@ -393,6 +410,8 @@ export class PortalComponent implements OnInit {
   }
 
   goSystem(app_selected: App): void {
+    $('.zone-activity').idleTimer("destroy");
+    $('.zone-activity-wallpaper').idleTimer("destroy");
 
     $.blockUI({
       message: '<h5><img src="assets/img/loader_icon_kiosco.gif" style="padding-right:15px; padding-top: 15px;"/> Cargando contenido ...</h5>',
@@ -434,6 +453,8 @@ export class PortalComponent implements OnInit {
 
       }, 63000);
 
+      this.inactivityForApp();
+
     }, 1000);
 
   }
@@ -471,7 +492,7 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           this.startApp();
-          
+
 
           this.ws_kiosco_using.close();
 
@@ -487,14 +508,17 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
+   
     if (this.getNavegador() == "Firefox") {
       $.unblockUI();
-     
+    
+
     } else {
       this.loading_system = this.loading_system ? false : true;
       if (!this.loading_system) {
         $.unblockUI();
        
+
       }
     }
 

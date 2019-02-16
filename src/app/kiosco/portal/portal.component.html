@@ -10,94 +10,98 @@
     </i>
   </button>
 </div>
-<div class="floating-btn-countdown" *ngIf="showSystem">
-  <h4 class="countdown">Tiempo {{ (countdown == '59:59')? '00:00' : countdown }}</h4>
-  <button class="btn btn-rounded btn-countdown btn-sm zone-activity-btn" (click)="resetCountDown()">SEGUIR AQUÍ</button>
+<div class="zone-activity-btn" [hidden]="!showSystem">
+  <div class="floating-btn-countdown" *ngIf="showSystem">
+    <h4 class="countdown">Tiempo {{ (countdown == '59:59')? '00:00' : countdown }}</h4>
+    <button class="btn btn-rounded btn-countdown btn-sm" (click)="resetCountDown()">SEGUIR AQUÍ</button>
+  </div>
 </div>
-<div id="body" class="zone-activity" *ngIf="!loading && available && !showSystem">
-  <div class="container-fluid">
-    <div class="row config">
-      <section class="section-welcome">
-        <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="98%" [@fondoFirst]="welcome_status">
-        <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%" [@welcome1]="welcome_status">
-        <img src="assets/img/botellin.png" class="botellin" width="55%" [@botellin]="welcome_status" style="z-index: 2;">
-        <div class="bienvenida tipo_letra" [@welcome1]="welcome_status">
-          <p class="titulo">Bienvenido</p>
-          <br>
-          <p class="texto_portal">
-            <strong>Kiosco PetStar,</strong> es un portal que te ofrece
-            <br> acceso directo a las diferentes plataformas
-            <br> de información de la empresa.</p>
-          <br>
-          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="startApp()" [disabled]="status_btn_entrar">
-            <img src="assets/img/loader-btn-entrar.gif" class="loader-btn-entrar" [hidden]="!status_btn_entrar">
-            <b class="btn-texto">ENTRAR</b>
-          </button>
-        </div>
-      </section>
-      <section class="section-apps" style="display: none">
-        <img src="assets/img/fondo_super2.png" class="fondo_super" width="95%" height="98%" [@fondoSecond]="app_status">
-        <img src="assets/img/colaborador.png" class="colaborador" width="30%" [@colaborador]="app_status">
-        <div class="plataformas" [@welcome1]="app_status">
-          <p class="titulo tipo_letra">Plataformas</p>
-        </div>
-        <button type="button" class="btn btn-success btn-home" (click)="showInicio()" [@welcome1]="app_status">
-          <span class="material-icons md-30">
-            home
-          </span>
-        </button>
-
-        <!-- Codigo carousel -->
-        <div id="contenedor_apps" class="carousel slide carousel_custom" [@carousel]="app_status">
-
-          <!-- Indicators -->
-          <ul class="carousel-indicators">
-            <li *ngFor="let diapositivas of apps_auxiliar; let index = index" data-target="#contenedor_apps" [attr.data-slide-to]="index"
-              [ngClass]="{'active': index ==  0}"></li>
-          </ul>
-
-          <!-- The slideshow -->
-          <div class="carousel-inner">
-            <div [ngClass]="{'carousel-item row container': true, 'active': index == 0}" *ngFor="let apps of apps_auxiliar; let index = index">
-              <table width="100%" border="0">
-                <tr>
-                  <td width="50%">
-                    <div class="card_app" *ngIf="apps[0]" (click)="goSystem(apps[0]);false">
-                      <div class="content_card_app">
-                        <img class="img_app" [src]="'data:image/jpg;base64,'+apps[0].imagen | safe">
-                        <br>
-                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom btn-app">
-                          <b class="btn-texto">ENTRAR</b>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                  <td width="50%">
-                    <div class="card_app" *ngIf="apps[1]" (click)="goSystem(apps[1]);false">
-                      <div class="content_card_app">
-                        <img class="img_app" [src]="'data:image/jpg;base64,'+apps[1].imagen | safe">
-                        <br>
-                        <button type="button" class="btn btn-raised btn-lg btn-success btn-custom btn-app">
-                          <b class="btn-texto">ENTRAR</b>
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
+<div class="zone-activity" [hidden]="!(!loading && available && !showSystem)">
+  <div id="body" *ngIf="!loading && available && !showSystem">
+    <div class="container-fluid">
+      <div class="row config">
+        <section class="section-welcome">
+          <img src="assets/img/fondo_super.png" class="fondo_super" width="95%" height="98%" [@fondoFirst]="welcome_status">
+          <img src="assets/img/logo_petstar_portal.png" class="logo_petstar" width="25%" [@welcome1]="welcome_status">
+          <img src="assets/img/botellin.png" class="botellin" width="55%" [@botellin]="welcome_status" style="z-index: 2;">
+          <div class="bienvenida tipo_letra" [@welcome1]="welcome_status">
+            <p class="titulo">Bienvenido</p>
+            <br>
+            <p class="texto_portal">
+              <strong>Kiosco PetStar,</strong> es un portal que te ofrece
+              <br> acceso directo a las diferentes plataformas
+              <br> de información de la empresa.</p>
+            <br>
+            <button type="button" class="btn btn-raised btn-lg btn-success btn-custom" (click)="startApp()" [disabled]="status_btn_entrar">
+              <img src="assets/img/loader-btn-entrar.gif" class="loader-btn-entrar" [hidden]="!status_btn_entrar">
+              <b class="btn-texto">ENTRAR</b>
+            </button>
           </div>
+        </section>
+        <section class="section-apps" style="display: none">
+          <img src="assets/img/fondo_super2.png" class="fondo_super" width="95%" height="98%" [@fondoSecond]="app_status">
+          <img src="assets/img/colaborador.png" class="colaborador" width="30%" [@colaborador]="app_status">
+          <div class="plataformas" [@welcome1]="app_status">
+            <p class="titulo tipo_letra">Plataformas</p>
+          </div>
+          <button type="button" class="btn btn-success btn-home" (click)="showInicio()" [@welcome1]="app_status">
+            <span class="material-icons md-30">
+              home
+            </span>
+          </button>
 
-          <!-- Left and right controls -->
-          <a class="carousel-control-prev" href="#contenedor_apps" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-          </a>
-          <a class="carousel-control-next" href="#contenedor_apps" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-          </a>
-        </div>
-        <!-- Fin codigo carousel -->
-      </section>
+          <!-- Codigo carousel -->
+          <div id="contenedor_apps" class="carousel slide carousel_custom" [@carousel]="app_status">
+
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+              <li *ngFor="let diapositivas of apps_auxiliar; let index = index" data-target="#contenedor_apps" [attr.data-slide-to]="index"
+                [ngClass]="{'active': index ==  0}"></li>
+            </ul>
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+              <div [ngClass]="{'carousel-item row container': true, 'active': index == 0}" *ngFor="let apps of apps_auxiliar; let index = index">
+                <table width="100%" border="0">
+                  <tr>
+                    <td width="50%">
+                      <div class="card_app" *ngIf="apps[0]" (click)="goSystem(apps[0]);false">
+                        <div class="content_card_app">
+                          <img class="img_app" [src]="'data:image/jpg;base64,'+apps[0].imagen | safe">
+                          <br>
+                          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom btn-app">
+                            <b class="btn-texto">ENTRAR</b>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                    <td width="50%">
+                      <div class="card_app" *ngIf="apps[1]" (click)="goSystem(apps[1]);false">
+                        <div class="content_card_app">
+                          <img class="img_app" [src]="'data:image/jpg;base64,'+apps[1].imagen | safe">
+                          <br>
+                          <button type="button" class="btn btn-raised btn-lg btn-success btn-custom btn-app">
+                            <b class="btn-texto">ENTRAR</b>
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#contenedor_apps" data-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#contenedor_apps" data-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </a>
+          </div>
+          <!-- Fin codigo carousel -->
+        </section>
+      </div>
     </div>
   </div>
 </div>
