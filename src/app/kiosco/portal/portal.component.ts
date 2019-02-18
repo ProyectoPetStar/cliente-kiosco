@@ -92,8 +92,8 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    //this.time = 300;
-    this.time = 20;
+    this.time = 300;
+    //this.time = 20;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
@@ -283,7 +283,7 @@ export class PortalComponent implements OnInit {
       
     $('.zone-activity-btn').on("idle.idleTimer", (event, elem, obj) => {
       // function you want to fire when the user goes idle
-      console.log('ocioso para boton y se pone protector xxxx')
+      //console.log('ocioso para boton y se pone protector xxxx')
       $('.zone-activity-btn').idleTimer("destroy");
       this.idleActions();
       this.inactivityForWallpaper();
@@ -292,7 +292,7 @@ export class PortalComponent implements OnInit {
 
     $('.zone-activity-btn').on("active.idleTimer", (event, elem, obj, triggerevent) => {
       // function you want to fire when the user becomes active again
-      console.log('activo para boton  xxx')
+      //console.log('activo para boton  xxx')
     });
 
     }, 1000);
@@ -300,7 +300,7 @@ export class PortalComponent implements OnInit {
 
   inactivityForWallpaper() {
     // console.log('carga plugin wallpaper')
-    $('.zone-activity-wallpaper').idleTimer(this.time);
+    $('.zone-activity-wallpaper').idleTimer(20);
 
   }
 
@@ -311,7 +311,7 @@ export class PortalComponent implements OnInit {
   }
 
   inactivityForApp() {
-    console.log('Carga plugin en boton')
+    //console.log('Carga plugin en boton')
     $('.zone-activity-btn').idleTimer({
       timeout: this.time * 1000,
       events: 'mousedown touchstart'
@@ -492,8 +492,8 @@ export class PortalComponent implements OnInit {
 
         setTimeout(() => {
           this.startApp();
-
-
+          $('.zone-activity-btn').idleTimer("destroy");
+          this.inactivityForMenu();
           this.ws_kiosco_using.close();
 
         }, 50);
