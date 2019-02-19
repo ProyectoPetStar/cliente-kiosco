@@ -71,12 +71,15 @@ export class PortalComponent implements OnInit {
   public backBtn: boolean;
   public status_btn_entrar: boolean;
   public tmp_out_of_service: any;
+  public interval_change_wallpaper: any;
+  public index_show_wallpaper: number;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
 
   ngOnInit() {
     clearInterval(this.tmp_out_of_service);
+    clearInterval(this.interval_change_wallpaper);
     this.loading = true;
     this.loading_system = false;
     this.available = true;
@@ -92,11 +95,12 @@ export class PortalComponent implements OnInit {
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    this.time = 300;
-    //this.time = 20;
+    //this.time = 300;
+    this.time = 20;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
+    this.index_show_wallpaper = 1;
 
 
 
@@ -268,32 +272,40 @@ export class PortalComponent implements OnInit {
 
       $('.zone-activity-wallpaper').on("idle.idleTimer", (event, elem, obj) => {
         // function you want to fire when the user goes idle
+        console.log('inactividad para protector')
       });
 
       $('.zone-activity-wallpaper').on("active.idleTimer", (event, elem, obj, triggerevent) => {
         // function you want to fire when the user becomes active again
         $('.zone-activity-wallpaper').idleTimer("destroy");
-
+        console.log('actividad protector')
         this.notIdleActions();
         this.inactivityForMenu();
+
+        //reset presentacion wallpaper
+        clearInterval(this.interval_change_wallpaper);
+        setTimeout(() => {
+          $('#wallpaper').removeClass('wallpaper-animate-fading');
+          this.index_show_wallpaper = 1;
+        }, 2000);
 
       });
 
 
-      
-    $('.zone-activity-btn').on("idle.idleTimer", (event, elem, obj) => {
-      // function you want to fire when the user goes idle
-      //console.log('ocioso para boton y se pone protector xxxx')
-      $('.zone-activity-btn').idleTimer("destroy");
-      this.idleActions();
-      this.inactivityForWallpaper();
-      
-    });
 
-    $('.zone-activity-btn').on("active.idleTimer", (event, elem, obj, triggerevent) => {
-      // function you want to fire when the user becomes active again
-      //console.log('activo para boton  xxx')
-    });
+      $('.zone-activity-btn').on("idle.idleTimer", (event, elem, obj) => {
+        // function you want to fire when the user goes idle
+        //console.log('ocioso para boton y se pone protector xxxx')
+        $('.zone-activity-btn').idleTimer("destroy");
+        this.idleActions();
+        this.inactivityForWallpaper();
+
+      });
+
+      $('.zone-activity-btn').on("active.idleTimer", (event, elem, obj, triggerevent) => {
+        // function you want to fire when the user becomes active again
+        //console.log('activo para boton  xxx')
+      });
 
     }, 1000);
   }
@@ -343,9 +355,8 @@ export class PortalComponent implements OnInit {
 
     setTimeout(() => {
       this.hiddenKeyBoard();
-
       $.blockUI({
-        fadeIn: 1000,
+        //fadeIn: 1000,
         message: $('#wallpaper'),
         css: {
           border: 'none',
@@ -356,6 +367,7 @@ export class PortalComponent implements OnInit {
           height: $(window).height() + 'px'
         }
       });
+     
 
       this.wallpaper_active = true;
       this.welcome_status = 'inactive';
@@ -371,14 +383,20 @@ export class PortalComponent implements OnInit {
 
 
       setTimeout(() => {
-
         this.showSystem = false;
         this.app = new App(-1, '', '', '', '', -1);
         $('.section-welcome').fadeOut();
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
-
+          $('#wallpaper').addClass('wallpaper-animate-fading');
+          this.interval_change_wallpaper = setInterval(() => {
+            if (this.index_show_wallpaper == 4) {
+              this.index_show_wallpaper = 1;
+            } else {             
+              this.index_show_wallpaper++;
+            }
+          }, 30000);
         }, 800)
       }, 300);
 
@@ -508,16 +526,16 @@ export class PortalComponent implements OnInit {
   }
 
   loadingSystem(): void {
-   
+
     if (this.getNavegador() == "Firefox") {
       $.unblockUI();
-    
+
 
     } else {
       this.loading_system = this.loading_system ? false : true;
       if (!this.loading_system) {
         $.unblockUI();
-       
+
 
       }
     }

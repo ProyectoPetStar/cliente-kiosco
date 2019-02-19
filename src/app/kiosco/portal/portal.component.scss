@@ -221,4 +221,21 @@
         position: absolute;
         top: -40%;
     }
-} 
+}
+
+.wallpaper-animate-fading{
+    animation: fading 30s infinite
+}@keyframes fading{ 
+    0%{
+        opacity:.2
+    }
+    5%{
+        opacity:1
+    }
+    90%{
+        opacity:1
+    }
+    100%{
+        opacity:.2
+    }
+}
