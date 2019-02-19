@@ -73,6 +73,7 @@ export class PortalComponent implements OnInit {
   public tmp_out_of_service: any;
   public interval_change_wallpaper: any;
   public index_show_wallpaper: number;
+  public collection_animation: Array <string>;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -101,6 +102,14 @@ export class PortalComponent implements OnInit {
     this.backBtn = false;
     this.status_btn_entrar = false;
     this.index_show_wallpaper = 1;
+    this.collection_animation = [
+      "wallpaper-animate-opacity",
+      "wallpaper-animate-zoom",
+      "wallpaper-animate-left",
+      "wallpaper-animate-bottom",
+      "wallpaper-animate-top"
+    ];
+
 
 
 
@@ -285,7 +294,7 @@ export class PortalComponent implements OnInit {
         //reset presentacion wallpaper
         clearInterval(this.interval_change_wallpaper);
         setTimeout(() => {
-          $('#wallpaper').removeClass('wallpaper-animate-opacity');
+          $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
           this.index_show_wallpaper = 1;
         }, 2000);
 
@@ -391,9 +400,11 @@ export class PortalComponent implements OnInit {
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
           this.interval_change_wallpaper = setInterval(() => {
-            $('#wallpaper').removeClass('wallpaper-animate-opacity');
+            $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
+            let num =  Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+            let animation_active = this.collection_animation[num]
             setTimeout(()=>{
-              $('#wallpaper').addClass('wallpaper-animate-opacity');
+              $('#wallpaper').addClass(animation_active);
             },50);
             if (this.index_show_wallpaper == 4) {
               this.index_show_wallpaper = 1;
