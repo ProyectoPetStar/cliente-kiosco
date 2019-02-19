@@ -285,7 +285,7 @@ export class PortalComponent implements OnInit {
         //reset presentacion wallpaper
         clearInterval(this.interval_change_wallpaper);
         setTimeout(() => {
-          $('#wallpaper').removeClass('wallpaper-animate-fading');
+          $('#wallpaper').removeClass('wallpaper-animate-opacity');
           this.index_show_wallpaper = 1;
         }, 2000);
 
@@ -360,7 +360,8 @@ export class PortalComponent implements OnInit {
         message: $('#wallpaper'),
         css: {
           border: 'none',
-          //opacity: .9, 
+          //opacity: .9,
+          backgroundColor:'#000', 
           top: '1px',
           left: '1px',
           width: $(window).width() + 'px',
@@ -390,10 +391,10 @@ export class PortalComponent implements OnInit {
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
           this.interval_change_wallpaper = setInterval(() => {
-            $('#wallpaper').removeClass('wallpaper-animate-fading');
+            $('#wallpaper').removeClass('wallpaper-animate-opacity');
             setTimeout(()=>{
-              $('#wallpaper').addClass('wallpaper-animate-fading');
-            },80);
+              $('#wallpaper').addClass('wallpaper-animate-opacity');
+            },50);
             if (this.index_show_wallpaper == 4) {
               this.index_show_wallpaper = 1;
             } else {             
