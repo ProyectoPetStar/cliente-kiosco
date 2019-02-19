@@ -356,7 +356,7 @@ export class PortalComponent implements OnInit {
     setTimeout(() => {
       this.hiddenKeyBoard();
       $.blockUI({
-        //fadeIn: 1000,
+        fadeIn: 1000,
         message: $('#wallpaper'),
         css: {
           border: 'none',
@@ -389,8 +389,11 @@ export class PortalComponent implements OnInit {
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
-          $('#wallpaper').addClass('wallpaper-animate-fading');
           this.interval_change_wallpaper = setInterval(() => {
+            $('#wallpaper').removeClass('wallpaper-animate-fading');
+            setTimeout(()=>{
+              $('#wallpaper').addClass('wallpaper-animate-fading');
+            },80);
             if (this.index_show_wallpaper == 4) {
               this.index_show_wallpaper = 1;
             } else {             
