@@ -101,6 +101,14 @@ body {
     background-color: #7aaf3f;
 }
 
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb { 
+    background-color: #558b2f ; /*replace with your color*/ 
+} 
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar { 
+    background-color: #7aaf3f; /*replace with your color*/ 
+} 
+
 // ::ng-deep label.mat-input-placeholder {
 //     color: green;   // choose the color you want
 // }
