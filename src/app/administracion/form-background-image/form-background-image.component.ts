@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { isValidId, noWhitespaceValidator, notify, getFechaActual } from '../../utils';
 import { FormBackgroundImageService } from './form-background-image.service';
 import { Imagen } from '../../models/imagen';
+import { URL_IMAGES } from '../../constants';
 import swal from 'sweetalert2';
 
 declare const $: any;
@@ -25,6 +26,8 @@ export class FormBackgroundImageComponent implements OnInit {
   public img_selected: string;
   public file_selected: any;
   public disabled_change_img: boolean;
+  public URL_PROTECTOR: string;
+  
 
   constructor(
     private auth: AuthService,
@@ -41,6 +44,8 @@ export class FormBackgroundImageComponent implements OnInit {
     this.action = '';
     this.imagen = new Imagen(-1, '', '', '', -1, '');
     this.disabled_change_img = true;
+    this.URL_PROTECTOR = URL_IMAGES + '/protectorPantalla/'
+    
 
     this.route.paramMap.subscribe(params => {
 

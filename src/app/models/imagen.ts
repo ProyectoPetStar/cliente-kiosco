@@ -8,7 +8,8 @@ export class Imagen {
         public seleccion_imagen: number,
         public fecha_modifica_registro: string,
         public img_base64?: string,
-        public fecha_modifica_registro_string?: string
+        public fecha_modifica_registro_string?: string,
+        public posicion?:number
     ) { }
 
 }

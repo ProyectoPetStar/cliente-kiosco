@@ -112,3 +112,17 @@ body {
 // ::ng-deep label.mat-input-placeholder {
 //     color: green;   // choose the color you want
 // }
+
+.card-footer a:link {
+    color: red;
+  }
+  
+  /* visited link */
+.card-footer  a:visited {
+    color: red;
+  }
+  
+  /* mouse over link */
+.card-footer  a:hover {
+    color: red;
+  }

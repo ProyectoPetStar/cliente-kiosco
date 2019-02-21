@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Imagen } from '../../models/imagen';
 import { AuthService } from '../../auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isValidId, getCatalogoEstados, notify, noWhitespaceValidator } from '../../utils';
+import { isValidId, getCatalogoEstados, notify, noWhitespaceValidator, deleteItemArray } from '../../utils';
 import { MenuBackgroundImageService } from './menu-background-image.service';
+import { URL_IMAGES } from '../../constants';
 import swal from 'sweetalert2';
 
 
@@ -21,7 +22,10 @@ export class MenuBackgroundImageComponent implements OnInit {
   public loading: boolean;
   public ago: string;
   public texto_search: string;
-  public wallpaper: Imagen;
+  public URL_PROTECTOR: string;
+  public wallpapers: Array<Imagen>;
+  public secuencia: any;
+
 
   constructor(
     private service: MenuBackgroundImageService,
@@ -35,6 +39,9 @@ export class MenuBackgroundImageComponent implements OnInit {
     this.loading = true;
     this.imagenes = [];
     this.texto_search = "";
+    this.URL_PROTECTOR = URL_IMAGES + '/protectorPantalla/';
+    this.wallpapers = [];
+    this.secuencia = {};
 
 
     if (this.auth.getIdUsuario() != null) {
@@ -42,15 +49,21 @@ export class MenuBackgroundImageComponent implements OnInit {
         if (result.response.sucessfull) {
           this.imagenes = result.data.listImagen;
 
-          let seleccionada = this.imagenes.filter(el => el.seleccion_imagen == 1);
-
-          if(seleccionada.length == 0){
+          this.wallpapers = this.imagenes.filter(el => el.seleccion_imagen == 1);
+          if (this.wallpapers.length > 0) {
+            this.wallpapers = this.wallpapers.sort((a, b) => {
+              return a.posicion - b.posicion
+            });
+          } else {
             // id_imagen igual a uno es la imagen por default
-            this.wallpaper = this.imagenes.filter(el => el.id_imagen == 1)[0];
-          }else{
-            this.wallpaper = seleccionada[0];
+            let imagen_default = this.imagenes.filter(el => el.id_imagen == 1)[0];
+            this.wallpapers.push(imagen_default);
+
           }
-          this.ago = moment(this.wallpaper.fecha_modifica_registro_string, "DD/MM/YYYY HH:mm").fromNow();
+
+          for (let i = 0; i <= this.wallpapers.length && (i + 1 < 5); i++) {
+            this.secuencia[i + 1] = i + 1;
+          }
 
           this.loading = false;
 
@@ -91,12 +104,15 @@ export class MenuBackgroundImageComponent implements OnInit {
   }
 
   select_wallpaper(imagen: Imagen): void {
-    /* 
+    /*  
      * Configuración del modal de confirmación
      */
     swal({
       title: '<span style="color: #156ab1 ">¿ Utilizar como protector de pantalla ?</span>',
       html: '<p style="color: #156ab1 "> Imagen : ' + imagen.nombre + '<b> </b></p>',
+      input: 'select',
+      inputOptions: this.secuencia,
+      inputPlaceholder: 'Seleccione posición',
       type: 'question',
       showCancelButton: true,
       confirmButtonColor: '#156ab1',
@@ -104,34 +120,73 @@ export class MenuBackgroundImageComponent implements OnInit {
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Si!',
       allowOutsideClick: false,
-      allowEnterKey: false
-    }).then((result) => {
-      /*
-      * Si acepta
-      */
-      if (result.value) {
+      allowEnterKey: false,
+      inputValidator: (value) => {
 
-        this.service.seleccionImagen(this.auth.getIdUsuario(), imagen.id_imagen).subscribe(result => {
-          if (result.response.sucessfull) {
-            this.ago = moment(result.response.message, "DD/MM/YYYY HH:mm").fromNow();
-            this.wallpaper = imagen;
-            swal('Actualizado!', 'Cambió el fondo de pantalla', 'success')
+        return new Promise((resolve) => {
+
+          if (value != '') {
+            resolve();
+            this.service.seleccionImagen(this.auth.getIdUsuario(), imagen.id_imagen, value).subscribe(result => {
+              if (result.response.sucessfull) {
+                //this.ago = moment(result.response.message, "DD/MM/YYYY HH:mm").fromNow();
+                if (parseInt(value) > this.wallpapers.length) {
+                  this.wallpapers.push(imagen);
+                  imagen.seleccion_imagen = 1;
+                } else {
+                  this.wallpapers[parseInt(value) - 1] = imagen
+                }
+                
+                imagen.posicion = parseInt(value);
+                this.secuencia = {};
+                for (let i = 0; i <= this.wallpapers.length && (i + 1 < 5); i++) {
+                  this.secuencia[i + 1] = i + 1;
+                }
+
+                swal('Exito!', 'Se ha completado con exito', 'success');
+              } else {
+                swal('Oops...', result.response.message, 'error')
+              }
+            }, error => {
+              swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+            });
+
           } else {
-            swal('Oops...', result.response.message, 'error')
+            resolve('Seleccione posición')
           }
-        }, error => {
-          swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
-        });
-
-
-        /*
-        * Si cancela accion
-        */
-      } else if (result.dismiss === swal.DismissReason.cancel) {
-        // this.disabledBtn = false;
+        })
       }
     })
 
+  }
+
+  quitarImgPresentacion(wallpaper: Imagen): void {
+    this.service.quitarImgPresentacion(this.auth.getIdUsuario(), wallpaper).subscribe(result => {
+      if (result.response.sucessfull) {
+        deleteItemArray(this.wallpapers,wallpaper.id_imagen,'id_imagen');
+        
+        this.wallpapers.map((el)=>{
+           if(wallpaper.posicion < el.posicion){
+              el.posicion = (el.posicion - 1);
+           }
+        });
+
+        this.imagenes.filter(el =>{
+          if(el.id_imagen == wallpaper.id_imagen){
+             el.seleccion_imagen = 0;
+             el.posicion = null;
+          }
+        });
+        this.secuencia = {};
+        for (let i = 0; i <= this.wallpapers.length && (i + 1 < 5); i++) {
+          this.secuencia[i + 1] = i + 1;
+        }
+      } else {
+        swal('Oops...', result.response.message, 'error')
+      }
+    }, error => {
+      swal('Oops...', 'Ocurrió  un error en el servicio!', 'error')
+    });
   }
 
 }
