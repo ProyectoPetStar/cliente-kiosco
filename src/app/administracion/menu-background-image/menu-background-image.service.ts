@@ -27,9 +27,9 @@ export class MenuBackgroundImageService {
     return this.http.post(this.URL, body);
   }
 
-  quitarImgPresentacion(id_usuario: number, wallpaper:Imagen): Observable<any>{
+  cambiarStatus(id_usuario: number, wallpaper:Imagen): Observable<any>{
     const body = new HttpParams()
-    .set('action', 'quitarImgPresentacion')
+    .set('action', 'cambiarStatus')
     .set('id_imagen', '' + wallpaper.id_imagen)
     .set('id_usuario', '' + id_usuario);
   return this.http.post(this.URL, body);

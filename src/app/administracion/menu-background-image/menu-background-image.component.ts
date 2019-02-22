@@ -160,8 +160,8 @@ export class MenuBackgroundImageComponent implements OnInit {
 
   }
 
-  quitarImgPresentacion(wallpaper: Imagen): void {
-    this.service.quitarImgPresentacion(this.auth.getIdUsuario(), wallpaper).subscribe(result => {
+  cambiarStatus(wallpaper: Imagen): void {
+    this.service.cambiarStatus(this.auth.getIdUsuario(), wallpaper).subscribe(result => {
       if (result.response.sucessfull) {
         deleteItemArray(this.wallpapers,wallpaper.id_imagen,'id_imagen');
         
