@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PortalService } from './portal.service';
-import { SOCKET_WS, API_IP } from '../../constants';
+import { SOCKET_WS, API_IP, URL_IMAGES } from '../../constants';
 import { App } from '../../models/app';
 import { AuthService } from '../../auth/auth.service';
 import { Message } from '../../models/message';
@@ -57,7 +57,7 @@ export class PortalComponent implements OnInit {
    */
   public privateIp: string;
   public publicIP: string;
-  public wallpaper: string;
+  public wallpapers: Array<any>;
   public ws_kiosco: any;
   public ws_kiosco_using: any;
   public temporizador: any;
@@ -74,6 +74,8 @@ export class PortalComponent implements OnInit {
   public interval_change_wallpaper: any;
   public index_show_wallpaper: number;
   public collection_animation: Array <string>;
+  public img_show:string;
+  public URL_WALLPAPERS: string;
 
   constructor(private service: PortalService,
     private auth: AuthService) { }
@@ -82,6 +84,7 @@ export class PortalComponent implements OnInit {
     clearInterval(this.tmp_out_of_service);
     clearInterval(this.interval_change_wallpaper);
     this.loading = true;
+    this.URL_WALLPAPERS = URL_IMAGES+'/protectorPantalla/';
     this.loading_system = false;
     this.available = true;
     this.showSystem = false;
@@ -89,19 +92,19 @@ export class PortalComponent implements OnInit {
     this.apps = [];
     this.privateIp = "127.0.0.1";
     this.publicIP = "";
-    this.wallpaper = "";
+    this.wallpapers = [];
     this.app = new App(-1, '', '', '', '', -1);
     this.mensaje = new Message('connect_kiosco', 'connect');
     this.wallpaper_active = false;
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
     this.countdown = '00:00';
-    //this.time = 300;
-    this.time = 20;
+    this.time = 300;
+    //this.time = 20;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
-    this.index_show_wallpaper = 1;
+    this.index_show_wallpaper = 0;
     this.collection_animation = [
       "wallpaper-animate-opacity",
       "wallpaper-animate-zoom",
@@ -110,8 +113,7 @@ export class PortalComponent implements OnInit {
       "wallpaper-animate-top"
     ];
 
-
-
+   
 
     this.hiddenKeyBoard();
     this.getIpPrivateJs();
@@ -120,7 +122,8 @@ export class PortalComponent implements OnInit {
       this.service.getStartKiosco().subscribe(result => {
 
         if (result.response.sucessfull) {
-          this.wallpaper = result.data.wallpaper;
+          this.wallpapers = result.data.listResultString;
+          this.img_show = this.wallpapers[this.index_show_wallpaper].result;
           this.loading = false;
           setTimeout(() => {
             this.pluginEffect();
@@ -186,7 +189,8 @@ export class PortalComponent implements OnInit {
       if (result.response.sucessfull) {
         this.apps = result.data.listUrlKiosco;
         this.apps = this.apps.filter(el => el.activo == 1);
-        this.wallpaper = result.data.wallpaper;
+        this.wallpapers = result.data.wallpapers;
+        this.img_show = this.wallpapers[this.index_show_wallpaper].result;
 
         let cantidad_diapositivas = parseInt("" + this.apps.length / 2);
 
@@ -281,13 +285,11 @@ export class PortalComponent implements OnInit {
 
       $('.zone-activity-wallpaper').on("idle.idleTimer", (event, elem, obj) => {
         // function you want to fire when the user goes idle
-        console.log('inactividad para protector')
       });
 
       $('.zone-activity-wallpaper').on("active.idleTimer", (event, elem, obj, triggerevent) => {
         // function you want to fire when the user becomes active again
         $('.zone-activity-wallpaper').idleTimer("destroy");
-        console.log('actividad protector')
         this.notIdleActions();
         this.inactivityForMenu();
 
@@ -295,7 +297,7 @@ export class PortalComponent implements OnInit {
         clearInterval(this.interval_change_wallpaper);
         setTimeout(() => {
           $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
-          this.index_show_wallpaper = 1;
+          this.index_show_wallpaper = 0;
         }, 2000);
 
       });
@@ -304,7 +306,6 @@ export class PortalComponent implements OnInit {
 
       $('.zone-activity-btn').on("idle.idleTimer", (event, elem, obj) => {
         // function you want to fire when the user goes idle
-        //console.log('ocioso para boton y se pone protector xxxx')
         $('.zone-activity-btn').idleTimer("destroy");
         this.idleActions();
         this.inactivityForWallpaper();
@@ -313,26 +314,23 @@ export class PortalComponent implements OnInit {
 
       $('.zone-activity-btn').on("active.idleTimer", (event, elem, obj, triggerevent) => {
         // function you want to fire when the user becomes active again
-        //console.log('activo para boton  xxx')
+
       });
 
     }, 1000);
   }
 
   inactivityForWallpaper() {
-    // console.log('carga plugin wallpaper')
     $('.zone-activity-wallpaper').idleTimer(20);
 
   }
 
 
   inactivityForMenu() {
-    // console.log('Carga plugin menu')
     $('.zone-activity').idleTimer(this.time * 1000);
   }
 
   inactivityForApp() {
-    //console.log('Carga plugin en boton')
     $('.zone-activity-btn').idleTimer({
       timeout: this.time * 1000,
       events: 'mousedown touchstart'
@@ -399,19 +397,26 @@ export class PortalComponent implements OnInit {
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
-          this.interval_change_wallpaper = setInterval(() => {
-            $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
-            let num =  Math.floor(Math.random() * (4 - 0 + 1)) + 0;
-            let animation_active = this.collection_animation[num]
-            setTimeout(()=>{
-              $('#wallpaper').addClass(animation_active);
-            },50);
-            if (this.index_show_wallpaper == 4) {
-              this.index_show_wallpaper = 1;
-            } else {             
-              this.index_show_wallpaper++;
-            }
-          }, 30000);
+
+              this.interval_change_wallpaper = setInterval(() => {
+                $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
+                let num =  Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+                let animation_active = this.collection_animation[num]
+                setTimeout(()=>{
+                  $('#wallpaper').addClass(animation_active);
+                },50);
+                
+                if (this.index_show_wallpaper == (this.wallpapers.length -1)) {
+                  this.index_show_wallpaper = 0;
+                } else {             
+                  this.index_show_wallpaper++;
+                }
+                
+
+                this.img_show = this.wallpapers[this.index_show_wallpaper].result;
+
+              }, 30000);
+
         }, 800)
       }, 300);
 

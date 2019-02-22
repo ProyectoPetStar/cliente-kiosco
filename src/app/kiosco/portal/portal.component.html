@@ -1,6 +1,6 @@
 <div class="floating-btn" *ngIf="showSystem">
-  <button class="btn btn-rounded btn-success btn-sm" (click)="volverApps()">REGRESAR&nbsp;&nbsp;
-    <i class="fa fa fa-arrow-left pl-1"></i>
+  <button class="btn btn-rounded-back btn-success btn-sm" (click)="volverApps()">
+    <i class="fa fa fa-arrow-left pl-1 icono_back"></i>
   </button>
 </div>
 <div class="floating-btn-keyboard" *ngIf="showSystem">
@@ -122,6 +122,6 @@
   </iframe>
 </div>
 <div class="container-fluid full-width">
-  <img id="wallpaper" [src]="'https://kiosco.petstar.mx/wallpaper/'+index_show_wallpaper+'wallpaper.jpg'" class="img_wallpaper zone-activity-wallpaper" width="100%"
+  <img id="wallpaper" [src]="URL_WALLPAPERS +img_show" class="img_wallpaper zone-activity-wallpaper" width="100%"
     height="100%">
 </div>
