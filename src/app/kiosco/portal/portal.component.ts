@@ -44,7 +44,7 @@ export class PortalComponent implements OnInit {
   public loading_system: boolean;
   public apps: Array<App>;
   public available: boolean;
-  public showSystem: boolean;
+  //public showSystem: boolean;
   public app: App;
   public mensaje: Message;
   public wallpaper_active: boolean;
@@ -61,11 +61,11 @@ export class PortalComponent implements OnInit {
   public ws_kiosco: any;
   public ws_kiosco_using: any;
   public temporizador: any;
-  public countdown: string;
-  public funcCountDown: any;
+  // public countdown: string;
+  // public funcCountDown: any;
 
   public time: number;
-  public duration: any;
+  //public duration: any;
 
   public inactivityOnSystem: boolean;
   public backBtn: boolean;
@@ -73,8 +73,8 @@ export class PortalComponent implements OnInit {
   public tmp_out_of_service: any;
   public interval_change_wallpaper: any;
   public index_show_wallpaper: number;
-  public collection_animation: Array <string>;
-  public img_show:string;
+  public collection_animation: Array<string>;
+  public img_show: string;
   public URL_WALLPAPERS: string;
 
   constructor(private service: PortalService,
@@ -84,10 +84,10 @@ export class PortalComponent implements OnInit {
     clearInterval(this.tmp_out_of_service);
     clearInterval(this.interval_change_wallpaper);
     this.loading = true;
-    this.URL_WALLPAPERS = URL_IMAGES+'/protectorPantalla/';
+    this.URL_WALLPAPERS = URL_IMAGES + '/protectorPantalla/';
     this.loading_system = false;
     this.available = true;
-    this.showSystem = false;
+    //this.showSystem = false;
     this.apps_auxiliar = [];
     this.apps = [];
     this.privateIp = "127.0.0.1";
@@ -98,9 +98,8 @@ export class PortalComponent implements OnInit {
     this.wallpaper_active = false;
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
-    this.countdown = '00:00';
+    //this.countdown = '00:00';
     this.time = 300;
-    //this.time = 20;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
@@ -113,9 +112,9 @@ export class PortalComponent implements OnInit {
       "wallpaper-animate-top"
     ];
 
-   
 
-    this.hiddenKeyBoard();
+
+    //this.hiddenKeyBoard();
     this.getIpPrivateJs();
 
     setTimeout(() => {
@@ -338,16 +337,16 @@ export class PortalComponent implements OnInit {
 
 
 
-    this.duration = moment.duration(this.time, 's');
-    this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
+    //this.duration = moment.duration(this.time, 's');
+    //this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
 
 
 
-    this.funcCountDown = setInterval(() => {
-      this.duration = moment.duration(this.duration.asMilliseconds() - 1000, 'milliseconds');
-      //show how many hours, minutes and seconds are left 
-      this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
-    }, 1000);
+    // this.funcCountDown = setInterval(() => {
+    //   this.duration = moment.duration(this.duration.asMilliseconds() - 1000, 'milliseconds');
+    //   //show how many hours, minutes and seconds are left 
+    //   this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
+    // }, 1000);
 
 
 
@@ -361,28 +360,28 @@ export class PortalComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.hiddenKeyBoard();
+      //this.hiddenKeyBoard();
       $.blockUI({
         fadeIn: 1000,
         message: $('#wallpaper'),
         css: {
           border: 'none',
           //opacity: .9,
-          backgroundColor:'#000', 
+          backgroundColor: '#000',
           top: '1px',
           left: '1px',
           width: $(window).width() + 'px',
           height: $(window).height() + 'px'
         }
       });
-     
+
 
       this.wallpaper_active = true;
       this.welcome_status = 'inactive';
       this.app_status = 'inactive';
 
       clearTimeout(this.temporizador);
-      clearTimeout(this.funcCountDown);
+      // clearTimeout(this.funcCountDown);
 
       /*
       *Resetea vista
@@ -391,31 +390,31 @@ export class PortalComponent implements OnInit {
 
 
       setTimeout(() => {
-        this.showSystem = false;
+        //this.showSystem = false;
         this.app = new App(-1, '', '', '', '', -1);
         $('.section-welcome').fadeOut();
         $('.section-apps').fadeOut();
         setTimeout(() => {
           $('#contenedor_apps').carousel(0);
 
-              this.interval_change_wallpaper = setInterval(() => {
-                $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
-                let num =  Math.floor(Math.random() * (4 - 0 + 1)) + 0;
-                let animation_active = this.collection_animation[num]
-                setTimeout(()=>{
-                  $('#wallpaper').addClass(animation_active);
-                },50);
-                
-                if (this.index_show_wallpaper == (this.wallpapers.length -1)) {
-                  this.index_show_wallpaper = 0;
-                } else {             
-                  this.index_show_wallpaper++;
-                }
-                
+          this.interval_change_wallpaper = setInterval(() => {
+            $('#wallpaper').removeClass("wallpaper-animate-opacity wallpaper-animate-zoom wallpaper-animate-left wallpaper-animate-bottom wallpaper-animate-top");
+            let num = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+            let animation_active = this.collection_animation[num]
+            setTimeout(() => {
+              $('#wallpaper').addClass(animation_active);
+            }, 50);
 
-                this.img_show = this.wallpapers[this.index_show_wallpaper].result;
+            if (this.index_show_wallpaper == (this.wallpapers.length - 1)) {
+              this.index_show_wallpaper = 0;
+            } else {
+              this.index_show_wallpaper++;
+            }
 
-              }, 30000);
+
+            this.img_show = this.wallpapers[this.index_show_wallpaper].result;
+
+          }, 30000);
 
         }, 800)
       }, 300);
@@ -442,56 +441,70 @@ export class PortalComponent implements OnInit {
     }
   }
 
-  resetCountDown() {
-    this.duration = moment.duration(this.time, 's');
-    this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
-  }
+  // resetCountDown() {
+  //   this.duration = moment.duration(this.time, 's');
+  //   this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
+  // }
 
   goSystem(app_selected: App): void {
-    $('.zone-activity').idleTimer("destroy");
-    $('.zone-activity-wallpaper').idleTimer("destroy");
+    //$('.zone-activity').idleTimer("destroy");
+    //$('.zone-activity-wallpaper').idleTimer("destroy");
 
-    $.blockUI({
-      message: '<h5><img src="assets/img/loader_icon_kiosco.gif" style="padding-right:15px; padding-top: 15px;"/> Cargando contenido ...</h5>',
-      css: {
-        border: 'none',
-        padding: '15px',
-        backgroundColor: '#000',
-        '-webkit-border-radius': '10px',
-        '-moz-border-radius': '10px',
-        opacity: .5,
-        color: '#fff'
-      }
-    });
+    // $.blockUI({
+    //   message: '<h5><img src="assets/img/loader_icon_kiosco.gif" style="padding-right:15px; padding-top: 15px;"/> Cargando contenido ...</h5>',
+    //   css: {
+    //     border: 'none',
+    //     padding: '15px',
+    //     backgroundColor: '#000',
+    //     '-webkit-border-radius': '10px',
+    //     '-moz-border-radius': '10px',
+    //     opacity: .5,
+    //     color: '#fff'
+    //   }
+    // });
 
     this.app = app_selected;
-    this.backBtn = false;
-    this.showSystem = true;
+    let windowsTab = window.open(this.app.url, '_blank');
+
+    if (windowsTab) {
+      //Browser has allowed it to be opened
+      windowsTab.focus();
+    } else {
+      //Browser has blocked it
+      alert('Tu navegador no permite abrir pestañas');
+    }
+
+    //this.backBtn = false;
+    //this.showSystem = true;
 
 
-    this.welcome_status = 'inactive';
-    this.app_status = 'inactive';
+    //this.welcome_status = 'inactive';
+    //this.app_status = 'inactive';
 
     setTimeout(() => {
-      let heightsize = $(window).height();
-      $('.ajuste_alto').height(heightsize);
-
+      //let heightsize = $(window).height();
+      //$('.ajuste_alto').height(heightsize);
 
       this.temporizador = setTimeout(() => {
         //Abre socket para notificar al administrador que el kiosco esta en uso
-        this.ws_kiosco_using = new WebSocket(SOCKET_WS + '/KIOSCO_USING_NOW');
-        setTimeout(() => {
-          this.ws_kiosco_using.send(JSON.stringify(new Message('using_kiosco_now', 'using')));
-        }, 5000);
-        //Registra acceso en la base de datos
-        this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
 
-        }, error => { });
+        if ((this.ws_kiosco_using == undefined) || this.ws_kiosco_using && this.ws_kiosco_using.OPEN != 1) {
+          this.ws_kiosco_using = new WebSocket(SOCKET_WS + '/KIOSCO_USING_NOW');
+          setTimeout(() => {
+            this.ws_kiosco_using.send(JSON.stringify(new Message('using_kiosco_now', 'using')));
+          }, 3000);
+        }
 
 
-      }, 63000);
+      }, 1000);
 
-      this.inactivityForApp();
+      //Registra acceso en la base de datos
+    
+      this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
+       
+      }, error => { });
+
+      //this.inactivityForApp();
 
     }, 1000);
 
@@ -499,7 +512,7 @@ export class PortalComponent implements OnInit {
 
   volverApps(): void {
 
-    this.hiddenKeyBoard();
+    // this.hiddenKeyBoard();
 
     /* 
     * Configuración del modal confirma salir
@@ -522,11 +535,11 @@ export class PortalComponent implements OnInit {
        */
       if (result.value) {
         this.backBtn = true;
-        this.showSystem = false;
+        //this.showSystem = false;
         this.loading_system = false;
         this.inactivityOnSystem = false;
         clearTimeout(this.temporizador);
-        clearTimeout(this.funcCountDown);
+        // clearTimeout(this.funcCountDown);
 
         setTimeout(() => {
           this.startApp();
@@ -545,57 +558,57 @@ export class PortalComponent implements OnInit {
 
   }
 
-  loadingSystem(): void {
+  // loadingSystem(): void {
 
-    if (this.getNavegador() == "Firefox") {
-      $.unblockUI();
-
-
-    } else {
-      this.loading_system = this.loading_system ? false : true;
-      if (!this.loading_system) {
-        $.unblockUI();
+  //   if (this.getNavegador() == "Firefox") {
+  //     $.unblockUI();
 
 
-      }
-    }
+  //   } else {
+  //     this.loading_system = this.loading_system ? false : true;
+  //     if (!this.loading_system) {
+  //       $.unblockUI();
 
-  }
 
-  showKeyBoard(): void {
-    //Consulta servicio para activar teclado virtual
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/show',
-      dataType: 'json',
-      success: (data) => {
+  //     }
+  //   }
 
-      }
-    });
-  }
+  // }
 
-  hiddenKeyBoard(): void {
-    //Consulta servicio para desactivar teclado virtual
-    $.ajax({
-      type: 'GET',
-      url: 'https://localhost:8080/keyboard-demo/hidden',
-      dataType: 'json',
-      success: (data) => {
+  // showKeyBoard(): void {
+  //   //Consulta servicio para activar teclado virtual
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: 'https://localhost:8080/keyboard-demo/show',
+  //     dataType: 'json',
+  //     success: (data) => {
 
-      }
-    });
+  //     }
+  //   });
+  // }
 
-  }
+  // hiddenKeyBoard(): void {
+  //   //Consulta servicio para desactivar teclado virtual
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: 'https://localhost:8080/keyboard-demo/hidden',
+  //     dataType: 'json',
+  //     success: (data) => {
 
-  getNavegador(): string {
-    let agente = window.navigator.userAgent;
-    let navegadores = ["Chrome", "Firefox", "Safari", "Opera", "Trident", "MSIE", "Edge"];
-    for (let i in navegadores) {
-      if (agente.indexOf(navegadores[i]) != -1) {
-        return navegadores[i];
-      }
-    }
-  }
+  //     }
+  //   });
+
+  // }
+
+  // getNavegador(): string {
+  //   let agente = window.navigator.userAgent;
+  //   let navegadores = ["Chrome", "Firefox", "Safari", "Opera", "Trident", "MSIE", "Edge"];
+  //   for (let i in navegadores) {
+  //     if (agente.indexOf(navegadores[i]) != -1) {
+  //       return navegadores[i];
+  //     }
+  //   }
+  // }
 
   refreshKiosco() {
     window.location.reload();
