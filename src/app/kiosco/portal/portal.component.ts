@@ -44,7 +44,6 @@ export class PortalComponent implements OnInit {
   public loading_system: boolean;
   public apps: Array<App>;
   public available: boolean;
-  //public showSystem: boolean;
   public app: App;
   public mensaje: Message;
   public wallpaper_active: boolean;
@@ -61,11 +60,9 @@ export class PortalComponent implements OnInit {
   public ws_kiosco: any;
   public ws_kiosco_using: any;
   public temporizador: any;
-  // public countdown: string;
-  // public funcCountDown: any;
 
   public time: number;
-  //public duration: any;
+
 
   public inactivityOnSystem: boolean;
   public backBtn: boolean;
@@ -78,7 +75,7 @@ export class PortalComponent implements OnInit {
   public URL_WALLPAPERS: string;
 
   constructor(private service: PortalService,
-    private auth: AuthService) { }
+  private auth: AuthService) {}
 
   ngOnInit() {
     clearInterval(this.tmp_out_of_service);
@@ -87,7 +84,6 @@ export class PortalComponent implements OnInit {
     this.URL_WALLPAPERS = URL_IMAGES + '/protectorPantalla/';
     this.loading_system = false;
     this.available = true;
-    //this.showSystem = false;
     this.apps_auxiliar = [];
     this.apps = [];
     this.privateIp = "127.0.0.1";
@@ -98,8 +94,7 @@ export class PortalComponent implements OnInit {
     this.wallpaper_active = false;
     this.welcome_status = 'inactive';
     this.app_status = 'inactive';
-    //this.countdown = '00:00';
-    this.time = 300;
+    this.time = 30;
     this.inactivityOnSystem = false;
     this.backBtn = false;
     this.status_btn_entrar = false;
@@ -114,7 +109,6 @@ export class PortalComponent implements OnInit {
 
 
 
-    //this.hiddenKeyBoard();
     this.getIpPrivateJs();
 
     setTimeout(() => {
@@ -132,7 +126,6 @@ export class PortalComponent implements OnInit {
 
         } else {
 
-          // swal('Oops...', result.response.message, 'error');
           swal('Lo sentimos', 'Kiosco fuera de servicio!. Haga clic en el botón <b>Intentar acceder</b> para comprobar disponibilidad', 'error');
           this.available = false;
           this.loading = false;
@@ -337,17 +330,6 @@ export class PortalComponent implements OnInit {
 
 
 
-    //this.duration = moment.duration(this.time, 's');
-    //this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
-
-
-
-    // this.funcCountDown = setInterval(() => {
-    //   this.duration = moment.duration(this.duration.asMilliseconds() - 1000, 'milliseconds');
-    //   //show how many hours, minutes and seconds are left 
-    //   this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
-    // }, 1000);
-
 
 
   }
@@ -441,27 +423,9 @@ export class PortalComponent implements OnInit {
     }
   }
 
-  // resetCountDown() {
-  //   this.duration = moment.duration(this.time, 's');
-  //   this.countdown = moment(this.duration.asMilliseconds()).format('mm:ss');
-  // }
 
   goSystem(app_selected: App): void {
-    //$('.zone-activity').idleTimer("destroy");
-    //$('.zone-activity-wallpaper').idleTimer("destroy");
-
-    // $.blockUI({
-    //   message: '<h5><img src="assets/img/loader_icon_kiosco.gif" style="padding-right:15px; padding-top: 15px;"/> Cargando contenido ...</h5>',
-    //   css: {
-    //     border: 'none',
-    //     padding: '15px',
-    //     backgroundColor: '#000',
-    //     '-webkit-border-radius': '10px',
-    //     '-moz-border-radius': '10px',
-    //     opacity: .5,
-    //     color: '#fff'
-    //   }
-    // });
+    
 
     this.app = app_selected;
     let windowsTab = window.open(this.app.url, '_blank');
@@ -474,17 +438,10 @@ export class PortalComponent implements OnInit {
       alert('Tu navegador no permite abrir pestañas');
     }
 
-    //this.backBtn = false;
-    //this.showSystem = true;
-
-
-    //this.welcome_status = 'inactive';
-    //this.app_status = 'inactive';
+ 
 
     setTimeout(() => {
-      //let heightsize = $(window).height();
-      //$('.ajuste_alto').height(heightsize);
-
+     
       this.temporizador = setTimeout(() => {
         //Abre socket para notificar al administrador que el kiosco esta en uso
 
@@ -499,12 +456,12 @@ export class PortalComponent implements OnInit {
       }, 1000);
 
       //Registra acceso en la base de datos
-    
+
       this.service.registrarAcceso(this.privateIp, this.publicIP, this.app.id_url_kiosko).subscribe(result => {
-       
+
       }, error => { });
 
-      //this.inactivityForApp();
+    
 
     }, 1000);
 
@@ -512,7 +469,7 @@ export class PortalComponent implements OnInit {
 
   volverApps(): void {
 
-    // this.hiddenKeyBoard();
+  
 
     /* 
     * Configuración del modal confirma salir
@@ -535,11 +492,11 @@ export class PortalComponent implements OnInit {
        */
       if (result.value) {
         this.backBtn = true;
-        //this.showSystem = false;
+     
         this.loading_system = false;
         this.inactivityOnSystem = false;
         clearTimeout(this.temporizador);
-        // clearTimeout(this.funcCountDown);
+       
 
         setTimeout(() => {
           this.startApp();
@@ -557,58 +514,6 @@ export class PortalComponent implements OnInit {
     })
 
   }
-
-  // loadingSystem(): void {
-
-  //   if (this.getNavegador() == "Firefox") {
-  //     $.unblockUI();
-
-
-  //   } else {
-  //     this.loading_system = this.loading_system ? false : true;
-  //     if (!this.loading_system) {
-  //       $.unblockUI();
-
-
-  //     }
-  //   }
-
-  // }
-
-  // showKeyBoard(): void {
-  //   //Consulta servicio para activar teclado virtual
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'https://localhost:8080/keyboard-demo/show',
-  //     dataType: 'json',
-  //     success: (data) => {
-
-  //     }
-  //   });
-  // }
-
-  // hiddenKeyBoard(): void {
-  //   //Consulta servicio para desactivar teclado virtual
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'https://localhost:8080/keyboard-demo/hidden',
-  //     dataType: 'json',
-  //     success: (data) => {
-
-  //     }
-  //   });
-
-  // }
-
-  // getNavegador(): string {
-  //   let agente = window.navigator.userAgent;
-  //   let navegadores = ["Chrome", "Firefox", "Safari", "Opera", "Trident", "MSIE", "Edge"];
-  //   for (let i in navegadores) {
-  //     if (agente.indexOf(navegadores[i]) != -1) {
-  //       return navegadores[i];
-  //     }
-  //   }
-  // }
 
   refreshKiosco() {
     window.location.reload();

@@ -1,21 +1,3 @@
-<!-- <div class="floating-btn" *ngIf="showSystem">
-  <button class="btn btn-rounded-back btn-success btn-sm" (click)="volverApps()">
-    <i class="fa fa fa-arrow-left pl-1 icono_back"></i>
-  </button>
-</div>
-<div class="floating-btn-keyboard" *ngIf="showSystem">
-  <button class="btn btn-rounded btn-keyboard btn-sm" (click)="showKeyBoard()">
-    <i class="material-icons keyboard-icon">
-      keyboard
-    </i>
-  </button>
-</div> -->
-<!-- <div [hidden]="!showSystem">
-  <div class="floating-btn-countdown">
-    <h4 class="countdown">Tiempo {{ (countdown == '59:59')? '00:00' : countdown }}</h4>
-    <button class="btn btn-rounded btn-countdown btn-sm zone-activity-btn" (click)="resetCountDown()">SEGUIR AQUÍ</button>
-  </div>
-</div> -->
 <div class="zone-activity" [hidden]="!(!loading && available && !showSystem)">
   <div id="body" *ngIf="!loading && available && !showSystem">
     <div class="container-fluid">
@@ -115,12 +97,6 @@
   <img src="assets/img/construccion.png" class="elemento-hijo">
 </div>
 <!-- Fin Template para mostrar offline kiosk -->
-
-<!-- <div class="ajuste_alto" *ngIf="showSystem">
-  <iframe id="iframeApp" [src]=" this.app.url | safe" width="100%" (load)="loadingSystem()" height="100%" style="border:none;overflow:hidden"
-    scrolling="auto" frameborder="0" allowTransparency="true" allowFullScreen="true" allow="encrypted-media" sandbox="allow-scripts allow-same-origin allow-forms">
-  </iframe>
-</div> -->
 <div class="container-fluid full-width">
   <img id="wallpaper" [src]="URL_WALLPAPERS +img_show" class="img_wallpaper zone-activity-wallpaper" width="100%"
     height="100%">
